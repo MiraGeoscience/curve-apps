@@ -28,7 +28,7 @@
         "value": ""
     },
     "line_length": {
-        "group": "Parameters",
+        "group": "Detection Parameters",
         "main": true,
         "label": "Line length (pixels)",
         "min": 1,
@@ -37,7 +37,7 @@
         "tooltip": "The minimum length of a line segment."
     },
     "line_gap": {
-        "group": "Parameters",
+        "group": "Detection Parameters",
         "main": true,
         "label": "Line gap (pixels)",
         "min": 1,
@@ -46,7 +46,7 @@
         "tooltip": "The maximum gap between two pixels to be considered connected."
     },
     "sigma": {
-        "group": "Parameters",
+        "group": "Detection Parameters",
         "main": true,
         "label": "Sigma",
         "value": 1.0,
@@ -57,7 +57,7 @@
         "tooltip": "Standard deviation of the Gaussian filter used to smooth the data."
     },
     "threshold": {
-        "group": "Parameters",
+        "group": "Detection Parameters",
         "main": true,
         "label": "Threshold",
         "min": 1,
@@ -68,7 +68,7 @@
         "tooltip": "Threshold value for edge detection."
     },
     "window_size": {
-        "group": "Parameters",
+        "group": "Detection Parameters",
         "main": true,
         "optional": true,
         "enabled": false,
@@ -79,7 +79,7 @@
         "tooltip": "The size of the moving window used to compute edges. Smaller values will result in more detailed edges, but may be more sensitive to noise."
     },
     "merge_length": {
-        "group": "Parameters",
+        "group": "Detection Parameters",
         "main": true,
         "optional": true,
         "enabled": false,
@@ -94,7 +94,7 @@
         "enabled": false,
         "label": "Save as",
         "value": "",
-        "group": "Python run preferences"
+        "group": "Output Preferences"
     },
     "out_group": {
         "main": true,
@@ -102,6 +102,6 @@
         "enabled": false,
         "label": "Group",
         "value": "",
-        "group": "Python run preferences"
+        "group": "Output Preferences"
     }
 }

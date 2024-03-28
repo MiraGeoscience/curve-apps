@@ -80,7 +80,7 @@ def test_driver_curve(tmp_path: Path):
 
         assert isinstance(values, ReferencedData)
         assert values.values is not None
-        assert values.value_map.map == {1: "A", 2: "B", 3: "C", 4: "D"}
+        assert values.value_map.map == {0: "Unknown", 1: "A", 2: "B", 3: "C", 4: "D"}
 
 
 def test_driver_points(tmp_path: Path):
@@ -121,7 +121,13 @@ def test_driver_points(tmp_path: Path):
 
         assert isinstance(values, ReferencedData)
         assert values.values is not None
-        assert values.value_map.map == {1: "A", 2: "B", 3: "C", 4: "D"}
+        assert values.value_map.map == {
+            0: "Unknown",
+            1: "A",
+            2: "B",
+            3: "C",
+            4: "D",
+        }
 
 
 def test_driver_points_no_parts(tmp_path: Path):
@@ -154,7 +160,7 @@ def test_driver_points_no_parts(tmp_path: Path):
 
         assert isinstance(values, ReferencedData)
         assert values.values is not None
-        assert values.value_map.map == {1: "A", 2: "B", 3: "C", 4: "D"}
+        assert values.value_map.map == {0: "Unknown", 1: "A", 2: "B", 3: "C", 4: "D"}
 
 
 def test_azimuth_filter(tmp_path: Path):

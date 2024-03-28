@@ -1,13 +1,13 @@
 |coverage| |maintainability| |precommit_ci| |docs| |style| |version| |status| |pyversions|
 
 
-.. |docs| image:: https://readthedocs.org/projects/edge-detection/badge/
+.. |docs| image:: https://readthedocs.org/projects/curve-apps/badge/
     :alt: Documentation Status
-    :target: https://edge-detection.readthedocs.io/en/latest/?badge=latest
+    :target: https://curve-apps.readthedocs.io/en/latest/?badge=latest
 
-.. |coverage| image:: https://codecov.io/gh/MiraGeoscience/edge-detection/branch/develop/graph/badge.svg
+.. |coverage| image:: https://codecov.io/gh/MiraGeoscience/curve-apps/branch/develop/graph/badge.svg
     :alt: Code coverage
-    :target: https://codecov.io/gh/MiraGeoscience/edge-detection
+    :target: https://codecov.io/gh/MiraGeoscience/curve-apps
 
 .. |style| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :alt: Coding style
@@ -34,9 +34,10 @@
    :alt: Maintainability
 
 
-edge-detection: # TODO: SHORT DESCRIPTION
-=========================================================================
-The **edge-detection** library # TODO: PACKAGE DESCRIPTION
+curve-apps
+==========
+
+Auto-detection of trends and edges in geoscientific data.
 
 .. contents:: Table of Contents
    :local:
@@ -49,12 +50,12 @@ Documentation
 
 Installation
 ^^^^^^^^^^^^
-**edge-detection** is currently written for Python 3.10 or higher.
+**curve-apps** is currently written and tested for Python 3.10.
 
 Install Conda
 -------------
 
-To install **edge-detection**, you need to install **Conda** first.
+To install **curve-apps**, you need to install **Conda** first.
 
 We recommend to install **Conda** using `miniforge`_.
 
@@ -63,7 +64,7 @@ We recommend to install **Conda** using `miniforge`_.
 Within a conda environment
 --------------------------
 
-You can install (or update) a conda environment with all the requires packages to run **edge-detection**.
+You can install (or update) a conda environment with all the requires packages to run **curve-apps**.
 To do so you can directly run the **Install_or_Update.bat** file by double left clicking on it.
 
 Install with conda
@@ -84,11 +85,11 @@ Still, you can install it in a conda environment without its dependencies (``--n
 From PyPI
 ~~~~~~~~~
 
-To install the **edge-detection** package published on PyPI:
+To install the **curve-apps** package published on PyPI:
 
 .. code-block:: bash
 
-    pip install -U --no-deps edge-detection
+    pip install -U --no-deps curve-apps
 
 From a Git tag or branch
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -96,13 +97,13 @@ If the package is not on PiPY yet, you can install it from a Git tag:
 
 .. code-block:: bash
 
-    pip install -U --no-deps --force-reinstall https://github.com/MiraGeoscience/edge-detection/archive/refs/tags/TAG.zip
+    pip install -U --no-deps --force-reinstall https://github.com/MiraGeoscience/curve-apps/archive/refs/tags/TAG.zip
 
 Or to install the latest changes available on a given Git branch:
 
 .. code-block:: bash
 
-    pip install -U --no-deps --force-reinstall https://github.com/MiraGeoscience/edge-detection/archive/refs/heads/BRANCH.zip
+    pip install -U --no-deps --force-reinstall https://github.com/MiraGeoscience/curve-apps/archive/refs/heads/BRANCH.zip
 
 .. note::
     The ``--force-reinstall`` option is used to make sure the updated version
@@ -113,7 +114,7 @@ Or to install the latest changes available on a given Git branch:
 From a local copy of the sources
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If you have a git clone of the package sources locally,
-you can install **edge-detection** from the local copy of the sources with:
+you can install **curve-apps** from the local copy of the sources with:
 
 .. code-block:: bash
 
@@ -133,18 +134,30 @@ To configure the development environment and tools, please see `README-dev.rst`_
 
 License
 ^^^^^^^
-# TODO: ADD LICENSE TERMS
+curve-apps is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+curve-apps is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with curve-apps.  If not, see <https://www.gnu.org/licenses/>.
+
 
 Third Party Software
 ^^^^^^^^^^^^^^^^^^^^
-The edge-detection Software may provide links to third party libraries or code (collectively “Third Party Software”)
+The curve-apps Software may provide links to third party libraries or code (collectively “Third Party Software”)
 to implement various functions. Third Party Software does not comprise part of the Software.
 The use of Third Party Software is governed by the terms of such software license(s).
 Third Party Software notices and/or additional terms and conditions are located in the
 `THIRD_PARTY_SOFTWARE.rst`_ file.
 
-.. _THIRD_PARTY_SOFTWARE.rst: THIRD_PARTY_SOFTWARE.rst
+.. _THIRD_PARTY_SOFTWARE.rst: ./docs/THIRD_PARTY_SOFTWARE.rst
 
 Copyright
 ^^^^^^^^^
-Copyright (c) 2023 Mira Geoscience Ltd.
+Copyright (c) 2024 Mira Geoscience Ltd.

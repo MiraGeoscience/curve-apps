@@ -5,9 +5,9 @@
 #  All rights reserved.
 #
 #
-#  This file is part of geoapps.
+#  This file is part of curve-apps.
 #
-#  geoapps is distributed under the terms and conditions of the MIT License
+#  curve-apps is distributed under the terms and conditions of the MIT License
 #  (see LICENSE file at the root of this source code package).
 
 # pylint: disable=duplicate-code
@@ -87,9 +87,8 @@ class TrendLinesDriver(BaseCurveDriver):
         :params detection: Detection parameters.
 
         :returns : n x 3 array. Vertices of connecting lines.
-        :returns : list
-            n x 2 float array. Cells of edges.
-
+        :returns : n x 2 float array. Cells of edges.
+        :returns : n x 1 array. Labels of vertices.
         """
         max_distance = self.params.detection.max_distance
 

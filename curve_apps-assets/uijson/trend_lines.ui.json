@@ -17,8 +17,21 @@
         "label": "Object",
         "value": ""
     },
-    "parts": {
+    "data": {
         "group": "Data Selection",
+        "main": true,
+        "association": [
+            "Vertex"
+        ],
+        "optional": true,
+        "enabled": false,
+        "dataType": "Referenced",
+        "label": "Data",
+        "parent": "entity",
+        "value": ""
+    },
+    "parts": {
+        "group": "Connection Filters",
         "main": true,
         "association": [
             "Vertex"
@@ -35,21 +48,8 @@
         "tooltip": "Optional parts field to connect",
         "value": ""
     },
-    "data": {
-        "group": "Data Selection",
-        "main": true,
-        "association": [
-            "Vertex"
-        ],
-        "optional": true,
-        "enabled": false,
-        "dataType": "Referenced",
-        "label": "Data",
-        "parent": "entity",
-        "value": ""
-    },
     "min_edges": {
-        "group": "Parameters",
+        "group": "Connection Filters",
         "main": true,
         "label": "Minimum edges",
         "min": 1,
@@ -57,7 +57,7 @@
         "enabled": true
     },
     "max_distance": {
-        "group": "Parameters",
+        "group": "Connection Filters",
         "main": true,
         "optional": true,
         "enabled": false,
@@ -66,7 +66,7 @@
         "value": 1
     },
     "damping": {
-        "group": "Parameters",
+        "group": "Connection Filters",
         "main": true,
         "label": "Damping factor:",
         "value": 1.0,
@@ -77,7 +77,7 @@
         "enabled": true
     },
     "azimuth": {
-        "group": "Direction filter",
+        "group": "Orientation filter",
         "main": true,
         "label": "Azimuth (dd.dd)",
         "value": 0.0,
@@ -90,7 +90,7 @@
         "enabled": false
     },
     "azimuth_tol": {
-        "group": "Direction filter",
+        "group": "Orientation filter",
         "main": true,
         "label": "Tolerance (dd.dd)",
         "value": 30.0,
@@ -107,7 +107,7 @@
         "enabled": false,
         "label": "Save as",
         "value": "",
-        "group": "Python run preferences"
+        "group": "Output Preferences"
     },
     "out_group": {
         "main": true,
@@ -115,6 +115,6 @@
         "enabled": false,
         "label": "Group",
         "value": "",
-        "group": "Python run preferences"
+        "group": "Output Preferences"
     }
 }

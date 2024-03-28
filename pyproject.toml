@@ -30,7 +30,7 @@ classifiers = [
 [tool.poetry.scripts]
 
 [tool.poetry.dependencies]
-pydantic = {version = "~2.5", optional = true}
+pydantic = {version = "~2.5"}
 python = "^3.9, <3.11"
 numpy = "~1.23.5"  # also geoh5py
 scipy = "~1.10.1"
@@ -60,6 +60,9 @@ Pygments = "*"
 pylint = "*"
 pytest = "*"
 pytest-cov = "*"
+sphinx = "*"
+sphinx-autodoc-typehints = "*"
+sphinx-rtd-theme = "*"
 tomli = "*"
 
 [tool.conda-lock]
