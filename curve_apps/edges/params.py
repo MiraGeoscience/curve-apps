@@ -84,8 +84,8 @@ class EdgeParameters(BaseData):
     default_ui_json: ClassVar[Path] = assets_path() / "uijson/edges.ui.json"
     title: ClassVar[str] = "Edge Detection"
     run_command: ClassVar[str] = "curve_apps.edges.driver"
-    conda_environment: ClassVar[str] = "curve_apps"
 
+    conda_environment: str = "curve_apps"
     source: EdgeSourceParameters
     detection: EdgeDetectionParameters
     output: EdgeOutputParameters = EdgeOutputParameters()
