@@ -11,12 +11,22 @@ release = "0.3.0-alpha.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+autodoc_mock_imports = [
+    "numpy",
+    "geoh5py",
+    "scipy",
+    "skimage",
+    "geoapps_utils",
+    "pydantic",
+    "tqdm",
+]
 
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.todo",
 ]
+nitpicky = True
 
 templates_path = ["_templates"]
 exclude_patterns: list[str] = []
@@ -31,7 +41,7 @@ autodoc_typehints = "signature"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "alabaster"
-html_static_path = ["_static"]
+html_static_path = [""]
 
 # Enable numref
 numfig = True
