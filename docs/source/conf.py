@@ -3,6 +3,7 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+from importlib.metadata import version
 from datetime import datetime
 
 # -- Project information -----------------------------------------------------
@@ -11,7 +12,7 @@ from datetime import datetime
 project = "curve-apps"
 
 # The full version, including alpha/beta/rc tags.
-release = "0.2.0-rc.1"
+release = version("my-package")
 # The short X.Y.Z version.
 version = ".".join(release.split(".")[:3])
 
