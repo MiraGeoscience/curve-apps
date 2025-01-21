@@ -12,7 +12,7 @@ from datetime import datetime
 project = "curve-apps"
 
 # The full version, including alpha/beta/rc tags.
-release = version("my-package")
+release = version("curve-apps")
 # The short X.Y.Z version.
 version = ".".join(release.split(".")[:3])
 
