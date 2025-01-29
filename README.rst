@@ -1,9 +1,9 @@
-|coverage| |maintainability| |precommit_ci| |docs| |style| |version| |status| |pyversions|
+|coverage| |precommit_ci| |docs| |style| |version| |status| |pyversions|
 
 
-.. |docs| image:: https://readthedocs.org/projects/curve-apps/badge/
+.. |docs| image:: https://readthedocs.com/projects/mirageoscience-curve-apps/badge/?version=latest
     :alt: Documentation Status
-    :target: https://curve-apps.readthedocs.io/en/latest/?badge=latest
+    :target: https://mirageoscience-curve-apps.readthedocs-hosted.com/en/latest/?badge=latest
 
 .. |coverage| image:: https://codecov.io/gh/MiraGeoscience/curve-apps/branch/develop/graph/badge.svg
     :alt: Code coverage
@@ -13,25 +13,27 @@
     :alt: Coding style
     :target: https://github.com/pf/black
 
-.. |version| image:: https://img.shields.io/pypi/v/edge-detection.svg
+.. |version| image:: https://img.shields.io/pypi/v/curve-apps.svg
     :alt: version on PyPI
-    :target: https://pypi.python.org/pypi/edge-detection/
+    :target: https://pypi.python.org/pypi/curve-apps/
 
-.. |status| image:: https://img.shields.io/pypi/status/edge-detection.svg
+.. |status| image:: https://img.shields.io/pypi/status/curve-apps.svg
     :alt: version status on PyPI
-    :target: https://pypi.python.org/pypi/edge-detection/
+    :target: https://pypi.python.org/pypi/curve-apps/
 
-.. |pyversions| image:: https://img.shields.io/pypi/pyversions/edge-detection.svg
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/curve-apps.svg
     :alt: Python versions
-    :target: https://pypi.python.org/pypi/edge-detection/
+    :target: https://pypi.python.org/pypi/curve-apps/
 
-.. |precommit_ci| image:: https://results.pre-commit.ci/badge/github/MiraGeoscience/edge-detection/develop.svg
+.. |precommit_ci| image:: https://results.pre-commit.ci/badge/github/MiraGeoscience/curve-apps/develop.svg
     :alt: pre-commit.ci status
-    :target: https://results.pre-commit.ci/latest/github/MiraGeoscience/edge-detection/develop
+    :target: https://results.pre-commit.ci/latest/github/MiraGeoscience/curve-apps/develop
 
-.. |maintainability| image:: https://api.codeclimate.com/v1/badges/_token_/maintainability
-   :target: https://codeclimate.com/github/MiraGeoscience/edge-detection/maintainability
-   :alt: Maintainability
+.. TODO: configure Code Climate and add top |maintainability| link new |coverage|
+    .. |maintainability| image:: https://api.codeclimate.com/v1/badges/_token_/maintainability
+    :target: https://codeclimate.com/github/MiraGeoscience/curve-apps/maintainability
+    :alt: Maintainability
+
 
 
 curve-apps
@@ -45,7 +47,7 @@ Auto-detection of trends and edges in geoscientific data.
 
 Documentation
 ^^^^^^^^^^^^^
-`Online documentation <https://edge-detection.readthedocs.io/en/latest/>`_
+`Online documentation <https://mirageoscience-curve-apps.readthedocs-hosted.com/en/latest/>`_
 
 
 Installation
@@ -160,4 +162,4 @@ Third Party Software notices and/or additional terms and conditions are located 
 
 Copyright
 ^^^^^^^^^
-Copyright (c) 2024 Mira Geoscience Ltd.
+Copyright (c) 2023-2025 Mira Geoscience Ltd.

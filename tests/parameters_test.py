@@ -1,14 +1,12 @@
-#  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024 Mira Geoscience Ltd.                                       '
-#                                                                                '
-#  All rights reserved.                                                          '
-#                                                                                '
-#  This file is part of curve-apps.                                              '
-#                                                                                '
-#  curve-apps is distributed under the terms and conditions of the MIT License   '
-#  (see LICENSE file at the root of this source code package).                   '
-#  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#                                                                              '
+#  This file is part of curve-apps package.                                    '
+#                                                                              '
+#  curve-apps is distributed under the terms and conditions of the MIT License '
+#  (see LICENSE file at the root of this source code package).                 '
+#                                                                              '
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 import numpy as np
 import pytest
 from geoh5py.objects import Grid2D, Points
