@@ -29,6 +29,7 @@ Content
    edge_detection
    trend_lines
    api/curve_apps
+   THIRD_PARTY_SOFTWARE
    release_notes
 
 
@@ -63,9 +64,7 @@ The curve-apps Software may provide links to third party libraries or code (coll
 to implement various functions. Third Party Software does not comprise part of the Software.
 The use of Third Party Software is governed by the terms of such software license(s).
 Third Party Software notices and/or additional terms and conditions are located in the
-`THIRD_PARTY_SOFTWARE`_ file.
-
-.. _THIRD_PARTY_SOFTWARE: THIRD_PARTY_SOFTWARE.rst
+:ref:`third_party_software` file.
 
 Copyright
 ^^^^^^^^^
