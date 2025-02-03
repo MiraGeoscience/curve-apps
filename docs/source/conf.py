@@ -3,21 +3,22 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-from importlib.metadata import version
 from datetime import datetime
+from importlib.metadata import version
+
+from packaging.version import Version
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "curve-apps"
+author = "Mira Geoscience Ltd."
+project_copyright = "%Y, Mira Geoscience Ltd"
 
 # The full version, including alpha/beta/rc tags.
 release = version("curve-apps")
 # The short X.Y.Z version.
-version = ".".join(release.split(".")[:3])
-
-
-project_copyright = "%Y, Mira Geoscience Ltd"
+version = Version(release).base_version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
