@@ -1,8 +1,8 @@
 schema_version: 1
 
 context:
-  name: curve-apps
-  version: 0.2.0rc1
+  name: "curve-apps"
+  version: "0.2.0"
 
 package:
   name: ${{ name|lower }}

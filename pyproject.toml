@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "curve-apps"
-version = "0.2.0-rc.1"
+version = "0.2.0"
 license = "MIT"
 description = "Find edges on 2D grids or vertices."
 authors = ["Mira Geoscience <support@mirageoscience.com>"]

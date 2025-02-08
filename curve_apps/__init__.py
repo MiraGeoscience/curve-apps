@@ -14,7 +14,7 @@ import logging
 from pathlib import Path
 
 
-__version__ = "0.2.0-rc.1"
+__version__ = "0.2.0"
 logging.basicConfig(level=logging.INFO)
 
 
