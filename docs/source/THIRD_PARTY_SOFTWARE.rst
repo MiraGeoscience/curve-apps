@@ -1,3 +1,8 @@
+.. _third_party_software:
+
+Third Party Software
+====================
+
 The curve-apps repository and source distributions bundle several libraries that are
 compatibly licensed.  We list these here.
 

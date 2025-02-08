@@ -2,7 +2,7 @@
     "version": "0.1.0",
     "title": "Edge Detection",
     "conda_environment": "curve_apps",
-    "run_command": "curve_apps.edge_detection.driver",
+    "run_command": "curve_apps.edges.driver",
     "geoh5": "",
     "monitoring_directory": "",
     "workspace_geoh5": "",
@@ -64,7 +64,7 @@
         "max": 100,
         "precision": 1,
         "lineEdit": true,
-        "value": 1.0,
+        "value": 1,
         "tooltip": "Threshold value for edge detection."
     },
     "window_size": {
@@ -90,18 +90,17 @@
     },
     "export_as": {
         "main": true,
-        "optional": true,
-        "enabled": false,
         "label": "Save as",
-        "value": "",
+        "value": "edges",
         "group": "Output Preferences"
     },
     "out_group": {
-        "main": true,
-        "optional": true,
-        "enabled": false,
-        "label": "Group",
+        "group": "Output Preferences",
+        "label": "UIJson group",
         "value": "",
-        "group": "Output Preferences"
+        "groupType": "{BB50AC61-A657-4926-9C82-067658E246A0}",
+        "visible": true,
+        "optional": true,
+        "enabled": false
     }
 }

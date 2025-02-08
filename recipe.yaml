@@ -1,0 +1,65 @@
+schema_version: 1
+
+context:
+  name: "curve-apps"
+  version: "0.2.0"
+  python_min: "3.10"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  # url: https://github.com/MiraGeoscience/{{ name }}/archive/v{{ version }}.tar.gz
+  # sha256: d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed
+  # curl -sL https://github.com/MiraGeoscience/{{ name }}/archive/v{{ version }}.tar.gz | openssl sha256
+  path: ../${{ name }}
+
+build:
+  number: 0
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python 3.10.*
+    - poetry-core >=1.0.0
+    - setuptools
+    - pip
+  run:
+    - python >=${{ python_min }}
+    - numpy >=1.26.0,<1.27.0
+    - pydantic >=2.5.2,<2.6.0
+    - scikit-image >=0.24.0,<0.25.0
+    - scipy >=1.14.0,<1.15.0
+    - tqdm >=4.66.1,<4.67.0
+    - geoh5py >=0.10.0b1, <0.11.0a.dev
+    - geoapps-utils >=0.4.0b1,<0.5.0a.dev
+    - h5py >=3.2.1,<4.0.0
+    - pillow >=10.3.0,<10.4.0
+
+tests:
+  - python:
+      imports:
+        - curve_apps
+  - requirements:
+      run:
+        - pip
+    script:
+      - pip check
+
+about:
+  summary: Find edges on 2D grids or vertices.
+  description: |
+    Auto-detection of trends and edges in geoscientific data.
+  license: MIT
+  license_file:
+    - LICENSE
+  homepage: https://www.mirageoscience.com/mining-industry-software/python-integration/
+  repository: https://github.com/MiraGeoscience/curve-apps
+  documentation: https://mirageoscience-curve-apps.readthedocs-hosted.com/
+
+extra:
+  recipe-maintainers:
+    - andrewg-mira
+    - sebhmg

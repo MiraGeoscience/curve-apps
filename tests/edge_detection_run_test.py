@@ -1,9 +1,12 @@
-#  Copyright (c) 2024 Mira Geoscience Ltd.
-#
-#  This file is part of curve-apps package.
-#
-#  All rights reserved.
-#
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#                                                                              '
+#  This file is part of curve-apps package.                                    '
+#                                                                              '
+#  curve-apps is distributed under the terms and conditions of the MIT License '
+#  (see LICENSE file at the root of this source code package).                 '
+#                                                                              '
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 from pathlib import Path
 
 import numpy as np
@@ -13,8 +16,8 @@ from geoh5py.objects import Grid2D
 from geoh5py.ui_json import InputFile
 
 from curve_apps import assets_path
-from curve_apps.edge_detection.driver import EdgeDetectionDriver
-from curve_apps.edge_detection.params import Parameters
+from curve_apps.edges.driver import EdgesDriver
+from curve_apps.edges.params import EdgeParameters
 
 
 def setup_example(workspace: Workspace):
@@ -43,7 +46,7 @@ def test_driver(tmp_path: Path):
     workspace = Workspace.create(tmp_path / "test_edge_detection.geoh5")
 
     grid, data = setup_example(workspace)
-    params = Parameters.build(
+    params = EdgeParameters.build(
         {
             "geoh5": workspace,
             "objects": grid,
@@ -55,13 +58,13 @@ def test_driver(tmp_path: Path):
         }
     )
 
-    driver = EdgeDetectionDriver(params)
+    driver = EdgesDriver(params)
     driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("square")[0]
 
-        assert len(edges.cells) == 4
+        assert len(edges.cells) == 4  # type: ignore
 
     # Repeat with different window size
 
@@ -74,14 +77,14 @@ def test_driver(tmp_path: Path):
     with workspace.open():
         edges = workspace.get_entity("square_32")[0]
 
-        assert len(edges.cells) == 22
+        assert len(edges.cells) == 22  # type: ignore
 
 
 def test_merge_length(tmp_path: Path):
     workspace = Workspace.create(tmp_path / "test_edge_detection.geoh5")
 
     grid, data = setup_example(workspace)
-    params = Parameters.build(
+    params = EdgeParameters.build(
         {
             "geoh5": workspace,
             "objects": grid,
@@ -90,17 +93,17 @@ def test_merge_length(tmp_path: Path):
             "line_gap": 1,
             "sigma": 1,
             "export_as": "square",
-            "merge_length": 10,
+            "merge_length": 10.0,
         }
     )
 
-    driver = EdgeDetectionDriver(params)
+    driver = EdgesDriver(params)
     driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("square")[0]
 
-        assert len(np.unique(edges.parts)) == 2
+        assert len(np.unique(edges.parts)) == 2  # type: ignore
 
 
 def test_input_file(tmp_path: Path):
@@ -108,7 +111,7 @@ def test_input_file(tmp_path: Path):
 
     grid, data = setup_example(workspace)
     ifile = InputFile.read_ui_json(
-        assets_path() / "uijson/edge_detection.ui.json", validate=False
+        assets_path() / "uijson/edges.ui.json", validate=False
     )
 
     changes = {
@@ -124,11 +127,12 @@ def test_input_file(tmp_path: Path):
         ifile.set_data_value(key, value)
 
     ifile.write_ui_json(str(tmp_path / "test_edge_detection"))
-    driver = EdgeDetectionDriver(ifile)
+    driver = EdgesDriver(ifile)
     driver.run()
 
     with workspace.open():
-        edges = workspace.get_entity("square")[0]
+        edges = workspace.get_entity("Edge Detection")[0]
         assert edges is not None
+        assert hasattr(edges, "children")
 
         assert any(child for child in edges.children if isinstance(child, FilenameData))

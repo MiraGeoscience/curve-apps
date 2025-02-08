@@ -1,68 +1,85 @@
-#  Copyright (c) 2024 Mira Geoscience Ltd.
-#
-#  This file is part of edge-detection package.
-#
-#  All rights reserved.
-#
-#
-#  This file is part of curve-apps.
-#
-#  curve-apps is distributed under the terms and conditions of the MIT License
-#  (see LICENSE file at the root of this source code package).
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#                                                                              '
+#  This file is part of curve-apps package.                                    '
+#                                                                              '
+#  curve-apps is distributed under the terms and conditions of the MIT License '
+#  (see LICENSE file at the root of this source code package).                 '
+#                                                                              '
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
 from __future__ import annotations
 
+import logging
 import sys
 
 import numpy as np
-from geoapps_utils.locations import get_overlapping_limits, map_indices_to_coordinates
+from geoapps_utils.utils.locations import (
+    get_overlapping_limits,
+    map_indices_to_coordinates,
+)
 from geoh5py.data import FloatData
-from geoh5py.groups import ContainerGroup
 from geoh5py.objects import Curve, Grid2D
 from geoh5py.ui_json import InputFile, utils
 from scipy.spatial import cKDTree
-from skimage.feature import canny
-from skimage.transform import probabilistic_hough_line
+from skimage.feature import canny  # pylint: disable=no-name-in-module
+from skimage.transform import (  # pylint: disable=no-name-in-module
+    probabilistic_hough_line,
+)
 
-from ..driver import BaseCurveDriver
-from .params import NAME, DetectionParameters, Parameters
+from curve_apps.driver import BaseCurveDriver
+from curve_apps.edges.params import EdgeDetectionParameters, EdgeParameters
 
 
-class EdgeDetectionDriver(BaseCurveDriver):
+logger = logging.getLogger(__name__)
+
+
+class EdgesDriver(BaseCurveDriver):
     """
     Driver for the edge detection application.
 
     :param parameters: Application parameters.
     """
 
-    _parameter_class = Parameters
-    _default_name = NAME
+    _parameter_class = EdgeParameters
 
-    def __init__(self, parameters: Parameters | InputFile):
+    def __init__(self, parameters: EdgeParameters | InputFile):
         super().__init__(parameters)
 
-    def create_output(self, name, parent: ContainerGroup | None = None):
+    def make_curve(self):
         """
-        Driver for Grid2D objects for the automated detection of line features.
+        Make curve object from edges detected in source data.
+
         The application relies on the Canny and Hough transforms from the
         Scikit-Image library.
 
-        :param name: Name of the output object.
-        :param parent: Optional parent group.
         """
-        with utils.fetch_active_workspace(self.workspace) as workspace:
-            vertices, cells = EdgeDetectionDriver.get_edges(
+        with utils.fetch_active_workspace(self.workspace, mode="r+") as workspace:
+            logging.info("Generated edges ...")
+            canny_grid = EdgesDriver.get_canny_edges(
                 self.params.source.objects,
                 self.params.source.data,
                 self.params.detection,
             )
-            edges = Curve.create(
+            vertices, cells = EdgesDriver.get_edges(
+                self.params.source.objects,
+                canny_grid,
+                self.params.detection,
+            )
+
+            if vertices is None or cells is None:
+                return None
+
+            self.params.source.objects.add_data(
+                {"canny filter": {"values": canny_grid.flatten(order="F")}}
+            )
+            curve = Curve.create(
                 workspace=workspace,
-                name=name,
+                name=self.params.output.export_as,
                 vertices=vertices,
                 cells=cells,
-                parent=parent,
+                parent=self.out_group,
             )
 
             # Compute positive angle from North
@@ -76,47 +93,44 @@ class EdgeDetectionDriver(BaseCurveDriver):
             orientation = np.arccos(delta[:, 1] / amp)
 
             # TODO: Assign values to vertices until better handling of cell data by GA
-            vert_azimuth = np.zeros(edges.n_vertices) * np.nan
+            vert_azimuth = np.zeros(curve.n_vertices) * np.nan
             vert_azimuth[cells.flatten()] = np.repeat(orientation, 2)
-            edges.add_data(
+            curve.add_data(
                 {
                     "azimuth": {"values": np.degrees(vert_azimuth)},
                 }
             )
 
-            vert_lengths = np.zeros(edges.n_vertices) * np.nan
+            vert_lengths = np.zeros(curve.n_vertices) * np.nan
             vert_lengths[cells.flatten()] = np.repeat(amp, 2)
-            edges.add_data(
+            curve.add_data(
                 {
                     "lengths": {"values": vert_lengths},
                 }
             )
 
-        return edges
+        return curve
 
     @staticmethod
-    def get_edges(
-        grid: Grid2D,
-        data: FloatData,
-        detection: DetectionParameters,
-    ) -> tuple:
+    def get_canny_edges(
+        grid: Grid2D, data: FloatData, detection: EdgeDetectionParameters
+    ) -> np.ndarray:
         """
-        Find edges in gridded data.
+        Get edges from a grid.
 
-        :params grid: A Grid2D object.
-        :params data: Input data.
-        :params detection: Detection parameters.
+        :param grid: Grid2D object.
+        :param data: FloatData object.
+        :param detection: Detection parameters.
 
-        :returns : n x 3 array. Vertices of edges.
-        :returns : n x 2 float array. Cells of edges.
+        :returns: Edges from Canny transform.
         """
         if grid.shape is None or data.values is None:
-            return None, None
+            raise ValueError("Grid and data must be defined.")
 
         grid_data = data.values.reshape(grid.shape, order="F")
 
         if np.all(np.isnan(grid_data)):
-            return None, None
+            raise ValueError("No data to process.")
 
         # Find edges
         edges = canny(
@@ -128,8 +142,26 @@ class EdgeDetectionDriver(BaseCurveDriver):
         )
         grid.add_data({"canny filter": {"values": edges.flatten(order="F")}})
 
+        return edges
+
+    @staticmethod
+    def get_edges(
+        grid: Grid2D,
+        edges: np.ndarray,
+        detection: EdgeDetectionParameters,
+    ) -> tuple[np.ndarray, np.ndarray] | tuple[None, None]:
+        """
+        Find edges in gridded data.
+
+        :params grid: A Grid2D object.
+        :params edges: Edges representation of the grid from Canny transform.
+        :params detection: Detection parameters.
+
+        :returns : n x 3 array. Vertices of edges.
+        :returns : n x 2 float array. Cells of edges.
+        """
         # Find lines
-        indices = EdgeDetectionDriver.get_line_indices(
+        indices = EdgesDriver.get_line_indices(
             edges,
             detection.line_length,
             detection.line_gap,
@@ -192,7 +224,7 @@ class EdgeDetectionDriver(BaseCurveDriver):
                     line_length=line_length,
                     threshold=threshold,
                     line_gap=line_gap,
-                    seed=0,
+                    rng=0,
                 )
 
                 if np.any(lines):
@@ -207,5 +239,5 @@ if __name__ == "__main__":
     file = sys.argv[1]
     ifile = InputFile.read_ui_json(file)
 
-    driver = EdgeDetectionDriver(ifile)
+    driver = EdgesDriver(ifile)
     driver.run()

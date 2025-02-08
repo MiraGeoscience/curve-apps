@@ -1,9 +1,9 @@
-|coverage| |maintainability| |precommit_ci| |docs| |style| |version| |status| |pyversions|
+|coverage| |precommit_ci| |docs| |style| |version| |status| |pyversions|
 
 
-.. |docs| image:: https://readthedocs.org/projects/curve-apps/badge/
+.. |docs| image:: https://readthedocs.com/projects/mirageoscience-curve-apps/badge/?version=latest
     :alt: Documentation Status
-    :target: https://curve-apps.readthedocs.io/en/latest/?badge=latest
+    :target: https://mirageoscience-curve-apps.readthedocs-hosted.com/en/latest/?badge=latest
 
 .. |coverage| image:: https://codecov.io/gh/MiraGeoscience/curve-apps/branch/develop/graph/badge.svg
     :alt: Code coverage
@@ -13,25 +13,27 @@
     :alt: Coding style
     :target: https://github.com/pf/black
 
-.. |version| image:: https://img.shields.io/pypi/v/edge-detection.svg
+.. |version| image:: https://img.shields.io/pypi/v/curve-apps.svg
     :alt: version on PyPI
-    :target: https://pypi.python.org/pypi/edge-detection/
+    :target: https://pypi.python.org/pypi/curve-apps/
 
-.. |status| image:: https://img.shields.io/pypi/status/edge-detection.svg
+.. |status| image:: https://img.shields.io/pypi/status/curve-apps.svg
     :alt: version status on PyPI
-    :target: https://pypi.python.org/pypi/edge-detection/
+    :target: https://pypi.python.org/pypi/curve-apps/
 
-.. |pyversions| image:: https://img.shields.io/pypi/pyversions/edge-detection.svg
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/curve-apps.svg
     :alt: Python versions
-    :target: https://pypi.python.org/pypi/edge-detection/
+    :target: https://pypi.python.org/pypi/curve-apps/
 
-.. |precommit_ci| image:: https://results.pre-commit.ci/badge/github/MiraGeoscience/edge-detection/develop.svg
+.. |precommit_ci| image:: https://results.pre-commit.ci/badge/github/MiraGeoscience/curve-apps/develop.svg
     :alt: pre-commit.ci status
-    :target: https://results.pre-commit.ci/latest/github/MiraGeoscience/edge-detection/develop
+    :target: https://results.pre-commit.ci/latest/github/MiraGeoscience/curve-apps/develop
 
-.. |maintainability| image:: https://api.codeclimate.com/v1/badges/_token_/maintainability
-   :target: https://codeclimate.com/github/MiraGeoscience/edge-detection/maintainability
-   :alt: Maintainability
+.. TODO: configure Code Climate and add top |maintainability| link new |coverage|
+    .. |maintainability| image:: https://api.codeclimate.com/v1/badges/_token_/maintainability
+    :target: https://codeclimate.com/github/MiraGeoscience/curve-apps/maintainability
+    :alt: Maintainability
+
 
 
 curve-apps
@@ -45,7 +47,7 @@ Auto-detection of trends and edges in geoscientific data.
 
 Documentation
 ^^^^^^^^^^^^^
-`Online documentation <https://edge-detection.readthedocs.io/en/latest/>`_
+`Online documentation <https://mirageoscience-curve-apps.readthedocs-hosted.com/en/latest/>`_
 
 
 Installation
@@ -134,30 +136,39 @@ To configure the development environment and tools, please see `README-dev.rst`_
 
 License
 ^^^^^^^
-curve-apps is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+MIT License
 
-curve-apps is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+Copyright (c) 2023-2025 Mira Geoscience
 
-You should have received a copy of the GNU Lesser General Public License
-along with curve-apps.  If not, see <https://www.gnu.org/licenses/>.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 
 Third Party Software
 ^^^^^^^^^^^^^^^^^^^^
-The curve-apps Software may provide links to third party libraries or code (collectively “Third Party Software”)
+The curve-apps Software may provide links to third party libraries or code (collectively "Third Party Software")
 to implement various functions. Third Party Software does not comprise part of the Software.
 The use of Third Party Software is governed by the terms of such software license(s).
 Third Party Software notices and/or additional terms and conditions are located in the
 `THIRD_PARTY_SOFTWARE.rst`_ file.
 
-.. _THIRD_PARTY_SOFTWARE.rst: ./docs/THIRD_PARTY_SOFTWARE.rst
+.. _THIRD_PARTY_SOFTWARE.rst: ./docs/source/THIRD_PARTY_SOFTWARE.rst
 
 Copyright
 ^^^^^^^^^
-Copyright (c) 2024 Mira Geoscience Ltd.
+Copyright (c) 2023-2025 Mira Geoscience Ltd.

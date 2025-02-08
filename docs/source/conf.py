@@ -3,11 +3,22 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+from datetime import datetime
+from importlib.metadata import version
+
+from packaging.version import Version
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "curve-apps"
-release = "0.1.0"
+author = "Mira Geoscience Ltd."
+project_copyright = "%Y, Mira Geoscience Ltd"
+
+# The full version, including alpha/beta/rc tags.
+release = version("curve-apps")
+# The short X.Y.Z version.
+version = Version(release).base_version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -31,7 +42,16 @@ autodoc_typehints = "signature"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "alabaster"
-html_static_path = ["_static"]
+html_theme_options = {
+    'description': f"version {release}",
+}
 
 # Enable numref
 numfig = True
+
+def get_copyright_notice():
+    return f"Copyright {datetime.now().strftime(project_copyright)}"
+
+rst_epilog = f"""
+.. |copyright_notice| replace:: {get_copyright_notice()}.
+"""
