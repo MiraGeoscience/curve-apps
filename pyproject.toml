@@ -9,7 +9,6 @@ repository = "https://github.com/MiraGeoscience/curve-apps"
 readme = "package.rst"
 documentation  = "https://mirageoscience-curve-apps.readthedocs-hosted.com/"
 homepage = "https://www.mirageoscience.com/mining-industry-software/python-integration/"
-readme = "README.rst"
 packages = [
      { include = "curve_apps" },
      { include = "curve_apps-assets" },
