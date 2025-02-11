@@ -2,13 +2,13 @@
 name = "curve-apps"
 version = "0.3.0-alpha.1"
 license = "MIT"
-description = "Find edges on 2D grids or vertices."
+description = "Applications for the creation and manipulation of curve objects stored in geoh5 format."
 authors = ["Mira Geoscience <support@mirageoscience.com>"]
 maintainers = ["Dominique Fournier <dominiquef@mirageoscience.com>"]
 repository = "https://github.com/MiraGeoscience/curve-apps"
+readme = "package.rst"
 documentation  = "https://mirageoscience-curve-apps.readthedocs-hosted.com/"
 homepage = "https://www.mirageoscience.com/mining-industry-software/python-integration/"
-readme = "README.rst"
 packages = [
      { include = "curve_apps" },
      { include = "curve_apps-assets" },
