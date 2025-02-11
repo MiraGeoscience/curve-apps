@@ -1,5 +1,5 @@
-curve-apps:
-=========================================================================
+curve-apps
+==========
 The **curve-apps** library offers tools for the creation and manipulation of curve objects using various Python libraries and `geoh5py <https://mirageoscience-geoh5py.readthedocs-hosted.com/>`_.
 
 Installation
