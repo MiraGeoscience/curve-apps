@@ -42,11 +42,14 @@ tests:
   - python:
       imports:
         - curve_apps
-  - requirements:
+  - script:
+      - pytest ./tests
+    requirements:
       run:
-        - pip
-    script:
-      - pip check
+        - pytest
+    files:
+      source:
+        - tests/
 
 about:
   summary: Find edges on 2D grids or vertices.
