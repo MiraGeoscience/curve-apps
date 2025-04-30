@@ -111,7 +111,7 @@ def test_input_file(tmp_path: Path):
 
     grid, data = setup_example(workspace)
     ifile = InputFile.read_ui_json(
-        assets_path() / "uijson/edges.ui.json", validate=False
+        assets_path() / "uijson/edge_detection.ui.json", validate=False
     )
 
     changes = {
