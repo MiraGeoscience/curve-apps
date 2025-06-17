@@ -47,7 +47,7 @@ def test_driver(tmp_path: Path):
 
     grid, data = setup_example(workspace)
     params = EdgeParameters.build(
-        {
+        **{
             "geoh5": workspace,
             "objects": grid,
             "data": data,
@@ -85,7 +85,7 @@ def test_merge_length(tmp_path: Path):
 
     grid, data = setup_example(workspace)
     params = EdgeParameters.build(
-        {
+        **{
             "geoh5": workspace,
             "objects": grid,
             "data": data,
