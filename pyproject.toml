@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "curve-apps"
-version = "0.2.1-alpha.2"
+version = "0.2.1"
 license = "MIT"
 description = "Applications for the creation and manipulation of curve objects stored in geoh5 format."
 authors = ["Mira Geoscience <support@mirageoscience.com>"]
