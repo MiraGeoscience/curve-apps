@@ -13,7 +13,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import ClassVar
 
-from geoapps_utils.driver.data import BaseData
+from geoapps_utils.base import Options
 from geoh5py.data import Data, ReferencedData
 from geoh5py.groups import UIJsonGroup
 from geoh5py.objects import Curve, Points
@@ -70,7 +70,7 @@ class TrendLineOutputParameters(BaseModel):
     out_group: UIJsonGroup | None = None
 
 
-class TrendLineParameters(BaseData):
+class TrendLineParameters(Options):
     """
     Trend lines parameters for use with `trend_lines.driver`.
 

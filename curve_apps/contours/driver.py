@@ -20,7 +20,7 @@ from geoh5py.objects import Curve, Grid2D
 from geoh5py.ui_json import InputFile, utils
 from skimage import measure
 
-from curve_apps.contours.params import ContourParameters
+from curve_apps.contours.options import ContourParameters
 from curve_apps.driver import BaseCurveDriver
 from curve_apps.utils import (
     image_to_grid_coordinate_transfer,
@@ -39,7 +39,7 @@ class ContoursDriver(BaseCurveDriver):
     :param parameters: Application parameters.
     """
 
-    _parameter_class = ContourParameters
+    _params_class = ContourParameters
 
     def __init__(self, parameters: ContourParameters | InputFile):
         super().__init__(parameters)

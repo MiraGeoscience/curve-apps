@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import ClassVar
 
 import numpy as np
-from geoapps_utils.driver.data import BaseData
+from geoapps_utils.base import Options
 from geoh5py.data import Data
 from geoh5py.groups import UIJsonGroup
 from geoh5py.objects import Curve, Grid2D, Points, Surface
@@ -129,7 +129,7 @@ class ContourOutputParameters(BaseModel):
     out_group: UIJsonGroup | None = None
 
 
-class ContourParameters(BaseData):
+class ContourParameters(Options):
     """
     Contour parameters for use with `contours.driver`.
 
