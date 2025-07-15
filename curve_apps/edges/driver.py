@@ -76,7 +76,7 @@ class EdgesDriver(BaseCurveDriver):
             )
             curve = Curve.create(
                 workspace=workspace,
-                name=self.params.output.export_as,
+                name=self.params.export_as,
                 vertices=vertices,
                 cells=cells,
                 parent=self.out_group,

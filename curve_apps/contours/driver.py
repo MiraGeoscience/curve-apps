@@ -82,14 +82,14 @@ class ContoursDriver(BaseCurveDriver):
                     locations, center=entity.origin.tolist(), theta=entity.rotation
                 )
 
-            if self.params.output.z_value:
+            if self.params.z_value:
                 locations = np.c_[locations, values]
             else:
                 locations = set_vertices_height(locations, self.params.source.objects)
 
             curve = Curve.create(
                 self.workspace,
-                name=string_name(self.params.output.export_as),
+                name=string_name(self.params.export_as),
                 vertices=locations,
                 cells=edges,
                 parent=self.out_group,
