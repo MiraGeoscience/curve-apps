@@ -15,8 +15,7 @@ import tempfile
 from abc import abstractmethod
 from pathlib import Path
 
-from geoapps_utils.driver.data import BaseData
-from geoapps_utils.driver.driver import BaseDriver
+from geoapps_utils.base import Driver, Options
 from geoh5py.groups import UIJsonGroup
 from geoh5py.objects import Curve, ObjectBase
 from geoh5py.shared.utils import fetch_active_workspace
@@ -26,17 +25,17 @@ from geoh5py.ui_json import InputFile
 logger = logging.getLogger(__name__)
 
 
-class BaseCurveDriver(BaseDriver):
+class BaseCurveDriver(Driver):
     """
     Driver for the edge detection application.
 
     :param parameters: Application parameters.
     """
 
-    _parameter_class: type[BaseData]
+    _parameter_class: type[Options]
     _default_name: str
 
-    def __init__(self, parameters: BaseData | InputFile):
+    def __init__(self, parameters: Options | InputFile):
         self._out_group = None
         if isinstance(parameters, InputFile):
             parameters = self._parameter_class.build(parameters)
@@ -90,14 +89,14 @@ class BaseCurveDriver(BaseDriver):
         self.store(curve)
 
     @property
-    def params(self) -> BaseData:
+    def params(self) -> Options:
         """Application parameters."""
         return self._params
 
     @params.setter
-    def params(self, val: BaseData):
-        if not isinstance(val, BaseData):
-            raise TypeError("Parameters must be a BaseData subclass.")
+    def params(self, val: Options):
+        if not isinstance(val, Options):
+            raise TypeError("Parameters must be a Options subclass.")
         self._params = val
 
     def add_ui_json(self, entity: ObjectBase | UIJsonGroup) -> None:

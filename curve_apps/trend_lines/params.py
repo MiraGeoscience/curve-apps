@@ -86,5 +86,5 @@ class TrendLineParameters(BaseData):
 
     conda_environment: str = "curve_apps"
     source: TrendLineSourceParameters
-    detection: TrendLineDetectionParameters
+    detection: TrendLineDetectionParameters = TrendLineDetectionParameters()
     output: TrendLineOutputParameters = TrendLineOutputParameters()
