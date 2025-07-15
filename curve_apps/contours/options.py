@@ -16,7 +16,6 @@ from typing import ClassVar
 import numpy as np
 from geoapps_utils.base import Options
 from geoh5py.data import Data
-from geoh5py.groups import UIJsonGroup
 from geoh5py.objects import Curve, Grid2D, Points, Surface
 from geoh5py.ui_json.utils import str2list
 from pydantic import BaseModel, ConfigDict, field_validator
@@ -113,22 +112,6 @@ class ContourDetectionParameters(BaseModel):
         return contours
 
 
-class ContourOutputParameters(BaseModel):
-    """
-    Output parameters.
-
-    :param z_value: Use data values for curve height (z) channel
-    :param export_as: Name of the output entity.
-    :param out_group: Name of the output group.
-    """
-
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    z_value: bool = False
-    export_as: str | None = "Contours"
-    out_group: UIJsonGroup | None = None
-
-
 class ContourParameters(Options):
     """
     Contour parameters for use with `contours.driver`.
@@ -146,4 +129,5 @@ class ContourParameters(Options):
     conda_environment: str = "curve_apps"
     source: ContourSourceParameters
     detection: ContourDetectionParameters = ContourDetectionParameters()
-    output: ContourOutputParameters = ContourOutputParameters()
+    z_value: bool = False
+    export_as: str | None = "Contours"

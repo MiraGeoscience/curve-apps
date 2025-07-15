@@ -15,7 +15,6 @@ from typing import ClassVar
 
 from geoapps_utils.base import Options
 from geoh5py.data import Data, ReferencedData
-from geoh5py.groups import UIJsonGroup
 from geoh5py.objects import Curve, Points
 from pydantic import BaseModel, ConfigDict
 
@@ -56,20 +55,6 @@ class TrendLineDetectionParameters(BaseModel):
     max_distance: float | None = None
 
 
-class TrendLineOutputParameters(BaseModel):
-    """
-    Output parameters.
-
-    :param export_as: Name of the output entity.
-    :param out_group: Name of the output group.
-    """
-
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    export_as: str | None = "trend_lines"
-    out_group: UIJsonGroup | None = None
-
-
 class TrendLineParameters(Options):
     """
     Trend lines parameters for use with `trend_lines.driver`.
@@ -87,4 +72,4 @@ class TrendLineParameters(Options):
     conda_environment: str = "curve_apps"
     source: TrendLineSourceParameters
     detection: TrendLineDetectionParameters = TrendLineDetectionParameters()
-    output: TrendLineOutputParameters = TrendLineOutputParameters()
+    export_as: str | None = "trend_lines"
