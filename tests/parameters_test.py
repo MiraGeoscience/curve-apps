@@ -14,14 +14,13 @@ from geoh5py.ui_json import InputFile
 from geoh5py.workspace import Workspace
 
 from curve_apps import assets_path
-from curve_apps.contours.params import (
+from curve_apps.contours.options import (
     ContourDetectionParameters,
     ContourParameters,
     ContourSourceParameters,
 )
-from curve_apps.edges.params import (
+from curve_apps.edges.options import (
     EdgeDetectionParameters,
-    EdgeOutputParameters,
     EdgeParameters,
     EdgeSourceParameters,
 )
@@ -44,10 +43,7 @@ def test_edge_detection_params(tmp_path):
 
     source_params = EdgeSourceParameters(objects=grid, data=data)
     detection_params = EdgeDetectionParameters(line_length=2)
-    output_params = EdgeOutputParameters()
-    params = EdgeParameters(
-        geoh5=ws, source=source_params, detection=detection_params, output=output_params
-    )
+    params = EdgeParameters(geoh5=ws, source=source_params, detection=detection_params)
     assert params.title == "Edge Detection"
     assert params.run_command == "curve_apps.edges.driver"
 
@@ -152,6 +148,6 @@ def test_contour_params_from_uijson(tmp_path):
     assert params.detection.interval_max == updates["interval_max"]
     assert params.detection.interval_spacing == updates["interval_spacing"]
     assert params.detection.fixed_contours == [0.0, 9.0]
-    assert params.output.z_value == updates["z_value"]
-    assert params.output.export_as == updates["export_as"]
-    assert params.output.out_group is None
+    assert params.z_value == updates["z_value"]
+    assert params.export_as == updates["export_as"]
+    assert params.out_group is None

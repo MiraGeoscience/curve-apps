@@ -12,7 +12,7 @@ import pytest
 from geoh5py.objects import Grid2D, Points
 from geoh5py.workspace import Workspace
 
-from curve_apps.trend_lines.params import TrendLineDetectionParameters
+from curve_apps.trend_lines.options import TrendLineDetectionParameters
 from curve_apps.utils import (
     filter_segments_orientation,
     find_curves,

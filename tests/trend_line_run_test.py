@@ -12,13 +12,13 @@ from pathlib import Path
 
 import numpy as np
 from geoh5py import Workspace
-from geoh5py.data import FilenameData, ReferencedData
+from geoh5py.data import ReferencedData
 from geoh5py.objects import Curve, Points
 from geoh5py.ui_json import InputFile
 
 from curve_apps import assets_path
 from curve_apps.trend_lines.driver import TrendLinesDriver
-from curve_apps.trend_lines.params import TrendLineParameters
+from curve_apps.trend_lines.options import TrendLineParameters
 
 
 def setup_example(workspace: Workspace):
@@ -70,7 +70,8 @@ def test_driver_curve(tmp_path: Path):
     )
 
     driver = TrendLinesDriver(params)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("test")[0]
@@ -113,7 +114,8 @@ def test_driver_points(tmp_path: Path):
     )
 
     driver = TrendLinesDriver(params)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("test")[0]
@@ -154,7 +156,8 @@ def test_driver_points_no_parts(tmp_path: Path):
     )
 
     driver = TrendLinesDriver(params)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("test")[0]
@@ -191,7 +194,8 @@ def test_azimuth_filter(tmp_path: Path):
     )
 
     driver = TrendLinesDriver(params)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("test")[0]
@@ -212,17 +216,16 @@ def test_input_file(tmp_path: Path):
         "geoh5": workspace,
         "entity": curve,
         "data": data,
-        "export_as": "square",
+        "export_as": "trends",
     }
     for key, value in changes.items():
         ifile.set_data_value(key, value)
 
     ifile.write_ui_json(str(tmp_path / "test_trend_lines"))
     driver = TrendLinesDriver(ifile)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
-        edges = workspace.get_entity("Trend Lines Detection")[0]
+        edges = workspace.get_entity("trends")[0]
         assert edges is not None
-        assert hasattr(edges, "children")
-        assert any(child for child in edges.children if isinstance(child, FilenameData))
