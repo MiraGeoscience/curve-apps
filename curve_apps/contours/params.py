@@ -145,5 +145,5 @@ class ContourParameters(BaseData):
 
     conda_environment: str = "curve_apps"
     source: ContourSourceParameters
-    detection: ContourDetectionParameters
+    detection: ContourDetectionParameters = ContourDetectionParameters()
     output: ContourOutputParameters = ContourOutputParameters()

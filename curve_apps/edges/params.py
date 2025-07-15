@@ -86,5 +86,5 @@ class EdgeParameters(BaseData):
 
     conda_environment: str = "curve_apps"
     source: EdgeSourceParameters
-    detection: EdgeDetectionParameters
+    detection: EdgeDetectionParameters = EdgeDetectionParameters()
     output: EdgeOutputParameters = EdgeOutputParameters()
