@@ -166,4 +166,3 @@ fail_under = 80
 [tool.coverage.html]
 skip_empty = true
 skip_covered = true
-
