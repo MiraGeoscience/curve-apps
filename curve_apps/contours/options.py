@@ -64,19 +64,19 @@ class ContourDetectionParameters(BaseModel):
         if isinstance(val, list):
             if not all(isinstance(k, float) for k in val):
                 raise ValueError("List of fixed contours must contain only floats.")
-            fixed_contours = val
+            return val
 
-        elif isinstance(val, str):
-            fixed_contours = str2list(val)
+        if isinstance(val, str):
+            return str2list(val)
 
-        else:
+        if val is not None:
             raise ValueError(
                 "Fixed contours must be a list of floats, "
                 "a string containing comma separated numeric characters, "
                 "or None."
             )
 
-        return fixed_contours
+        return val
 
     @property
     def has_intervals(self) -> bool:
