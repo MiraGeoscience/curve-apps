@@ -13,7 +13,7 @@ dependencies:
   - blosc=1.21.6=hfd34d9b_1
   - bzip2=1.0.8=h2466b09_7
   - c-blosc2=2.19.0=h3cf07e4_0
-  - ca-certificates=2025.7.9=h4c7d964_0
+  - ca-certificates=2025.7.14=h4c7d964_0
   - cached-property=1.5.2=hd8ed1ab_1
   - cached_property=1.5.2=pyha770c72_1
   - charls=2.4.2=h1537add_0
@@ -48,7 +48,7 @@ dependencies:
   - libfreetype6=2.13.3=h0b5ce68_1
   - libgcc=15.1.0=h1383e82_3
   - libgomp=15.1.0=h1383e82_3
-  - libhwloc=2.11.2=default_ha69328c_1001
+  - libhwloc=2.11.2=default_h88281d1_1002
   - libhwy=1.2.0=h1d1702c_0
   - libiconv=1.18=h135ad9c_1
   - libjpeg-turbo=3.1.0=h2466b09_0
@@ -107,7 +107,7 @@ dependencies:
   - zstd=1.5.7=hbeecb71_2
   - pip:
     - geoapps-utils @ git+https://github.com/MiraGeoscience/geoapps-utils.git@c64e2db54bfdacc19ef675a7d54288aaad8b78a8
-    - geoh5py @ git+https://github.com/MiraGeoscience/geoh5py.git@87f68c3a25cb3fac2a4c9de8c0d74ec4e58d0963
+    - geoh5py @ git+https://github.com/MiraGeoscience/geoh5py.git@a7a5280079f39ca35c502bddedb56ccc3f77f29d
 
 variables:
   KMP_WARNINGS: 0
