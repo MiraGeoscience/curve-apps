@@ -15,11 +15,13 @@ from geoh5py import Workspace
 from geoh5py.data import FilenameData, ReferencedData
 from geoh5py.objects import Curve, Points
 from geoh5py.ui_json import InputFile
-from curve_apps.trend_lines.params import TrendLineDetectionParameters
 
 from curve_apps import assets_path
 from curve_apps.trend_lines.driver import TrendLinesDriver
-from curve_apps.trend_lines.params import TrendLineParameters
+from curve_apps.trend_lines.params import (
+    TrendLineDetectionParameters,
+    TrendLineParameters,
+)
 
 
 def setup_example(workspace: Workspace):
@@ -63,9 +65,9 @@ def test_driver_curve(tmp_path: Path):
     curve, data = setup_example(workspace)
 
     detection_params = TrendLineDetectionParameters(
-        min_edges=5,  
-        azimuth=45.0,  
-        damping=0.5,   
+        min_edges=5,
+        azimuth=45.0,
+        damping=0.5,
     )
     params = TrendLineParameters.build(
         {
@@ -110,11 +112,10 @@ def test_driver_points(tmp_path: Path):
         )
         new_data = data.copy(parent=points)
         detection_params = TrendLineDetectionParameters(
-        min_edges=5,  
-        azimuth=45.0,  
-        damping=0.5,   
-    )
-
+            min_edges=5,
+            azimuth=45.0,
+            damping=0.5,
+        )
 
     params = TrendLineParameters.build(
         {
@@ -160,10 +161,10 @@ def test_driver_points_no_parts(tmp_path: Path):
         new_data = data.copy(parent=points)
 
         detection_params = TrendLineDetectionParameters(
-        min_edges=5,  
-        azimuth=45.0,  
-        damping=0.5,   
-    )
+            min_edges=5,
+            azimuth=45.0,
+            damping=0.5,
+        )
 
     params = TrendLineParameters.build(
         {
