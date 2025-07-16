@@ -237,7 +237,4 @@ class EdgesDriver(BaseCurveDriver):
 
 if __name__ == "__main__":
     file = sys.argv[1]
-    ifile = InputFile.read_ui_json(file)
-
-    driver = EdgesDriver(ifile)
-    driver.run()
+    driver = EdgesDriver.start(file)

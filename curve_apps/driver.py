@@ -15,6 +15,7 @@ from abc import abstractmethod
 
 from geoapps_utils.base import Driver, Options
 from geoh5py.ui_json import InputFile
+from geoh5py.ui_json.utils import fetch_active_workspace
 
 
 logger = logging.getLogger(__name__)
@@ -45,7 +46,8 @@ class BaseCurveDriver(Driver):
         """
         Run method of the driver.
         """
-        logging.info("Begin Process ...")
-        curve = self.make_curve()
-        logging.info("Process Complete.")
-        self.update_monitoring_directory(curve)
+        with fetch_active_workspace(self.params.geoh5, mode="r+"):
+            logging.info("Begin Process ...")
+            curve = self.make_curve()
+            logging.info("Process Complete.")
+            self.update_monitoring_directory(curve)

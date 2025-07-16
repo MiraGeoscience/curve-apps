@@ -149,7 +149,4 @@ class ContoursDriver(BaseCurveDriver):
 
 if __name__ == "__main__":
     file = sys.argv[1]
-    ifile = InputFile.read_ui_json(file)
-
-    driver = ContoursDriver(ifile)
-    driver.run()
+    driver = ContoursDriver.start(file)

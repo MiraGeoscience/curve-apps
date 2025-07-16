@@ -168,8 +168,4 @@ class TrendLinesDriver(BaseCurveDriver):
 
 if __name__ == "__main__":
     file = sys.argv[1]
-    # file = r"C:\Users\dominiquef\Desktop\parts.ui.json"
-    ifile = InputFile.read_ui_json(file)
-
-    driver = TrendLinesDriver(ifile)
-    driver.run()
+    driver = TrendLinesDriver.start(file)
