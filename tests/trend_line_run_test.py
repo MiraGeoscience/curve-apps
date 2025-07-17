@@ -66,6 +66,7 @@ def test_driver_curve(tmp_path: Path):
             "entity": curve,
             "data": data,
             "export_as": "test",
+            "azimuth": 35,
         }
     )
 
@@ -109,6 +110,7 @@ def test_driver_points(tmp_path: Path):
             "parts": parts,
             "data": new_data,
             "export_as": "test",
+            "azimuth": 35,
         }
     )
 
@@ -150,6 +152,7 @@ def test_driver_points_no_parts(tmp_path: Path):
             "entity": points,
             "data": new_data,
             "export_as": "test",
+            "azimuth": 35,
         }
     )
 
