@@ -18,10 +18,7 @@ from geoh5py.ui_json import InputFile
 
 from curve_apps import assets_path
 from curve_apps.trend_lines.driver import TrendLinesDriver
-from curve_apps.trend_lines.params import (
-    TrendLineDetectionParameters,
-    TrendLineParameters,
-)
+from curve_apps.trend_lines.params import TrendLineParameters
 
 
 def setup_example(workspace: Workspace):
@@ -63,19 +60,13 @@ def test_driver_curve(tmp_path: Path):
     workspace = Workspace.create(tmp_path / "test_trend_lines.geoh5")
 
     curve, data = setup_example(workspace)
-
-    detection_params = TrendLineDetectionParameters(
-        min_edges=5,
-        azimuth=45.0,
-        damping=0.5,
-    )
     params = TrendLineParameters.build(
         {
             "geoh5": workspace,
             "entity": curve,
             "data": data,
             "export_as": "test",
-            "detection": detection_params,
+            "azimuth": 35,
         }
     )
 
@@ -111,11 +102,6 @@ def test_driver_points(tmp_path: Path):
             }
         )
         new_data = data.copy(parent=points)
-        detection_params = TrendLineDetectionParameters(
-            min_edges=5,
-            azimuth=45.0,
-            damping=0.5,
-        )
 
     params = TrendLineParameters.build(
         {
@@ -124,7 +110,7 @@ def test_driver_points(tmp_path: Path):
             "parts": parts,
             "data": new_data,
             "export_as": "test",
-            "detection": detection_params,
+            "azimuth": 35,
         }
     )
 
@@ -160,19 +146,13 @@ def test_driver_points_no_parts(tmp_path: Path):
         points = Points.create(workspace, vertices=curve.vertices)
         new_data = data.copy(parent=points)
 
-        detection_params = TrendLineDetectionParameters(
-            min_edges=5,
-            azimuth=45.0,
-            damping=0.5,
-        )
-
     params = TrendLineParameters.build(
         {
             "geoh5": workspace,
             "entity": points,
             "data": new_data,
             "export_as": "test",
-            "detection": detection_params,
+            "azimuth": 35,
         }
     )
 
