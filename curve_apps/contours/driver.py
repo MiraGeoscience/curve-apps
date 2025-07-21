@@ -20,7 +20,7 @@ from geoh5py.objects import Curve, Grid2D
 from geoh5py.ui_json import InputFile, utils
 from skimage import measure
 
-from curve_apps.contours.params import ContourParameters
+from curve_apps.contours.options import ContourParameters
 from curve_apps.driver import BaseCurveDriver
 from curve_apps.utils import (
     image_to_grid_coordinate_transfer,
@@ -39,7 +39,7 @@ class ContoursDriver(BaseCurveDriver):
     :param parameters: Application parameters.
     """
 
-    _parameter_class = ContourParameters
+    _params_class = ContourParameters
 
     def __init__(self, parameters: ContourParameters | InputFile):
         super().__init__(parameters)
@@ -82,14 +82,14 @@ class ContoursDriver(BaseCurveDriver):
                     locations, center=entity.origin.tolist(), theta=entity.rotation
                 )
 
-            if self.params.output.z_value:
+            if self.params.z_value:
                 locations = np.c_[locations, values]
             else:
                 locations = set_vertices_height(locations, self.params.source.objects)
 
             curve = Curve.create(
                 self.workspace,
-                name=string_name(self.params.output.export_as),
+                name=string_name(self.params.export_as),
                 vertices=locations,
                 cells=edges,
                 parent=self.out_group,
@@ -149,7 +149,4 @@ class ContoursDriver(BaseCurveDriver):
 
 if __name__ == "__main__":
     file = sys.argv[1]
-    ifile = InputFile.read_ui_json(file)
-
-    driver = ContoursDriver(ifile)
-    driver.run()
+    driver = ContoursDriver.start(file)

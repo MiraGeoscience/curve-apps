@@ -12,7 +12,7 @@ from geoh5py import Workspace
 from geoh5py.objects import Points
 
 from curve_apps.contours.driver import ContoursDriver
-from curve_apps.contours.params import ContourParameters
+from curve_apps.contours.options import ContourParameters
 from curve_apps.utils import image_to_grid_coordinate_transfer
 
 
