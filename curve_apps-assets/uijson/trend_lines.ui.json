@@ -1,14 +1,14 @@
 {
-    "version": "0.1.0",
+    "version": "0.2.1-alpha.1",
     "title": "Trend Lines",
+    "icon": "curve",
+    "documentation": "https://mirageoscience-curve-apps.readthedocs-hosted.com/en/latest/",
     "conda_environment": "curve_apps",
     "run_command": "curve_apps.trend_lines.driver",
     "geoh5": "",
     "monitoring_directory": "",
-    "workspace_geoh5": "",
-    "conda_environment_boolean": false,
     "entity": {
-        "group": "Data Selection",
+        "group": "Data selection",
         "meshType": [
             "{6A057FDC-B355-11E3-95BE-FD84A7FFCB88}",
             "{202c5db1-a56d-4004-9cad-baafd8899406}"
@@ -18,7 +18,7 @@
         "value": ""
     },
     "data": {
-        "group": "Data Selection",
+        "group": "Data selection",
         "main": true,
         "association": [
             "Vertex"
@@ -31,7 +31,7 @@
         "value": ""
     },
     "parts": {
-        "group": "Connection Filters",
+        "group": "Connection filters",
         "main": true,
         "association": [
             "Vertex"
@@ -49,7 +49,7 @@
         "value": ""
     },
     "min_edges": {
-        "group": "Connection Filters",
+        "group": "Connection filters",
         "main": true,
         "label": "Minimum edges",
         "min": 1,
@@ -57,7 +57,7 @@
         "enabled": true
     },
     "max_distance": {
-        "group": "Connection Filters",
+        "group": "Connection filters",
         "main": true,
         "optional": true,
         "enabled": false,
@@ -66,7 +66,7 @@
         "value": 1
     },
     "damping": {
-        "group": "Connection Filters",
+        "group": "Connection filters",
         "main": true,
         "label": "Damping factor:",
         "value": 1.0,
@@ -105,10 +105,10 @@
         "main": true,
         "label": "Save as",
         "value": "trendlines",
-        "group": "Output Preferences"
+        "group": "Output preferences"
     },
     "out_group": {
-        "group": "Output Preferences",
+        "group": "Output preferences",
         "label": "UIJson group",
         "value": "",
         "groupType": "{BB50AC61-A657-4926-9C82-067658E246A0}",
