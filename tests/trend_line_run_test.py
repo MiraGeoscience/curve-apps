@@ -61,7 +61,7 @@ def test_driver_curve(tmp_path: Path):
 
     curve, data = setup_example(workspace)
     params = TrendLineParameters.build(
-        {
+        **{
             "geoh5": workspace,
             "entity": curve,
             "data": data,
@@ -104,7 +104,7 @@ def test_driver_points(tmp_path: Path):
         new_data = data.copy(parent=points)
 
     params = TrendLineParameters.build(
-        {
+        **{
             "geoh5": workspace,
             "entity": points,
             "parts": parts,
@@ -147,7 +147,7 @@ def test_driver_points_no_parts(tmp_path: Path):
         new_data = data.copy(parent=points)
 
     params = TrendLineParameters.build(
-        {
+        **{
             "geoh5": workspace,
             "entity": points,
             "data": new_data,
@@ -183,7 +183,7 @@ def test_azimuth_filter(tmp_path: Path):
         new_data = data.copy(parent=points)
 
     params = TrendLineParameters.build(
-        {
+        **{
             "geoh5": workspace,
             "entity": points,
             "data": new_data,

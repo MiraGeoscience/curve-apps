@@ -1,12 +1,11 @@
 {
-    "version": "0.1.0",
+    "version": "0.2.1-alpha.1",
     "title": "Create Contours",
+    "documentation": "https://mirageoscience-curve-apps.readthedocs-hosted.com/en/latest/",
     "conda_environment": "curve_apps",
     "run_command": "curve_apps.contours.driver",
     "geoh5": "",
     "monitoring_directory": "",
-    "workspace_geoh5": "",
-    "conda_environment_boolean": false,
     "objects": {
         "group": "Data",
         "main": true,
