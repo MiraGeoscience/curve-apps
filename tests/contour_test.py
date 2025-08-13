@@ -36,7 +36,7 @@ def get_contour_data(tmp_path):
         "max_distance": np.pi / 80,
         "export_as": "my curve",
     }
-    params = ContourParameters.build(params_dict)
+    params = ContourParameters.build(**params_dict)
 
     return params
 

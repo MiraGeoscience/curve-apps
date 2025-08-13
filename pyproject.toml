@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "curve-apps"
-version = "0.3.0-alpha.1"
+version = "0.2.1"
 license = "MIT"
-description = "Find edges on 2D grids or vertices."
+description = "Applications for the creation and manipulation of curve objects stored in geoh5 format."
 authors = ["Mira Geoscience <support@mirageoscience.com>"]
 maintainers = ["Dominique Fournier <dominiquef@mirageoscience.com>"]
 repository = "https://github.com/MiraGeoscience/curve-apps"
+readme = "package.rst"
 documentation  = "https://mirageoscience-curve-apps.readthedocs-hosted.com/"
 homepage = "https://www.mirageoscience.com/mining-industry-software/python-integration/"
-readme = "README.rst"
 packages = [
      { include = "curve_apps" },
      { include = "curve_apps-assets" },
@@ -46,15 +46,15 @@ numpy = "~1.26.0"  # also in geoh5py
 pydantic = "^2.5.2"  # also in geoh5py
 scikit-image = "0.24.*"
 scipy = "~1.14.0"
-tqdm = "~4.66.1"
+tqdm = "^4.66.1"
 
 ## pip dependencies from Git repositories
 #----------------------------------------
-#geoh5py = {version = ">=0.11.0a1, <0.12.0a.dev", source = "pypi", allow-prereleases = true}
-geoh5py = {git = "https://github.com/MiraGeoscience/geoh5py.git", rev = "develop"}
+geoh5py = {version = ">=0.11.0, <0.12.dev", allow-prereleases = true}
+#geoh5py = {git = "https://github.com/MiraGeoscience/geoh5py.git", rev = "release/0.11.0"}
 
-#geoapps-utils = {version = ">=0.5.0a1, <0.6.0a.dev", source = "pypi", allow-prereleases = true}
-geoapps-utils = {git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "develop"}
+geoapps-utils = {version = ">=0.5.0, <0.6.dev", allow-prereleases = true}
+#geoapps-utils = {git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "release/0.5.0"}
 
 ## about pip dependencies
 # to be specified to work with conda-lock
@@ -86,8 +86,8 @@ channels = ['conda-forge']
 
 ## indirect dependencies, forcing them here for installation through Conda not pip
 #---------------------------------------------------------------------------------
-h5py = ">=3.2.1, <4.0.0"  # from geoh5py
-Pillow = ">=10.3.0, <10.4.0"  # from geoh5py
+h5py = ">=3.2.1, <4.0.dev"  # from geoh5py
+Pillow = ">=10.3.0, <10.4.dev"  # from geoh5py
 
 [tool.ruff]
 target-version = "py310"

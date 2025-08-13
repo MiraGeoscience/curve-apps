@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: "curve-apps"
-  version: "0.3.0a1"
+  version: "0.2.1"
   python_min: "3.10"
 
 package:
@@ -22,31 +22,34 @@ build:
 
 requirements:
   host:
-    - python 3.10.*
+    - python ${{ python_min }}.*
     - poetry-core >=1.0.0
     - setuptools
     - pip
   run:
     - python >=${{ python_min }}
-    - numpy >=1.26.0,<1.27.0
-    - pydantic >=2.5.2,<2.6.0
-    - scikit-image >=0.24.0,<0.25.0
-    - scipy >=1.14.0,<1.15.0
-    - tqdm >=4.66.1,<4.67.0
-    - geoh5py >=0.10.0b1, <0.11.0a.dev
-    - geoapps-utils >=0.4.0b1,<0.5.0a.dev
-    - h5py >=3.2.1,<4.0.0
-    - pillow >=10.3.0,<10.4.0
+    # Mira packages
+    - geoh5py >=0.11.0, <0.12.dev
+    - geoapps-utils >=0.5.0, <0.6.dev
+    # other direct dependencies
+    - numpy >=1.26.0, <1.27.dev
+    - pydantic >=2.5.2, <3.0.dev
+    - scikit-image >=0.24.0, <0.25.dev
+    - scipy >=1.14.0, <1.15.dev
+    - tqdm >=4.66.1, <5.0.dev
 
 tests:
   - python:
       imports:
         - curve_apps
-  - requirements:
+  - script:
+      - pytest --ignore=tests/version_test.py
+    requirements:
       run:
-        - pip
-    script:
-      - pip check
+        - pytest
+    files:
+      source:
+        - tests/
 
 about:
   summary: Find edges on 2D grids or vertices.

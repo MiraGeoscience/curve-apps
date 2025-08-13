@@ -80,7 +80,7 @@ class EdgeParameters(BaseData):
     """
 
     name: ClassVar[str] = "edges"
-    default_ui_json: ClassVar[Path] = assets_path() / "uijson/edges.ui.json"
+    default_ui_json: ClassVar[Path] = assets_path() / "uijson/edge_detection.ui.json"
     title: ClassVar[str] = "Edge Detection"
     run_command: ClassVar[str] = "curve_apps.edges.driver"
 
