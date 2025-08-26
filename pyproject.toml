@@ -133,6 +133,7 @@ target-version = "py310"
 [tool.ruff.lint]
 ignore = [
     "RUF005",  # collection-literal-concatenation - wrong suggestion with numpy arrays
+    "F401",  # unsused-import - covered by pycln
 ]
 select = [
     "A",  # flake8-builtins
