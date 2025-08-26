@@ -11,10 +11,18 @@
 from __future__ import annotations
 
 import logging
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 
-__version__ = "0.3.0a1"
+try:
+    from ._version import __version__
+except ModuleNotFoundError:
+    from datetime import datetime
+
+    __date_str = datetime.today().strftime("%Y%m%d")
+    __version__ = "0.0.0.dev0+" + __date_str
+
 logging.basicConfig(level=logging.INFO)
 
 
