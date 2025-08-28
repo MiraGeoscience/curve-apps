@@ -26,6 +26,7 @@ logging.basicConfig(level=logging.INFO)
 
 __all__ = ["assets_path"]
 
+
 def assets_path() -> Path:
     """Return the path to the assets folder."""
 
