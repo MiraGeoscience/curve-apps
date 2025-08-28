@@ -11,7 +11,6 @@
 from __future__ import annotations
 
 import logging
-from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 
@@ -25,6 +24,7 @@ except ModuleNotFoundError:
 
 logging.basicConfig(level=logging.INFO)
 
+__all__ = ["assets_path"]
 
 def assets_path() -> Path:
     """Return the path to the assets folder."""
