@@ -14,36 +14,38 @@ build-backend = "poetry_dynamic_versioning.backend"
 [project]
 name = "curve-apps"
 requires-python = ">=3.10,<4.0"
+
 description = "Applications for the creation and manipulation of curve objects stored in geoh5 format."
 license = "MIT"
+keywords = [
+    "earth-science",
+    "geoh5",
+    "mining",
+]
 readme = "package.rst"
 dynamic = ["version", "dependencies", "classifiers"]
 authors = [{ name = "Mira Geoscience", email = "support@mirageoscience.com" }]
 maintainers = [{ name = "Dominique Fournier", email = "dominiquef@mirageoscience.com" }]
 
+dependencies = [
+    # Mira packages
+    "geoapps-utils >= 0.6.0a, == 0.6.*",
+    "geoh5py >= 0.12.0a1, == 0.12.*",
+    # other direct dependencies
+    "numpy == 1.26.*",
+    "pydantic >= 2.5.2, == 2.*",
+    "scikit-image == 0.24.*",
+    "scipy == 1.14.*",
+    "tqdm >= 4.66.1, == 4.*",
+]
+
 [project.urls]
 repository = "https://github.com/MiraGeoscience/curve-apps"
-documentation  = "https://mirageoscience-curve-apps.readthedocs-hosted.com/"
 homepage = "https://www.mirageoscience.com/mining-industry-software/python-integration/"
-
-[project.scripts]
+documentation  = "https://mirageoscience-curve-apps.readthedocs-hosted.com/"
 
 [tool.poetry]
 requires-poetry = '>=2.0,<3.0'
-
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "Programming Language :: Python",
-    "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Mathematics",
-    "Topic :: Scientific/Engineering :: Physics",
-    "Operating System :: Microsoft :: Windows",
-    "Operating System :: POSIX",
-    "Operating System :: Unix",
-    "Operating System :: MacOS",
-    "Natural Language :: English",
-]
 
 packages = [
      { include = "curve_apps" },
@@ -58,55 +60,21 @@ include = [
     { path = "THIRD_PARTY_SOFTWARE.rst" },
     { path = "docs/**/THIRD_PARTY_SOFTWARE.rst" },
 ]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering",
+]
 version = "0.0.0.dev0"
-
-[tool.poetry.dependencies]
-numpy = "~1.26.0"  # also in geoh5py
-pydantic = "^2.5.2"  # also in geoh5py
-scikit-image = "0.24.*"
-scipy = "~1.14.0"
-tqdm = "^4.66.1"
-
-## pip dependencies from Git repositories
-#----------------------------------------
-#geoh5py = {version = ">=0.12.0a1, <0.13.dev", source = "pypi", allow-prereleases = true}
-geoh5py = {git = "https://github.com/MiraGeoscience/geoh5py.git", rev = "develop"}
-
-#geoapps-utils = {version = ">=0.6.0a1, <0.7.dev", source = "pypi", allow-prereleases = true}
-geoapps-utils = {git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "develop"}
-
-## about pip dependencies
-# to be specified to work with conda-lock
-# - from PyPI: my_package = { version = "1.2.3", source = "pypi" }
-# - from URL: !!! no actual lock, as tag or branch can move and installation will fetch current !!!
-#   - for a tag:    my_package = { url = "https://github.com/ORGANISATION/REPO/archive/refs/tags/TAG.tar.gz" }
-#   - for a branch: my_package = { url = "https://github.com/ORGANISATION/REPO/archive/refs/heads/BRANCH.tar.gz" }
-# - to actually lock on a revision: my_package = { git = "https://github.com/ORGANISATION/REPO.git", rev = "GIT_REV" }
-#   (where rev value is a tag, a branch name or a commit hash). Can also use ``branch`` or ``tag`` instead of ``rev``
-
-[tool.poetry.group.dev.dependencies]
-Pygments = "*"
-pylint = "*"
-pytest = "*"
-pytest-cov = "*"
-pyyaml = '*'
-jinja2 = '*'
-packaging = '*'
-sphinx = "*"
-sphinx-autodoc-typehints = "*"
-sphinx-rtd-theme = "*"
-tomli = "*"
-
-[tool.conda-lock]
-platforms = ['win-64', 'linux-64']
-channels = ['conda-forge']
-
-[tool.conda-lock.dependencies]
-
-## indirect dependencies, forcing them here for installation through Conda not pip
-#---------------------------------------------------------------------------------
-h5py = ">=3.2.1, <4.0.dev"  # from geoh5py
-Pillow = ">=10.3.0, <10.4.dev"  # from geoh5py
 
 [tool.poetry.requires-plugins]
 poetry-dynamic-versioning = { version = ">=1.9.1,<2.0.0", extras = ["plugin"] }
