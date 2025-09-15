@@ -44,7 +44,7 @@ python = "^3.10"
 
 numpy = "~1.26.0"  # also in geoh5py
 pydantic = "^2.5.2"  # also in geoh5py
-scikit-image = "0.24.*"
+scikit-image = "^0.25.2"
 scipy = "~1.14.0"
 tqdm = "^4.66.1"
 
