@@ -93,7 +93,7 @@ sphinxcontrib-bibtex = "*"
 sphinxcontrib-googleanalytics = '*'
 
 [feature.doc.tasks._install-no-deps]
-cmd = "uv pip install --no-deps ."
+cmd = "uv pip install --no-deps . git+https://github.com/MiraGeoscience/geoapps-utils.git@develop"
 
 [feature.doc.tasks.build-docs]
 args = [

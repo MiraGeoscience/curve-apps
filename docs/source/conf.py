@@ -23,18 +23,24 @@ version = Version(release).base_version
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 autodoc_mock_imports = [
-    "numpy",
+    "geoapps_utils",
     "geoh5py",
+    "numpy",
+    "pydantic",
     "scipy",
     "skimage",
-    "geoapps_utils",
-    "pydantic",
     "tqdm",
 ]
+
+intersphinx_mapping = {
+    # use None to auto‑fetch objects.inv
+    "numpy": ("https://numpy.org/doc/1.26/", None),
+}
 
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
 ]
 nitpicky = True
