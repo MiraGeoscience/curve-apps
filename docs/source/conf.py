@@ -22,10 +22,35 @@ release = version("curve-apps")
 # The short X.Y.Z version.
 version = Version(release).base_version
 
-googleanalytics_id = os.environ.get("GOOGLE_ANALYTICS_ID")
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+nitpicky = True
+
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.todo",
+    "sphinxcontrib.google_analytics",
+]
+intersphinx_mapping = {
+    # use None to auto-fetch objects.inv
+    "numpy": ("https://numpy.org/doc/1.26/", None),
+    "python": ("http://docs.python.org/3", None),
+}
+
+templates_path = ["_templates"]
+exclude_patterns: list[str] = []
+todo_include_todos = True
+
+googleanalytics_id = os.environ.get("GOOGLE_ANALYTICS_ID", "")
+# -- Options for auto-doc ----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc
+
+autodoc_typehints = "signature"
+
 autodoc_mock_imports = [
     "geoapps_utils",
     "geoh5py",
@@ -35,29 +60,6 @@ autodoc_mock_imports = [
     "skimage",
     "tqdm",
 ]
-
-intersphinx_mapping = {
-    # use None to auto‑fetch objects.inv
-    "numpy": ("https://numpy.org/doc/1.26/", None),
-}
-
-extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.todo",
-    "sphinxcontrib.google_analytics",
-]
-nitpicky = True
-
-templates_path = ["_templates"]
-exclude_patterns: list[str] = []
-todo_include_todos = True
-
-# -- Options for auto-doc ----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc
-
-autodoc_typehints = "signature"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
