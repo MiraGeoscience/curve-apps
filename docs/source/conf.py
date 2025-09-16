@@ -3,6 +3,8 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+
 from datetime import datetime
 from importlib.metadata import version
 
@@ -19,6 +21,8 @@ project_copyright = "%Y, Mira Geoscience Ltd"
 release = version("curve-apps")
 # The short X.Y.Z version.
 version = Version(release).base_version
+
+googleanalytics_id = os.environ.get("GOOGLE_ANALYTICS_ID")
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -42,6 +46,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
+    "sphinxcontrib.google_analytics",
 ]
 nitpicky = True
 
