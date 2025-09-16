@@ -33,6 +33,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
+    "sphinx_issues",
     "sphinxcontrib.googleanalytics",
 ]
 intersphinx_mapping = {
@@ -48,6 +49,8 @@ todo_include_todos = True
 googleanalytics_id = os.environ.get("GOOGLE_ANALYTICS_ID", "")
 if not googleanalytics_id:
     googleanalytics_enabled = False
+
+issues_github_path = f"mirageoscience/{package_name}"
 
 # -- Options for auto-doc ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc
