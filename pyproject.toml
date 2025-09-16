@@ -20,7 +20,10 @@ license = "MIT"
 keywords = [
     "earth-science",
     "geoh5",
+    "geology",
+    "geophysics",
     "mining",
+    "open-science",
 ]
 readme = "package.rst"
 dynamic = ["version", "dependencies", "classifiers"]
