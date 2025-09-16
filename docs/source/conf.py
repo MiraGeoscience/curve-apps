@@ -33,7 +33,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
-    "sphinxcontrib.google_analytics",
+    "sphinxcontrib.googleanalytics",
 ]
 intersphinx_mapping = {
     # use None to auto-fetch objects.inv
@@ -46,6 +46,9 @@ exclude_patterns: list[str] = []
 todo_include_todos = True
 
 googleanalytics_id = os.environ.get("GOOGLE_ANALYTICS_ID", "")
+if not googleanalytics_id:
+    googleanalytics_enabled = False
+
 # -- Options for auto-doc ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc
 
