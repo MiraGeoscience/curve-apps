@@ -6,7 +6,7 @@
 import os
 
 from datetime import datetime
-from importlib.metadata import version
+from importlib.metadata import version as get_version
 
 from packaging.version import Version
 
@@ -17,11 +17,16 @@ project = "curve-apps"
 author = "Mira Geoscience Ltd."
 project_copyright = "%Y, Mira Geoscience Ltd"
 
-# The full version, including alpha/beta/rc tags.
-release = version("curve-apps")
-# The short X.Y.Z version.
-version = Version(release).base_version
+package_name = "curve-apps"
 
+full_version = Version(get_version(package_name))
+# The full public version, including alpha/beta/rc tags
+release = full_version.public
+# remove the post release segment, if any
+if full_version.is_postrelease:
+    release = release.rsplit(".post", 1)[0]
+# The short X.Y.Z version.
+version = full_version.base_version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
