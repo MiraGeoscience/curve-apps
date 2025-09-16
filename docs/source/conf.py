@@ -3,8 +3,10 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+
 from datetime import datetime
-from importlib.metadata import version
+from importlib.metadata import version as get_version
 
 from packaging.version import Version
 
@@ -15,38 +17,61 @@ project = "curve-apps"
 author = "Mira Geoscience Ltd."
 project_copyright = "%Y, Mira Geoscience Ltd"
 
-# The full version, including alpha/beta/rc tags.
-release = version("curve-apps")
+package_name = "curve-apps"
+
+full_version = Version(get_version(package_name))
+# The full public version, including alpha/beta/rc tags
+release = full_version.public
+# remove the post release segment, if any
+if full_version.is_postrelease:
+    release = release.rsplit(".post", 1)[0]
 # The short X.Y.Z version.
-version = Version(release).base_version
+version = full_version.base_version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-autodoc_mock_imports = [
-    "numpy",
-    "geoh5py",
-    "scipy",
-    "skimage",
-    "geoapps_utils",
-    "pydantic",
-    "tqdm",
-]
+
+nitpicky = True
 
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinx_issues",
+    "sphinxcontrib.googleanalytics",
 ]
-nitpicky = True
+intersphinx_mapping = {
+    # use None to auto-fetch objects.inv
+    "numpy": ("https://numpy.org/doc/1.26/", None),
+    "python": ("http://docs.python.org/3", None),
+}
 
 templates_path = ["_templates"]
 exclude_patterns: list[str] = []
 todo_include_todos = True
 
+googleanalytics_id = os.environ.get("GOOGLE_ANALYTICS_ID", "")
+if not googleanalytics_id:
+    googleanalytics_enabled = False
+
+issues_github_path = f"mirageoscience/{package_name}"
+
 # -- Options for auto-doc ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc
 
 autodoc_typehints = "signature"
+
+autodoc_mock_imports = [
+    "geoapps_utils",
+    "geoh5py",
+    "numpy",
+    "pydantic",
+    "scipy",
+    "skimage",
+    "tqdm",
+]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
