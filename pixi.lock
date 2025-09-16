@@ -2099,8 +2099,8 @@ packages:
   timestamp: 1749048166134
 - pypi: ./
   name: curve-apps
-  version: 0.2.2.dev34+4f14c79
-  sha256: 7c8971dea939766a79653c43009cf3bf4ad8d99e844a4bb46dd5b5a9643530f0
+  version: 0.2.2.dev46+d141df2
+  sha256: 0f09861ddc81bd307991192977f0bd7c4de7cc55d24e9bd3723b4e898ef0e232
   requires_dist:
   - geoapps-utils>=0.6.0a0,<0.7.dev0
   - geoh5py>=0.12.0a1,<0.13.dev0
