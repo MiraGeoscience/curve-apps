@@ -66,6 +66,17 @@ pydantic = "^2.5.2"  # also in geoh5py
 scikit-image = "^0.25.2"
 scipy = "~1.14.0"
 tqdm = "^4.66.1"
+dash  = "^3.0.4"
+dash-bootstrap-components = "^2.0.3"
+dash-ag-grid = "^32.3.1"
+dash-daq = {version="*", optional = true}
+
+dask = ">=2025.3, <2025.4.dev"  # also in simpeg[dask]
+distributed = ">=2025.3, <2025.4.dev"  # for dask[distributed]
+# pywebview = {version = "^6.0", source = "pypi"}
+pyqtwebengine = {version = ">=5.15.2, <5.16.dev", optional = true, python = "<3.11"}  # Tobe removed after migration to pywebview
+pyside2 = {version = ">=5.15.2, <5.16.dev", optional = true, python = "<3.11"}  # Tobe removed after migration to pywebview
+flask = {version="^3.0.3", optional = true}  # Tobe removed after migration to pywebview
 
 ## pip dependencies from Git repositories
 #----------------------------------------
