@@ -56,9 +56,14 @@ autodoc_typehints = "signature"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "alabaster"
-html_static_path = [""]
+html_logo = "_static/logo.png"
+
+html_static_path = ["_static/custom.css"]
 html_theme_options = {
-    'description': f"version {release}",
+    "logo_name": "peak-finder",
+    "fixed_sidebar": True,
+    "description": f"version {release}",
+    "show_relbars": True,
 }
 
 # Enable numref
