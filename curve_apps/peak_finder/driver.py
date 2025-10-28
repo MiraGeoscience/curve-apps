@@ -1,11 +1,12 @@
-# '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                     '
-#                                                                                   '
-#  This file is part of peak-finder-app package.                                    '
-#                                                                                   '
-#  peak-finder-app is distributed under the terms and conditions of the MIT License '
-#  (see LICENSE file at the root of this source code package).                      '
-# '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#                                                                              '
+#  This file is part of curve-apps package.                                    '
+#                                                                              '
+#  curve-apps is distributed under the terms and conditions of the MIT License '
+#  (see LICENSE file at the root of this source code package).                 '
+#                                                                              '
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 # pylint: disable=duplicate-code
 # ruff: noqa
@@ -19,7 +20,7 @@ from typing import cast
 import numpy as np
 from dask import compute, config, delayed
 from dask.diagnostics import ProgressBar
-from geoapps_utils.driver.driver import BaseDriver
+from geoapps_utils.base import Driver
 from geoapps_utils.utils.conversions import hex_to_rgb
 from geoh5py import Workspace
 from geoh5py.data import NumericData, ReferencedData
@@ -47,7 +48,7 @@ def line_computation(line_anomaly: LineAnomaly):
     return line_anomaly
 
 
-class PeakFinderDriver(BaseDriver):
+class PeakFinderDriver(Driver):
     _params_class: PeakFinderParams = PeakFinderParams  # type: ignore
     _validations = validations
 
