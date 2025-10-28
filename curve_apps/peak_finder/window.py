@@ -12,11 +12,9 @@ from __future__ import annotations
 
 import logging
 import threading
-from pathlib import Path
 
 import webview
 from dash import Dash
-from targeting_workflow import assets_path
 from waitress import serve
 
 
@@ -33,8 +31,6 @@ class DashWindow:
     :param port: The port to run the Dash server on (default: 8050).
     :param host: The host to run the Dash server (default: 127.0.0.1)
     """
-
-    _icon_path: Path = assets_path() / "icon/analyst.ico"
 
     def __init__(
         self, app: Dash, title: str, port: int = 8050, host: str = "127.0.0.1"
@@ -70,7 +66,7 @@ class DashWindow:
         )
 
         # the icon cannot work because not in QT
-        webview.start(icon=str(self._icon_path.resolve()))
+        webview.start()
 
     @classmethod
     def show_dash_app(cls, app: Dash, title: str, size=(1200, 800)):
