@@ -12,11 +12,11 @@ from __future__ import annotations
 
 import json
 
-import peak_finder
+import curve_apps
 
 
 defaults = {
-    "version": peak_finder.__version__,
+    "version": curve_apps.__version__,
     "title": "Peak Finder Parameters",
     "geoh5": None,
     "objects": None,
@@ -49,19 +49,19 @@ defaults = {
     "group_e_color": "#008000",
     "group_f_data": None,
     "group_f_color": "#FFA500",
-    "run_command": "peak_finder.application",
+    "run_command": "curve_apps.peak_finder.application",
     "monitoring_directory": None,
     "workspace_geoh5": None,
     "conda_environment": "peak-finder-app",
     "conda_environment_boolean": False,
 }
 
-file = peak_finder.assets_path() / "uijson/peak_finder.ui.json"
+file = curve_apps.assets_path() / "uijson/peak_finder.ui.json"
 
 with open(file, encoding="utf-8") as f:
     default_ui_json = json.load(f)
 
-default_ui_json["version"] = peak_finder.__version__
+default_ui_json["version"] = curve_apps.__version__
 
 # Over-write validations for jupyter app parameters
 validations = {
