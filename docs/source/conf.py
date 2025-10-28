@@ -35,29 +35,24 @@ autodoc_mock_imports = [
     "dash_daq",
     "dash_bootstrap_components",
 ]
-
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.todo",
 ]
 nitpicky = True
-
 templates_path = ["_templates"]
 exclude_patterns: list[str] = []
 todo_include_todos = True
 
 # -- Options for auto-doc ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc
-
 autodoc_typehints = "signature"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
 html_theme = "alabaster"
 html_logo = "_static/logo.png"
-
 html_static_path = ["_static/custom.css"]
 html_theme_options = {
     "logo_name": "peak-finder",
