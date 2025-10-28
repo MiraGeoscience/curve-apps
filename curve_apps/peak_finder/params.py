@@ -21,7 +21,7 @@ from geoh5py.groups import PropertyGroup, UIJsonGroup
 from geoh5py.objects import Curve
 from geoh5py.ui_json import InputFile
 from geoh5py.ui_json.utils import fetch_active_workspace
-from peak_finder.constants import default_ui_json, defaults, validations
+from curve_apps.peak_finder.constants import default_ui_json, defaults, validations
 
 
 class PeakFinderParams(BaseParams):  # pylint: disable=R0902, R0904
