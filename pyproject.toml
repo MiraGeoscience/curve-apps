@@ -73,7 +73,7 @@ dash-daq = {version="*", optional = true}
 
 dask = ">=2025.3, <2025.4.dev"  # also in simpeg[dask]
 distributed = ">=2025.3, <2025.4.dev"  # for dask[distributed]
-pywebview = {version = "^6.0", source = "pypi"}
+pywebview = "^6.0"
 waitress = "^3.0.2"
 
 ## pip dependencies from Git repositories
