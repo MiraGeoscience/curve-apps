@@ -49,7 +49,6 @@ class DashWindow:
 
     def _run_server(self):
         # run Dash in a thread, blocking=False
-        # self.app.run(debug=False, use_reloader=False, port=self.port)
         serve(self._app.server, host=self._host, port=self._port)
 
     def show(self, size: tuple[int, int] = (1200, 800)):
