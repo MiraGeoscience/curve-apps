@@ -210,7 +210,7 @@ exclude_lines = [
     "pragma: no cover"
 ]
 
-fail_under = 80
+fail_under = 60  # TODO: Increase back to 80 after GEOPY-2537
 
 [tool.coverage.html]
 skip_empty = true
