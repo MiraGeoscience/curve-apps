@@ -12,10 +12,18 @@ curve\_apps.edges.driver module
    :undoc-members:
    :show-inheritance:
 
-curve\_apps.edges.params module
--------------------------------
+curve\_apps.edges.options module
+--------------------------------
 
-.. automodule:: curve_apps.edges.params
+.. automodule:: curve_apps.edges.options
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: curve_apps.edges
    :members:
    :undoc-members:
    :show-inheritance:

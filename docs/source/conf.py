@@ -30,6 +30,10 @@ autodoc_mock_imports = [
     "geoapps_utils",
     "pydantic",
     "tqdm",
+    "webview",
+    "dash",
+    "dash_daq",
+    "dash_bootstrap_components",
 ]
 
 extensions = [
