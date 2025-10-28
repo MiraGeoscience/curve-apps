@@ -1,9 +1,9 @@
 .. _peak_finder:
 
-Peak-Finder
+Peak Finder
 ===========
 
-Peak-finder has been designed for the detection and grouping of time-domain
+Peak Finder has been designed for the detection and grouping of time-domain
 electromagnetic (TEM) anomalies measured along flight lines. Anomaly markers
 can be exported to `Geoscience ANALYST <https://www.mirageoscience.com/mining-industry-software/geoscience-analyst/>`_,
 along with various metrics for characterization and targeting.
