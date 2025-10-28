@@ -3349,34 +3349,34 @@ package:
   category: dev
   optional: true
 - name: psutil
-  version: 7.1.1
+  version: 7.1.2
   manager: conda
   platform: linux-64
   dependencies:
     __glibc: '>=2.17,<3.0.a0'
     libgcc: '>=14'
-    python: '>=3.12,<3.13.0a0'
+    python: ''
     python_abi: 3.12.*
-  url: https://repo.prefix.dev/conda-forge/linux-64/psutil-7.1.1-py312h4c3975b_0.conda
+  url: https://repo.prefix.dev/conda-forge/linux-64/psutil-7.1.2-py312h5253ce2_0.conda
   hash:
-    md5: 8713607fa1730cbd870fed86a3230926
-    sha256: 92fe5c84e6892262e2dfb2a1f90516eadf887b469805509b547c0575e2811901
+    md5: 6f536800cae48602ca168190f2e9ba5a
+    sha256: 4a1d77cf2be755610bb10ed5acd724a0e59da55c1c4ffaf076700bcb3a6bc84a
   category: main
   optional: false
 - name: psutil
-  version: 7.1.1
+  version: 7.1.2
   manager: conda
   platform: win-64
   dependencies:
-    python: '>=3.12,<3.13.0a0'
+    python: ''
     python_abi: 3.12.*
     ucrt: '>=10.0.20348.0'
     vc: '>=14.3,<15'
     vc14_runtime: '>=14.44.35208'
-  url: https://repo.prefix.dev/conda-forge/win-64/psutil-7.1.1-py312he06e257_0.conda
+  url: https://repo.prefix.dev/conda-forge/win-64/psutil-7.1.2-py312he5662c2_0.conda
   hash:
-    md5: 63a0c1ac90bff8fd180d1d541c46f73f
-    sha256: 30c5d43f57ab8e55269ffdf8473ffb87290827cdbadf0ab827f777027c8ecf6b
+    md5: a4fb68f49e57ae6a992a6de95e131bb1
+    sha256: 79947000217a3b6018d04689e556ba468d0f3dbd7ba1c62b2f106bd47623d282
   category: main
   optional: false
 - name: pthread-stubs
@@ -5265,7 +5265,7 @@ package:
   manager: pip
   platform: linux-64
   dependencies:
-    geoh5py: 0.12.0a2.dev199+f75f2110
+    geoh5py: 0.12.0b1
     numpy: '>=1.26.0,<1.27.0'
     pydantic: '>=2.5.2,<3.0.0'
     scipy: '>=1.14.0,<1.15.0'
@@ -5282,7 +5282,7 @@ package:
   manager: pip
   platform: win-64
   dependencies:
-    geoh5py: 0.12.0a2.dev199+f75f2110
+    geoh5py: 0.12.0b1
     numpy: '>=1.26.0,<1.27.0'
     pydantic: '>=2.5.2,<3.0.0'
     scipy: '>=1.14.0,<1.15.0'
@@ -5295,7 +5295,7 @@ package:
   category: main
   optional: false
 - name: geoh5py
-  version: 0.12.0a2.dev199+f75f2110
+  version: 0.12.0b1
   manager: pip
   platform: linux-64
   dependencies:
@@ -5312,7 +5312,7 @@ package:
   category: main
   optional: false
 - name: geoh5py
-  version: 0.12.0a2.dev199+f75f2110
+  version: 0.12.0b1
   manager: pip
   platform: win-64
   dependencies:
