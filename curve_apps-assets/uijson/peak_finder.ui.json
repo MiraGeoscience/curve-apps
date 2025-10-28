@@ -4,7 +4,7 @@
     "icon": "profile_drag_single",
     "documentation": "https://mirageoscience-peak-finder-app.readthedocs-hosted.com/en/latest/",
     "conda_environment": "peak-finder-app",
-    "run_command": "peak_finder.application",
+    "run_command": "curve_apps.peak_finder.application",
     "geoh5": "",
     "monitoring_directory": "",
     "objects": {
