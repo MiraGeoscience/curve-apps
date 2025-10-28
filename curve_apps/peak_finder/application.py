@@ -1,15 +1,12 @@
-# '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                     '
-#                                                                                   '
-#  This file is part of peak-finder-app package.                                    '
-#                                                                                   '
-#  peak-finder-app is distributed under the terms and conditions of the MIT License '
-#  (see LICENSE file at the root of this source code package).                      '
-# '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#
-#  This file is part of peak-finder-app.
-#
-#  All rights reserved.
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#                                                                              '
+#  This file is part of curve-apps package.                                    '
+#                                                                              '
+#  curve-apps is distributed under the terms and conditions of the MIT License '
+#  (see LICENSE file at the root of this source code package).                 '
+#                                                                              '
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 # pylint: disable=W0613, C0302, duplicate-code
 
@@ -20,12 +17,12 @@ import os
 import sys
 import uuid
 
+import dash_bootstrap_components as dbc
 import numpy as np
 import plotly.graph_objects as go
 from dash import Dash, callback_context, ctx, dcc, no_update
 from dash.dependencies import Input, Output, State
 from dash.exceptions import MissingCallbackContextException
-from flask import Flask
 from geoapps_utils.utils.plotting import format_axis, symlog
 from geoh5py.data import BooleanData, Data, ReferencedData
 from geoh5py.objects import Curve
@@ -33,8 +30,9 @@ from geoh5py.shared.utils import fetch_active_workspace
 from geoh5py.ui_json import InputFile
 from tqdm import tqdm
 
+from curve_apps import assets_path
 from curve_apps.peak_finder.anomaly_group import AnomalyGroup
-from curve_apps.peak_finder.dash_application import BaseDashApplication, ObjectSelection
+from curve_apps.peak_finder.base_dash import BaseDashApplication
 from curve_apps.peak_finder.driver import PeakFinderDriver
 from curve_apps.peak_finder.layout import peak_finder_layout
 from curve_apps.peak_finder.line_position import LinePosition
@@ -79,10 +77,6 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         super().__init__(params, ui_json_data=ui_json_data)
 
         self._app = None
-
-        # Start flask server
-        self.external_stylesheets = None
-        self.server = Flask(__name__)
 
         # Getting app layout
         with fetch_active_workspace(self.params.geoh5):
@@ -259,9 +253,9 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         """Dash app"""
         if self._app is None:
             self._app = Dash(
-                server=self.server,
-                url_base_pathname=os.environ.get("JUPYTERHUB_SERVICE_PREFIX", "/"),
-                external_stylesheets=self.external_stylesheets,
+                __name__,
+                assets_folder=str(assets_path() / "dash_assets"),
+                external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP],
             )
 
         return self._app
@@ -1995,7 +1989,11 @@ if __name__ == "__main__":
         with peak_parameters.geoh5.open(mode="r"):
             _ = peak_parameters.survey  # Trigger computation
             logger.info("Loaded. Launching peak finder app . . .")
-            ObjectSelection.run("Peak Finder", PeakFinder, peak_parameters)
+            PeakFinder(peak_parameters).run()
+
+        # Must kill the process to avoid dangling threads
+        os._exit(0)  # pylint: disable=protected-access
+
     else:
         logger.info("Loaded. Running peak finder driver . . .")
         PeakFinderDriver.start(FILE)
