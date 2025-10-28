@@ -73,10 +73,8 @@ dash-daq = {version="*", optional = true}
 
 dask = ">=2025.3, <2025.4.dev"  # also in simpeg[dask]
 distributed = ">=2025.3, <2025.4.dev"  # for dask[distributed]
-# pywebview = {version = "^6.0", source = "pypi"}
-pyqtwebengine = {version = ">=5.15.2, <5.16.dev", optional = true, python = "<3.11"}  # Tobe removed after migration to pywebview
-pyside2 = {version = ">=5.15.2, <5.16.dev", optional = true, python = "<3.11"}  # Tobe removed after migration to pywebview
-flask = {version="^3.0.3", optional = true}  # Tobe removed after migration to pywebview
+pywebview = {version = "^6.0", source = "pypi"}
+waitress = "^3.0.2"
 
 ## pip dependencies from Git repositories
 #----------------------------------------
@@ -113,6 +111,10 @@ platforms = ['win-64', 'linux-64']
 channels = ['conda-forge']
 
 [tool.conda-lock.dependencies]
+
+# force pywebview from pypi, since it is not published on any conda channel
+pywebview = {version = "^6.0", source = "pypi"}
+
 
 ## indirect dependencies, forcing them here for installation through Conda not pip
 #---------------------------------------------------------------------------------
