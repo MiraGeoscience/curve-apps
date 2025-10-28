@@ -3,7 +3,7 @@
     "title": "Peak Finder",
     "icon": "profile_drag_single",
     "documentation": "https://mirageoscience-peak-finder-app.readthedocs-hosted.com/en/latest/",
-    "conda_environment": "peak-finder-app",
+    "conda_environment": "curve_apps",
     "run_command": "curve_apps.peak_finder.application",
     "geoh5": "",
     "monitoring_directory": "",
