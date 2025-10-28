@@ -1,4 +1,4 @@
-.. _standalone_application:
+.. _peak_finder_standalone_application:
 
 Standalone Application
 ======================

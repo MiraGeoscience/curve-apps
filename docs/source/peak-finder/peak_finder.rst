@@ -12,8 +12,8 @@ along with various metrics for characterization and targeting.
 
 The peak-finder application can operate in two modes:
 
- - :ref:`Interactive <interactive_application>` (shown above)
- - :ref:`Standalone <standalone_application>`
+ - :ref:`Interactive <peak_finder_interactive_application>` (shown above)
+ - :ref:`Standalone <peak_finder_standalone_application>`
 
 While initially designed for TEM data, the same application can be used for
 characterization of anomalies of mixed data types (eg. magnetics, gravity,
