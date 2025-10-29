@@ -410,7 +410,7 @@ class PeakFinderDriver(Driver):
                             e,
                         )
 
-            if self.params.structural_markers and any(anom_locs):
+            if self.params.structural_markers and np.any(anom_locs):
                 anom_points = Points.create(
                     self.params.geoh5,
                     name="Anomalies",
