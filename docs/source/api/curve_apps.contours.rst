@@ -12,10 +12,18 @@ curve\_apps.contours.driver module
    :undoc-members:
    :show-inheritance:
 
-curve\_apps.contours.params module
-----------------------------------
+curve\_apps.contours.options module
+-----------------------------------
 
-.. automodule:: curve_apps.contours.params
+.. automodule:: curve_apps.contours.options
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: curve_apps.contours
    :members:
    :undoc-members:
    :show-inheritance:

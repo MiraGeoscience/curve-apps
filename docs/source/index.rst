@@ -12,6 +12,11 @@ open storage format.
             :align: left
             :width: 50%
 
+ - :ref:`Peak Finder <peak_finder>`.
+    .. figure:: ./images/peak_finder/interactive/visualizations.png
+            :align: left
+            :width: 40%
+
  - :ref:`Trend Lines <trend_lines>`.
     .. figure:: ./images/trend_lines/example_filtered_azimuth.png
             :align: left
@@ -28,6 +33,7 @@ Content
    usage
    edge_detection
    trend_lines
+   peak-finder/peak_finder
    api/curve_apps
    THIRD_PARTY_SOFTWARE
    release_notes

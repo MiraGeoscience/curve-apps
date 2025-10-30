@@ -1,5 +1,5 @@
-Modules
-=======
+API Reference
+=============
 
 Subpackages
 -----------
@@ -9,6 +9,7 @@ Subpackages
 
    curve_apps.contours
    curve_apps.edges
+   curve_apps.peak_finder
    curve_apps.trend_lines
 
 Submodules
@@ -26,6 +27,14 @@ curve\_apps.utils module
 ------------------------
 
 .. automodule:: curve_apps.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: curve_apps
    :members:
    :undoc-members:
    :show-inheritance:

@@ -37,6 +37,7 @@ repos:
             numpy==1.26.*,
             pydantic==2.5.*,
             types-toml,
+            types-waitress==3.0.*,
             types-PyYAML,
             tomli  # to read config from pyproject.toml
         ]

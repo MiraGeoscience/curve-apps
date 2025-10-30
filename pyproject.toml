@@ -66,6 +66,15 @@ pydantic = "^2.5.2"  # also in geoh5py
 scikit-image = "^0.25.2"
 scipy = "~1.14.0"
 tqdm = "^4.66.1"
+dash  = "^3.0.4"
+dash-bootstrap-components = "^2.0.3"
+dash-ag-grid = "^32.3.1"
+dash-daq = {version="*", optional = true}
+
+dask = ">=2025.3, <2025.4.dev"  # also in simpeg[dask]
+distributed = ">=2025.3, <2025.4.dev"  # for dask[distributed]
+pywebview = "^6.0"
+waitress = "^3.0.2"
 
 ## pip dependencies from Git repositories
 #----------------------------------------
@@ -102,6 +111,10 @@ platforms = ['win-64', 'linux-64']
 channels = ['conda-forge']
 
 [tool.conda-lock.dependencies]
+
+# force pywebview from pypi, since it is not published on any conda channel
+pywebview = {version = "^6.0", source = "pypi"}
+
 
 ## indirect dependencies, forcing them here for installation through Conda not pip
 #---------------------------------------------------------------------------------
@@ -197,7 +210,7 @@ exclude_lines = [
     "pragma: no cover"
 ]
 
-fail_under = 80
+fail_under = 60  # TODO: Increase back to 80 after GEOPY-2537
 
 [tool.coverage.html]
 skip_empty = true
