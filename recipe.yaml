@@ -74,6 +74,7 @@ about:
   license: MIT
   license_file:
     - LICENSE
+    - docs/source/THIRD_PARTY_SOFTWARE.rst
   homepage: https://www.mirageoscience.com/mining-industry-software/python-integration/
   repository: https://github.com/MiraGeoscience/curve-apps
   documentation: https://mirageoscience-curve-apps.readthedocs-hosted.com/
