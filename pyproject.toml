@@ -14,7 +14,7 @@ build-backend = "poetry_dynamic_versioning.backend"
 [project]
 name = "curve-apps"
 requires-python = ">=3.10,<4.0"
-description = "Applications for the creation and manipulation of curve objects stored in geoh5 format."
+description = "Auto-detection of trends and edges in geoscientific data."
 license = "MIT"
 license-files = [
     "LICENSE",
@@ -65,23 +65,39 @@ pydantic = "^2.5.2"  # also in geoh5py
 scikit-image = "^0.25.2"
 scipy = "~1.14.0"
 tqdm = "^4.66.1"
-dash  = "^3.0.4"
-dash-bootstrap-components = "^2.0.3"
-dash-ag-grid = "^32.3.1"
-dash-daq = {version="*", optional = true}
 
-dask = ">=2025.3, <2025.4.dev"  # also in simpeg[dask]
-distributed = ">=2025.3, <2025.4.dev"  # for dask[distributed]
-pywebview = "^6.0"
+## Dash and related packages
+#---------------------------
+dash = "^3.0.4"
+dash-ag-grid = "^32.3.1"
+dash-bootstrap-components = "^2.0.3"
+dash-daq = "0.6.*"
 waitress = "^3.0.2"
+
+## For concurrent execution and parallel processing
+#--------------------------------------------------
+# note: py-deps-clock defines custom mapping from dask to dask-core
+dask = ">=2025.3, <2025.4.dev"  # also in simpeg[dask]
+
+## For a native GUI window
+#-------------------------
+# not in conda, to be installed through pip only
+pywebview = { version = "^6.0", source="pypi", optional = true }
+
+## indirect dependencies though pywebview,
+# optional and forcing them through conda
+#--------------------------------------------------------
+bottle = { version = "*", optional = true }
+proxy-tools = { version = "*", optional = true }
+pythonnet = { version = "*", optional = true }
 
 ## pip dependencies from Git repositories
 #----------------------------------------
-geoh5py = {version = ">=0.12.0b1, <0.13.dev", source = "pypi", allow-prereleases = true}
-#geoh5py = {git = "https://github.com/MiraGeoscience/geoh5py.git", rev = "develop"}
+geoh5py = { version = ">=0.12.0b1, <0.13.dev", source = "pypi", allow-prereleases = true }
+#geoh5py = { git = "https://github.com/MiraGeoscience/geoh5py.git", rev = "develop" }
 
-geoapps-utils = {version = ">=0.6.0b1, <0.7.dev", source = "pypi", allow-prereleases = true}
-#geoapps-utils = {git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "develop"}
+geoapps-utils = { version = ">=0.6.0b1, <0.7.dev", source = "pypi", allow-prereleases = true }
+#geoapps-utils = { git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "develop" }
 
 ## about pip dependencies
 # to be specified to work with conda-lock
@@ -103,20 +119,30 @@ sphinx = "*"
 sphinx-autodoc-typehints = "*"
 sphinx-rtd-theme = "*"
 
+[tool.poetry.extras]
+webview = [
+    "pywebview",
+    "bottle",
+    "proxy-tools",
+    "pythonnet",
+]
+
 [tool.conda-lock]
 platforms = ['win-64', 'linux-64']
 channels = ['conda-forge']
 
 [tool.conda-lock.dependencies]
 
-# force pywebview from pypi, since it is not published on any conda channel
-pywebview = {version = "^6.0", source = "pypi"}
-
-
 ## indirect dependencies, forcing them here for installation through Conda not pip
 #---------------------------------------------------------------------------------
 h5py = ">=3.2.1, <4.0.dev"  # from geoh5py
 Pillow = ">=10.3.0, <10.4.dev"  # from geoh5py
+
+### Conda package is missing the Dash dependencies: list them explicitly
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dash-core-components = "2.*"
+dash-html-components = "2.*"
+dash-table = "5.*"
 
 [tool.poetry.requires-plugins]
 poetry-dynamic-versioning = { version = ">=1.9.1,<2.0.0", extras = ["plugin"] }
