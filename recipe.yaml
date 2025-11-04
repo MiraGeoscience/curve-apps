@@ -66,9 +66,11 @@ tests:
         - tests/
 
 about:
-  summary: Find edges on 2D grids or vertices.
+  summary: Auto-detection of trends and edges in geoscientific data.
   description: |
     Auto-detection of trends and edges in geoscientific data.
+    Includes the peak-finder application for the detection and grouping of time-domain
+    electromagnetic (TEM) anomalies measured along flight lines.
   license: MIT
   license_file:
     - LICENSE
