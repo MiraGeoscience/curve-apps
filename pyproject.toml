@@ -98,12 +98,10 @@ pylint = "*"
 pytest = "*"
 pytest-cov = "*"
 pyyaml = '*'
-jinja2 = '*'
 packaging = '*'
 sphinx = "*"
 sphinx-autodoc-typehints = "*"
 sphinx-rtd-theme = "*"
-tomli = "*"
 
 [tool.conda-lock]
 platforms = ['win-64', 'linux-64']

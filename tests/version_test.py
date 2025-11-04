@@ -7,6 +7,7 @@
 #  (see LICENSE file at the root of this source code package).                 '
 #                                                                              '
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 from __future__ import annotations
 
 import importlib
@@ -14,23 +15,16 @@ from pathlib import Path
 
 import pytest
 import yaml
-from jinja2 import Template
 from packaging.version import InvalidVersion, Version
 
 import curve_apps
 
 
 def get_conda_recipe_version():
-    path = Path(__file__).resolve().parents[1] / "recipe.yaml"
+    recipe_path = Path(__file__).resolve().parents[1] / "recipe.yaml"
 
-    with open(str(path), encoding="utf-8") as file:
-        content = file.read()
-
-    template = Template(content)
-    rendered_yaml = template.render()
-
-    recipe = yaml.safe_load(rendered_yaml)
-
+    with recipe_path.open(encoding="utf-8") as file:
+        recipe = yaml.safe_load(file)
     return recipe["context"]["version"]
 
 
@@ -75,7 +69,7 @@ def test_conda_version_is_consistent():
     assert conda_version == project_version
 
 
-def test_conda_version_is_pypi():
+def test_conda_version_is_pep440():
     version = Version(get_conda_recipe_version())
     assert version is not None
 
