@@ -3,3 +3,6 @@ py_versions:
   - "3.10"
   - "3.11"
   - "3.12"
+suffix_for_extras:
+  "": ["webview"]
+  "raw": [""]
