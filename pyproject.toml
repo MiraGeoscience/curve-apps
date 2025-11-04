@@ -74,12 +74,6 @@ dash-bootstrap-components = "^2.0.3"
 dash-daq = "0.6.*"
 waitress = "^3.0.2"
 
-### Conda package is missing the Dash dependencies: list them explicitly
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-dash-core-components = "3.*"
-dash-html-components = "3.*"
-dash-table = "5.*"
-
 ## For concurrent execution and parallel processing
 #--------------------------------------------------
 # note: py-deps-clock defines custom mapping from dask to dask-core
@@ -89,6 +83,13 @@ dask = ">=2025.3, <2025.4.dev"  # also in simpeg[dask]
 #-------------------------
 # not in conda, to be installed through pip only
 pywebview = { version = "^6.0", source="pypi", optional = true }
+
+## indirect dependencies though pywebview,
+# optional and forcing them through conda
+#--------------------------------------------------------
+bottle = { version = "*", optional = true }
+proxy-tools = { version = "*", optional = true }
+pythonnet = { version = "*", optional = true }
 
 ## pip dependencies from Git repositories
 #----------------------------------------
@@ -119,7 +120,12 @@ sphinx-autodoc-typehints = "*"
 sphinx-rtd-theme = "*"
 
 [tool.poetry.extras]
-webview = ["pywebview"]
+webview = [
+    "pywebview",
+    "bottle",
+    "proxy-tools",
+    "pythonnet",
+]
 
 [tool.conda-lock]
 platforms = ['win-64', 'linux-64']
@@ -131,6 +137,12 @@ channels = ['conda-forge']
 #---------------------------------------------------------------------------------
 h5py = ">=3.2.1, <4.0.dev"  # from geoh5py
 Pillow = ">=10.3.0, <10.4.dev"  # from geoh5py
+
+### Conda package is missing the Dash dependencies: list them explicitly
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dash-core-components = "2.*"
+dash-html-components = "2.*"
+dash-table = "5.*"
 
 [tool.poetry.requires-plugins]
 poetry-dynamic-versioning = { version = ">=1.9.1,<2.0.0", extras = ["plugin"] }

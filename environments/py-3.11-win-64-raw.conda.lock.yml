@@ -12,7 +12,6 @@ dependencies:
   - aom=3.9.1=he0c23c2_0
   - blinker=1.9.0=pyhff2d567_0
   - blosc=1.21.6=hfd34d9b_1
-  - bottle=0.13.4=pyhe01879c_0
   - brotli-python=1.2.0=py311h69b5583_0
   - bzip2=1.0.8=h0ad9c76_8
   - c-blosc2=2.22.0=h3cf07e4_0
@@ -25,7 +24,6 @@ dependencies:
   - charset-normalizer=3.4.4=pyhd8ed1ab_0
   - click=8.3.0=pyh7428d3b_0
   - cloudpickle=3.1.2=pyhd8ed1ab_0
-  - clr_loader=0.2.8=pyhd8ed1ab_0
   - colorama=0.4.6=pyhd8ed1ab_1
   - dash=3.2.0=pyhd8ed1ab_0
   - dash-ag-grid=32.3.2=pyhd8ed1ab_0
@@ -105,7 +103,6 @@ dependencies:
   - pillow=10.3.0=py311h5592be9_1
   - pip=25.2=pyh8b19718_0
   - plotly=6.3.1=pyhd8ed1ab_0
-  - proxy-tools=0.1.0=pyhd8ed1ab_0
   - pthread-stubs=0.4=h0e40799_1002
   - pycparser=2.22=pyh29332c3_1
   - pydantic=2.12.3=pyh3cfb1c2_0
@@ -113,7 +110,6 @@ dependencies:
   - pysocks=1.7.1=pyh09c184e_7
   - python=3.11.14=h0159041_2_cpython
   - python_abi=3.11=8_cp311
-  - pythonnet=3.0.5=pyhd8ed1ab_0
   - pywavelets=1.9.0=py311h17033d2_1
   - pyyaml=6.0.3=py311h3f79411_0
   - rav1e=0.7.1=ha073cba_3
@@ -154,7 +150,6 @@ dependencies:
   - pip:
     - geoapps-utils == 0.6.0b1 --hash=sha256:51278b061cb1a884c2609381c6189ac19ed84fc42a5bb81dd9a63f911a0f8d65
     - geoh5py == 0.12.0b3 --hash=sha256:59932ee0ba044509c4389b547d50e381f62e32eea8c5e22d69526880a37489b5
-    - pywebview == 6.1 --hash=sha256:2b552a340557e76a740b045a25937f72dae751e0985d5f5d9556f697ba622ec5
 
 variables:
   KMP_WARNINGS: 0
