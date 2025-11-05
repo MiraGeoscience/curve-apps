@@ -26,8 +26,6 @@ from geoh5py.objects import ObjectBase
 from geoh5py.shared.utils import fetch_active_workspace, is_uuid, stringify
 from geoh5py.workspace import Workspace
 
-from curve_apps.peak_finder.window import DashWindow
-
 
 # pylint: disable=too-many-positional-arguments
 
@@ -278,8 +276,9 @@ class BaseDashApplication(ABC):
         """
         Run the Dash app with the provided keyword arguments.
 
-        :param debug: If True, runs the app in debug mode. If None, uses the
-            app's debug setting.
+        :param debug: If True, runs the app in debug mode. If False,
+            runs the app in a native Windows, requiring the ``pywebview``
+            package to be installed.
         :param port: The port number to run the app on.
         :param use_reloader: If True, enables the reloader.
         :param dev_tools_hot_reload: If True, enables hot reloading of assets.
@@ -294,4 +293,7 @@ class BaseDashApplication(ABC):
                 **run_kwargs,
             )
         else:
+            # pylint: disable-next=import-outside-toplevel
+            from curve_apps.peak_finder.window import DashWindow
+
             DashWindow.show_dash_app(self.app, title=__name__)
