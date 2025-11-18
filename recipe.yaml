@@ -20,8 +20,6 @@ build:
   number: 0
   noarch: python
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  always_include_files:
-    - ${{ module_name }}/_version.py
 
 requirements:
   host:
