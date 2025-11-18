@@ -64,6 +64,9 @@ tests:
     files:
       source:
         - tests/
+  - package_contents:
+      files:
+        - curve_apps/_version.py
 
 about:
   summary: Auto-detection of trends and edges in geoscientific data.
