@@ -69,7 +69,7 @@ tests:
         - tests/
   - package_contents:
       files:
-        - ${{ module_name }}/_version.py
+        - site-packages/${{ module_name }}/_version.py
 
 about:
   summary: Auto-detection of trends and edges in geoscientific data.
