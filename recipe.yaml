@@ -55,9 +55,9 @@ requirements:
 tests:
   - python:
       imports:
-        - curve_apps
-        - curve_apps._version
-        - curve_apps.peak_finder
+        - ${{ module_name }}
+        - ${{ module_name }}._version
+        - ${{ module_name }}.peak_finder
         - dask
   - script:
       - pytest --ignore=tests/version_test.py
@@ -69,7 +69,7 @@ tests:
         - tests/
   - package_contents:
       files:
-        - curve_apps/_version.py
+        - ${{ module_name }}/_version.py
 
 about:
   summary: Auto-detection of trends and edges in geoscientific data.
