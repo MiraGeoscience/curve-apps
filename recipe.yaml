@@ -34,12 +34,12 @@ requirements:
     - geoh5py >=0.12.0a, <0.13.dev
     - geoapps-utils >=0.6.0a, <0.7.dev
     # other direct dependencies
-    - numpy >=1.26.0, <1.27.dev
-    - pydantic >=2.5.2, <3.0.dev
-    - scikit-image >=0.25.2, <0.26.dev
-    - scipy >=1.14.0, <1.15.dev
-    - tqdm >=4.66.1, <5.0.dev
-    - dask-core >=2025.3, <2025.4.dev
+    - numpy 1.26.*
+    - pydantic >=2.5.2, 2.*
+    - scikit-image >=0.25.2, 0.25.*
+    - scipy 1.14.*
+    - tqdm >=4.66.1, 4.*
+    - dask-core 2025.3.*
     # Dash and related dependencies
     - dash >=3.0.4, 3.*
     - dash-ag-grid >=32.3.1, 32.*
