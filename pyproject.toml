@@ -93,10 +93,10 @@ pythonnet = { version = "*", optional = true }
 
 ## pip dependencies from Git repositories
 #----------------------------------------
-geoh5py = { version = ">=0.12.0b5, 0.12.*", allow-prereleases = true }
+geoh5py = { version = ">=0.12.0b5, 0.12.*", source = "pypi", allow-prereleases = true }
 #geoh5py = { git = "https://github.com/MiraGeoscience/geoh5py.git", rev = "develop" }
 
-geoapps-utils = { version = ">=0.6.0b2, 0.6.*", allow-prereleases = true }
+geoapps-utils = { version = ">=0.6.0b2, 0.6.*", source = "pypi", allow-prereleases = true }
 #geoapps-utils = { git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "develop" }
 
 ## about pip dependencies
@@ -129,17 +129,15 @@ webview = [
 
 [tool.conda-lock]
 platforms = ['win-64', 'linux-64']
-channels = [
-    'https://$GEOPY_PACKAGING_ARTIFACTORY_USER:$GEOPY_PACKAGING_ARTIFACTORY_TOKEN@mirageoscienceltd.jfrog.io/artifactory/api/conda/public-noremote-conda-dev',
-    'conda-forge',  # with MAMBA_CHANNEL_ALIAS=https://repo.prefix.dev
-]
+channels = ['conda-forge']
 
 [tool.conda-lock.dependencies]
 
 ## indirect dependencies, forcing them here for installation through Conda not pip
 #---------------------------------------------------------------------------------
 h5py = ">=3.2.1, <4.0.dev"  # from geoh5py
-Pillow = ">=10.3.0, <10.4.dev"  # from geoh5py
+matplotlib-base = ">=3.8.4, <3.9.dev"  # from geoapps-utils
+pillow = ">=10.3.0, <10.4.dev"  # from geoh5py
 
 ### Conda package is missing the Dash dependencies: list them explicitly
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
