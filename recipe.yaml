@@ -49,6 +49,8 @@ requirements:
     - dash-html-components 2.*
     - dash-table 5.*
     - waitress >=3.0.2, 3.*
+  run_constraints:
+    - pywebview 6.*
 
 tests:
   - python:
