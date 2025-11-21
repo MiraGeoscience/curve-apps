@@ -113,7 +113,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-/py-*.conda-lock.yml
 
 # Spyder project settings
 .spyderproject
