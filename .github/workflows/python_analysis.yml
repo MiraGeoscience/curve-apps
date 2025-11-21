@@ -31,9 +31,13 @@ jobs:
       contents: read
       pull-requests: read
     with:
-      package-manager: 'conda'
       app-name: 'curve_apps'
+      package-manager: 'conda'
+      virtual-repo-names: '["public-noremote-conda-dev"]'
       python-version: '3.10'
+    secrets:
+      JFROG_ARTIFACTORY_URL: ${{ secrets.JFROG_ARTIFACTORY_URL }}
+      JFROG_ARTIFACTORY_TOKEN: ${{ secrets.JFROG_ARTIFACTORY_TOKEN }}
   call-workflow-pytest:
     name: Pytest
     uses: MiraGeoscience/CI-tools/.github/workflows/reusable-python-pytest.yml@v2
@@ -42,6 +46,7 @@ jobs:
       pull-requests: read
     with:
       package-manager: 'conda'
+      virtual-repo-names: '["public-noremote-conda-dev"]'
       python-versions: '["3.10", "3.11", "3.12"]'
       os: '["ubuntu-latest", "windows-latest"]'
       cache-number: 1
@@ -49,3 +54,5 @@ jobs:
       codecov-reference-os: '["windows-latest"]'
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      JFROG_ARTIFACTORY_URL: ${{ secrets.JFROG_ARTIFACTORY_URL }}
+      JFROG_ARTIFACTORY_TOKEN: ${{ secrets.JFROG_ARTIFACTORY_TOKEN }}
