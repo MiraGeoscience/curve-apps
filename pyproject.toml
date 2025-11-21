@@ -93,10 +93,10 @@ pythonnet = { version = "*", optional = true }
 
 ## pip dependencies from Git repositories
 #----------------------------------------
-geoh5py = { version = ">=0.12.0b1, <0.13.dev", source = "pypi", allow-prereleases = true }
+geoh5py = { version = ">=0.12.0b5, 0.12.*", allow-prereleases = true }
 #geoh5py = { git = "https://github.com/MiraGeoscience/geoh5py.git", rev = "develop" }
 
-geoapps-utils = { version = ">=0.6.0b1, <0.7.dev", source = "pypi", allow-prereleases = true }
+geoapps-utils = { version = ">=0.6.0b2, 0.6.*", allow-prereleases = true }
 #geoapps-utils = { git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "develop" }
 
 ## about pip dependencies
@@ -129,7 +129,10 @@ webview = [
 
 [tool.conda-lock]
 platforms = ['win-64', 'linux-64']
-channels = ['conda-forge']
+channels = [
+    'https://$GEOPY_PACKAGING_ARTIFACTORY_USER:$GEOPY_PACKAGING_ARTIFACTORY_TOKEN@mirageoscienceltd.jfrog.io/artifactory/api/conda/public-noremote-conda-dev',
+    'conda-forge',  # with MAMBA_CHANNEL_ALIAS=https://repo.prefix.dev
+]
 
 [tool.conda-lock.dependencies]
 
