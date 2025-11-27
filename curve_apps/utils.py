@@ -302,3 +302,25 @@ def filter_segments_orientation(
         np.abs(angles) < np.deg2rad(azimuth_tol),
         np.abs(angles - np.pi) < np.deg2rad(azimuth_tol),
     )
+
+
+def orientation_from_segments(
+    vertices: np.ndarray, cells: np.ndarray
+) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Compute orientation vectors from segments.
+
+    :param vertices: Segment vertices.
+    :param cells: Segment connectivity.
+
+    :return: Lengths and orientations of segments.
+    """
+    delta = np.c_[
+        vertices[cells[:, 1], 0] - vertices[cells[:, 0], 0],
+        vertices[cells[:, 1], 1] - vertices[cells[:, 0], 1],
+    ]
+    delta[delta[:, 0] < 0, :] *= -1
+    length = np.linalg.norm(delta, axis=1)
+    orientation = np.arccos(delta[:, 1] / length)
+
+    return length, orientation

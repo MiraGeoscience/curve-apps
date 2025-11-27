@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from curve_apps.driver import BaseCurveDriver
 from curve_apps.trend_lines.options import TrendLineParameters
-from curve_apps.utils import find_curves
+from curve_apps.utils import find_curves, orientation_from_segments
 
 
 logger = logging.getLogger(__name__)
@@ -60,6 +60,16 @@ class TrendLinesDriver(BaseCurveDriver):
             )
 
             if curve is not None and self.params.source.data is not None:
+                _, orientation = orientation_from_segments(curve.vertices, curve.cells)
+                curve.add_data(
+                    {
+                        "azimuth": {
+                            "values": np.degrees(orientation),
+                            "association": "CELL",
+                        },
+                    }
+                )
+
                 curve.add_data(
                     {
                         self.params.source.data.name: {

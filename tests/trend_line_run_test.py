@@ -136,6 +136,11 @@ def test_driver_points(tmp_path: Path):
             4: "D",
         }
 
+        orientations = edges.get_data("azimuth")[0]
+        assert orientations is not None
+        assert len(orientations.values) == 27
+        np.testing.assert_almost_equal(np.median(orientations.values), 35.0, decimal=1)
+
 
 def test_driver_points_no_parts(tmp_path: Path):
     workspace = Workspace.create(tmp_path / "test_trend_lines.geoh5")

@@ -30,6 +30,7 @@ from skimage.transform import (  # pylint: disable=no-name-in-module
 
 from curve_apps.driver import BaseCurveDriver
 from curve_apps.edges.options import EdgeDetectionParameters, EdgeParameters
+from curve_apps.utils import orientation_from_segments
 
 
 logger = logging.getLogger(__name__)
@@ -83,14 +84,7 @@ class EdgesDriver(BaseCurveDriver):
             )
 
             # Compute positive angle from North
-            # TODO: Move to geoapps-utils
-            delta = np.c_[
-                vertices[cells[:, 1], 0] - vertices[cells[:, 0], 0],
-                vertices[cells[:, 1], 1] - vertices[cells[:, 0], 1],
-            ]
-            delta[delta[:, 0] < 0, :] *= -1
-            amp = np.linalg.norm(delta, axis=1)
-            orientation = np.arccos(delta[:, 1] / amp)
+            length, orientation = orientation_from_segments(vertices, cells)
 
             # TODO: Assign values to vertices until better handling of cell data by GA
             vert_azimuth = np.zeros(curve.n_vertices) * np.nan
@@ -102,7 +96,7 @@ class EdgesDriver(BaseCurveDriver):
             )
 
             vert_lengths = np.zeros(curve.n_vertices) * np.nan
-            vert_lengths[cells.flatten()] = np.repeat(amp, 2)
+            vert_lengths[cells.flatten()] = np.repeat(length, 2)
             curve.add_data(
                 {
                     "lengths": {"values": vert_lengths},

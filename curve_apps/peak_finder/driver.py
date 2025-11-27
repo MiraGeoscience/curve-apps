@@ -401,6 +401,7 @@ class PeakFinderDriver(Driver):
                         out_trend = driver.make_curve()
 
                         if out_trend is not None:
+                            out_trend.parent = out_group
                             driver.add_ui_json(out_trend)
 
                     except QhullError as e:
