@@ -12,7 +12,7 @@ import pytest
 from geoh5py.objects import Grid2D, Points
 from geoh5py.workspace import Workspace
 
-from curve_apps.trend_lines.params import TrendLineDetectionParameters
+from curve_apps.trend_lines.options import TrendLineDetectionParameters
 from curve_apps.utils import (
     filter_segments_orientation,
     find_curves,
@@ -21,7 +21,7 @@ from curve_apps.utils import (
 
 
 def test_set_vertices_height(tmp_path):
-    ws = Workspace(tmp_path / "test.geoh5")
+    ws = Workspace.create(tmp_path / f"{__name__}.geoh5")
     vertices = np.c_[np.random.randn(10), np.random.randn(10), np.ones(10)]
     pts = Points.create(ws, vertices=vertices, name="my points")
     new_vertices = set_vertices_height(vertices[:, :2], pts)

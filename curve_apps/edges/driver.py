@@ -29,7 +29,7 @@ from skimage.transform import (  # pylint: disable=no-name-in-module
 )
 
 from curve_apps.driver import BaseCurveDriver
-from curve_apps.edges.params import EdgeDetectionParameters, EdgeParameters
+from curve_apps.edges.options import EdgeDetectionParameters, EdgeParameters
 
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ class EdgesDriver(BaseCurveDriver):
     :param parameters: Application parameters.
     """
 
-    _parameter_class = EdgeParameters
+    _params_class = EdgeParameters
 
     def __init__(self, parameters: EdgeParameters | InputFile):
         super().__init__(parameters)
@@ -76,7 +76,7 @@ class EdgesDriver(BaseCurveDriver):
             )
             curve = Curve.create(
                 workspace=workspace,
-                name=self.params.output.export_as,
+                name=self.params.export_as,
                 vertices=vertices,
                 cells=cells,
                 parent=self.out_group,
@@ -237,7 +237,4 @@ class EdgesDriver(BaseCurveDriver):
 
 if __name__ == "__main__":
     file = sys.argv[1]
-    ifile = InputFile.read_ui_json(file)
-
-    driver = EdgesDriver(ifile)
-    driver.run()
+    driver = EdgesDriver.start(file)

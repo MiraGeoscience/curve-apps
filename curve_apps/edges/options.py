@@ -13,9 +13,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import ClassVar
 
-from geoapps_utils.driver.data import BaseData
+from geoapps_utils.base import Options
 from geoh5py.data import FloatData
-from geoh5py.groups import UIJsonGroup
 from geoh5py.objects import Grid2D
 from pydantic import BaseModel, ConfigDict
 
@@ -56,21 +55,7 @@ class EdgeDetectionParameters(BaseModel):
     merge_length: float | None = None
 
 
-class EdgeOutputParameters(BaseModel):
-    """
-    Output parameters.
-
-    :param export_as: Name of the output entity.
-    :param out_group: Name of the output group.
-    """
-
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    export_as: str | None = "edges"
-    out_group: UIJsonGroup | None = None
-
-
-class EdgeParameters(BaseData):
+class EdgeParameters(Options):
     """
     Edge detection parameters for use with `edges.driver`.
 
@@ -86,5 +71,5 @@ class EdgeParameters(BaseData):
 
     conda_environment: str = "curve_apps"
     source: EdgeSourceParameters
-    detection: EdgeDetectionParameters
-    output: EdgeOutputParameters = EdgeOutputParameters()
+    detection: EdgeDetectionParameters = EdgeDetectionParameters()
+    export_as: str | None = "edges"

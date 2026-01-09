@@ -2,8 +2,9 @@ schema_version: 1
 
 context:
   name: "curve-apps"
-  version: "0.2.1"
+  version: "0.0.0.dev0"  # This will be replaced by the actual version in the build process
   python_min: "3.10"
+  module_name: ${{ name|lower|replace("-", "_") }}
 
 package:
   name: ${{ name|lower }}
@@ -23,25 +24,41 @@ build:
 requirements:
   host:
     - python ${{ python_min }}.*
-    - poetry-core >=1.0.0
+    - poetry-core >=1.8.0
+    - poetry-dynamic-versioning >=1.9, <2.0.dev
     - setuptools
     - pip
   run:
     - python >=${{ python_min }}
     # Mira packages
-    - geoh5py >=0.11.0, <0.12.dev
-    - geoapps-utils >=0.5.0, <0.6.dev
+    - geoh5py >=0.12.0b5, 0.12.*
+    - geoapps-utils >=0.6.0b2, 0.6.*
     # other direct dependencies
-    - numpy >=1.26.0, <1.27.dev
-    - pydantic >=2.5.2, <3.0.dev
-    - scikit-image >=0.24.0, <0.25.dev
-    - scipy >=1.14.0, <1.15.dev
-    - tqdm >=4.66.1, <5.0.dev
+    - numpy 1.26.*
+    - pydantic >=2.5.2, 2.*
+    - scikit-image >=0.25.2, 0.25.*
+    - scipy 1.14.*
+    - tqdm >=4.66.1, 4.*
+    - dask-core 2025.3.*
+    # Dash and related dependencies
+    - dash >=3.0.4, 3.*
+    - dash-ag-grid >=32.3.1, 32.*
+    - dash-bootstrap-components >=2.0.3, 2.*
+    - dash-core-components 2.*
+    - dash-daq 0.6.*
+    - dash-html-components 2.*
+    - dash-table 5.*
+    - waitress >=3.0.2, 3.*
+  run_constraints:
+    - pywebview 6.*
 
 tests:
   - python:
       imports:
-        - curve_apps
+        - ${{ module_name }}
+        - ${{ module_name }}._version
+        - ${{ module_name }}.peak_finder
+        - dask
   - script:
       - pytest --ignore=tests/version_test.py
     requirements:
@@ -50,14 +67,20 @@ tests:
     files:
       source:
         - tests/
+  - package_contents:
+      files:
+        - site-packages/${{ module_name }}/_version.py
 
 about:
-  summary: Find edges on 2D grids or vertices.
+  summary: Auto-detection of trends and edges in geoscientific data.
   description: |
     Auto-detection of trends and edges in geoscientific data.
+    Includes the peak-finder application for the detection and grouping of time-domain
+    electromagnetic (TEM) anomalies measured along flight lines.
   license: MIT
   license_file:
     - LICENSE
+    - docs/source/THIRD_PARTY_SOFTWARE.rst
   homepage: https://www.mirageoscience.com/mining-industry-software/python-integration/
   repository: https://github.com/MiraGeoscience/curve-apps
   documentation: https://mirageoscience-curve-apps.readthedocs-hosted.com/

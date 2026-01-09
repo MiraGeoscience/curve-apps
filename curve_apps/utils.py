@@ -19,8 +19,8 @@ from geoh5py.objects import Curve, Grid2D, ObjectBase, Points, Surface
 from scipy.interpolate import LinearNDInterpolator, interp1d
 from scipy.spatial import Delaunay
 
-from curve_apps.contours.params import ContourDetectionParameters
-from curve_apps.trend_lines.params import TrendLineDetectionParameters
+from curve_apps.contours.options import ContourDetectionParameters
+from curve_apps.trend_lines.options import TrendLineDetectionParameters
 
 
 def image_to_grid_coordinate_transfer(

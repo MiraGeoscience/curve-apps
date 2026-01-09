@@ -14,9 +14,8 @@ from pathlib import Path
 from typing import ClassVar
 
 import numpy as np
-from geoapps_utils.driver.data import BaseData
+from geoapps_utils.base import Options
 from geoh5py.data import Data
-from geoh5py.groups import UIJsonGroup
 from geoh5py.objects import Curve, Grid2D, Points, Surface
 from geoh5py.ui_json.utils import str2list
 from pydantic import BaseModel, ConfigDict, field_validator
@@ -65,19 +64,19 @@ class ContourDetectionParameters(BaseModel):
         if isinstance(val, list):
             if not all(isinstance(k, float) for k in val):
                 raise ValueError("List of fixed contours must contain only floats.")
-            fixed_contours = val
+            return val
 
-        elif isinstance(val, str):
-            fixed_contours = str2list(val)
+        if isinstance(val, str):
+            return str2list(val)
 
-        else:
+        if val is not None:
             raise ValueError(
                 "Fixed contours must be a list of floats, "
                 "a string containing comma separated numeric characters, "
                 "or None."
             )
 
-        return fixed_contours
+        return val
 
     @property
     def has_intervals(self) -> bool:
@@ -113,23 +112,7 @@ class ContourDetectionParameters(BaseModel):
         return contours
 
 
-class ContourOutputParameters(BaseModel):
-    """
-    Output parameters.
-
-    :param z_value: Use data values for curve height (z) channel
-    :param export_as: Name of the output entity.
-    :param out_group: Name of the output group.
-    """
-
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    z_value: bool = False
-    export_as: str | None = "Contours"
-    out_group: UIJsonGroup | None = None
-
-
-class ContourParameters(BaseData):
+class ContourParameters(Options):
     """
     Contour parameters for use with `contours.driver`.
 
@@ -145,5 +128,6 @@ class ContourParameters(BaseData):
 
     conda_environment: str = "curve_apps"
     source: ContourSourceParameters
-    detection: ContourDetectionParameters
-    output: ContourOutputParameters = ContourOutputParameters()
+    detection: ContourDetectionParameters = ContourDetectionParameters()
+    z_value: bool = False
+    export_as: str | None = "Contours"

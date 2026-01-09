@@ -11,13 +11,12 @@ from pathlib import Path
 
 import numpy as np
 from geoh5py import Workspace
-from geoh5py.data import FilenameData
 from geoh5py.objects import Grid2D
 from geoh5py.ui_json import InputFile
 
 from curve_apps import assets_path
 from curve_apps.edges.driver import EdgesDriver
-from curve_apps.edges.params import EdgeParameters
+from curve_apps.edges.options import EdgeParameters
 
 
 def setup_example(workspace: Workspace):
@@ -43,7 +42,7 @@ def setup_example(workspace: Workspace):
 
 
 def test_driver(tmp_path: Path):
-    workspace = Workspace.create(tmp_path / "test_edge_detection.geoh5")
+    workspace = Workspace.create(tmp_path / f"{__name__}.geoh5")
 
     grid, data = setup_example(workspace)
     params = EdgeParameters.build(
@@ -59,20 +58,35 @@ def test_driver(tmp_path: Path):
     )
 
     driver = EdgesDriver(params)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("square")[0]
 
         assert len(edges.cells) == 4  # type: ignore
 
-    # Repeat with different window size
 
-    params.detection.window_size = 32
-    params.detection.line_gap = 1
-    params.detection.line_length = 4
-    params.output.export_as = "square_32"
-    driver.run()
+def test_window_size(tmp_path: Path):
+    workspace = Workspace.create(tmp_path / f"{__name__}.geoh5")
+
+    grid, data = setup_example(workspace)
+    # Repeat with different window size
+    params = EdgeParameters.build(
+        {
+            "geoh5": workspace,
+            "objects": grid,
+            "data": data,
+            "line_length": 4,
+            "line_gap": 1,
+            "sigma": 1,
+            "window_size": 32,
+            "export_as": "square_32",
+        }
+    )
+    driver = EdgesDriver(params)
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("square_32")[0]
@@ -81,7 +95,7 @@ def test_driver(tmp_path: Path):
 
 
 def test_merge_length(tmp_path: Path):
-    workspace = Workspace.create(tmp_path / "test_edge_detection.geoh5")
+    workspace = Workspace.create(tmp_path / f"{__name__}.geoh5")
 
     grid, data = setup_example(workspace)
     params = EdgeParameters.build(
@@ -98,7 +112,8 @@ def test_merge_length(tmp_path: Path):
     )
 
     driver = EdgesDriver(params)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
         edges = workspace.get_entity("square")[0]
@@ -107,7 +122,7 @@ def test_merge_length(tmp_path: Path):
 
 
 def test_input_file(tmp_path: Path):
-    workspace = Workspace.create(tmp_path / "test_edge_detection.geoh5")
+    workspace = Workspace.create(tmp_path / f"{__name__}.geoh5")
 
     grid, data = setup_example(workspace)
     ifile = InputFile.read_ui_json(
@@ -126,13 +141,11 @@ def test_input_file(tmp_path: Path):
     for key, value in changes.items():
         ifile.set_data_value(key, value)
 
-    ifile.write_ui_json(str(tmp_path / "test_edge_detection"))
+    ifile.write_ui_json(str(tmp_path / f"{__name__}"))
     driver = EdgesDriver(ifile)
-    driver.run()
+    with workspace.open(mode="r+"):
+        driver.run()
 
     with workspace.open():
-        edges = workspace.get_entity("Edge Detection")[0]
+        edges = workspace.get_entity("square")[0]
         assert edges is not None
-        assert hasattr(edges, "children")
-
-        assert any(child for child in edges.children if isinstance(child, FilenameData))

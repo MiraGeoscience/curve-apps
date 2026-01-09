@@ -14,8 +14,17 @@ import logging
 from pathlib import Path
 
 
-__version__ = "0.2.1"
+try:
+    from ._version import __version__
+except ModuleNotFoundError:
+    from datetime import datetime
+
+    __date_str = datetime.today().strftime("%Y%m%d")
+    __version__ = "0.0.0.dev0+" + __date_str
+
 logging.basicConfig(level=logging.INFO)
+
+__all__ = ["assets_path"]
 
 
 def assets_path() -> Path:

@@ -21,7 +21,7 @@ from geoh5py.ui_json import InputFile, utils
 from tqdm import tqdm
 
 from curve_apps.driver import BaseCurveDriver
-from curve_apps.trend_lines.params import TrendLineParameters
+from curve_apps.trend_lines.options import TrendLineParameters
 from curve_apps.utils import find_curves
 
 
@@ -35,7 +35,7 @@ class TrendLinesDriver(BaseCurveDriver):
     :param parameters: Application parameters.
     """
 
-    _parameter_class = TrendLineParameters
+    _params_class = TrendLineParameters
 
     def __init__(self, parameters: TrendLineParameters | InputFile):
         super().__init__(parameters)
@@ -53,7 +53,7 @@ class TrendLinesDriver(BaseCurveDriver):
 
             curve = Curve.create(
                 workspace=workspace,
-                name=self.params.output.export_as,
+                name=self.params.export_as,
                 vertices=vertices,
                 cells=cells,
                 parent=self.out_group,
@@ -168,8 +168,4 @@ class TrendLinesDriver(BaseCurveDriver):
 
 if __name__ == "__main__":
     file = sys.argv[1]
-    # file = r"C:\Users\dominiquef\Desktop\parts.ui.json"
-    ifile = InputFile.read_ui_json(file)
-
-    driver = TrendLinesDriver(ifile)
-    driver.run()
+    driver = TrendLinesDriver.start(file)
