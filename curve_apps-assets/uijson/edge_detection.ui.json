@@ -72,7 +72,7 @@
         "main": true,
         "optional": true,
         "enabled": false,
-        "label": "Window Size (pixels)",
+        "label": "Window size (pixels)",
         "min": 16,
         "max": 512,
         "value": 64,
@@ -83,7 +83,7 @@
         "main": true,
         "optional": true,
         "enabled": false,
-        "label": "Merge Length (m)",
+        "label": "Merge length (m)",
         "min": 0,
         "value": 100.0,
         "tooltip": "If the distance between two nodes is less than this value, the nodes will be merged"

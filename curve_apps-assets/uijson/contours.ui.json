@@ -59,14 +59,14 @@
     "fixed_contours": {
         "group": "Contours",
         "main": true,
-        "label": "Fixed Contours",
+        "label": "Fixed contours",
         "value": "0",
         "optional": true,
         "enabled": false
     },
     "max_distance": {
         "enabled": true,
-        "label": "Max Interpolation Distance (m)",
+        "label": "Max interpolation distance (m)",
         "main": true,
         "value": 500.0
     },
