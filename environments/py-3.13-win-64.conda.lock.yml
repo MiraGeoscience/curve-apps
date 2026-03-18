@@ -107,7 +107,7 @@ dependencies:
   - narwhals=2.18.0=pyhcf101f3_0
   - nest-asyncio=1.6.0=pyhd8ed1ab_1
   - networkx=3.6.1=pyhcf101f3_0
-  - numpy=2.4.2=py313hce7ae62_1
+  - numpy=2.4.3=py313ha8dc839_0
   - openjpeg=2.5.4=h0e57b4f_0
   - openjph=0.26.3=hf13a347_0
   - openssl=3.6.1=hf411b9b_1
@@ -165,7 +165,7 @@ dependencies:
   - zstd=1.5.7=h534d264_6
   - pip:
     - geoapps-utils @ git+https://github.com/MiraGeoscience/geoapps-utils.git@fb86adf72fb82ea23c8904a39585982ca8793c52
-    - geoh5py @ git+https://github.com/MiraGeoscience/geoh5py.git@7e3b1de8e0eab8b7b7199487bab23d8bbf18ce26
+    - geoh5py @ git+https://github.com/MiraGeoscience/geoh5py.git@771ae87ccae825e2eae4058b5f51fd6d5f4791cf
     - pywebview == 6.1
 
 variables:

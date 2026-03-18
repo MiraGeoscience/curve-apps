@@ -51,7 +51,7 @@ dependencies:
   - hdf5=1.14.6=nompi_h19486de_106
   - hpack=4.1.0=pyhd8ed1ab_0
   - hyperframe=6.1.0=pyhd8ed1ab_0
-  - icu=78.2=h33c6efd_0
+  - icu=78.3=h33c6efd_0
   - idna=3.11=pyhd8ed1ab_0
   - imagecodecs=2026.3.6=py313h67fa517_1
   - imageio=2.37.0=pyhfb79c49_0
@@ -92,7 +92,7 @@ dependencies:
   - liblapack=3.11.0=5_h47877c9_openblas
   - liblzma=5.8.2=hb03c661_0
   - libmpdec=4.0.0=hb03c661_1
-  - libnghttp2=1.67.0=had1ee68_0
+  - libnghttp2=1.68.1=h877daf1_0
   - libopenblas=0.3.30=pthreads_h94d23a6_4
   - libpng=1.6.55=h421ea60_0
   - libsqlite=3.52.0=hf4e2dac_0
@@ -114,7 +114,7 @@ dependencies:
   - ncurses=6.5=h2d0b736_3
   - nest-asyncio=1.6.0=pyhd8ed1ab_1
   - networkx=3.6.1=pyhcf101f3_0
-  - numpy=2.4.2=py313hf6604e3_1
+  - numpy=2.4.3=py313hf6604e3_0
   - openjpeg=2.5.4=h55fea9a_0
   - openjph=0.26.3=h8d634f6_0
   - openssl=3.6.1=h35e630c_1
@@ -166,7 +166,7 @@ dependencies:
   - zstd=1.5.7=hb78ec9c_6
   - pip:
     - geoapps-utils @ git+https://github.com/MiraGeoscience/geoapps-utils.git@fb86adf72fb82ea23c8904a39585982ca8793c52
-    - geoh5py @ git+https://github.com/MiraGeoscience/geoh5py.git@7e3b1de8e0eab8b7b7199487bab23d8bbf18ce26
+    - geoh5py @ git+https://github.com/MiraGeoscience/geoh5py.git@771ae87ccae825e2eae4058b5f51fd6d5f4791cf
     - pywebview == 6.1
 
 variables:
