@@ -283,11 +283,12 @@ class LineGroup:
 
         return_groups: list[AnomalyGroup] = []
         all_starts = np.array([group.start for group in groups])
-        sort_inds = np.argsort(all_starts)
-        sorted_groups: list[AnomalyGroup] = list(np.array(groups)[sort_inds])
-
-        max_separation = np.ceil(self.max_separation / self.position.sampling)
-        neighbours_list = self.find_neighbour_groups(sorted_groups, max_separation)
+        sorted_groups: list[AnomalyGroup] = list(
+            np.array(groups)[np.argsort(all_starts)]
+        )
+        neighbours_list = self.find_neighbour_groups(
+            sorted_groups, np.ceil(self.max_separation / self.position.sampling)
+        )
 
         if len(neighbours_list) == 0:
             return return_groups
@@ -307,7 +308,7 @@ class LineGroup:
 
                 anomalies: list[Anomaly] = []
                 for ind in indices:
-                    anomalies += sorted_groups[ind].anomalies
+                    anomalies += sorted_groups[ind].anomalies.tolist()
 
                 new_group = AnomalyGroup(
                     anomalies,
