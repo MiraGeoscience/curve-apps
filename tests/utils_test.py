@@ -42,8 +42,8 @@ def curves_data_fixture() -> list:
         5 * np.sin(y_array) + 10,  # sinusoidal line
         0.7 * y_array + 20,  # crossing lines
         -0.4 * y_array + 50,
-        np.ones_like(y_array) * 80, # zig-zag
-        [None] * (len(y_array) - 1), # short line
+        np.ones_like(y_array) * 80,  # zig-zag
+        [None] * (len(y_array) - 1),  # short line
     ]
     curves[3][3] = 85
     curves[4][0:1] = [60, 62]  # type: ignore
