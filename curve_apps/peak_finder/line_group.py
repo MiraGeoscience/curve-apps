@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from curve_apps.peak_finder.anomaly import Anomaly
 from curve_apps.peak_finder.anomaly_group import AnomalyGroup
 from curve_apps.peak_finder.line_data import LineData
 from curve_apps.peak_finder.line_position import LinePosition
@@ -304,8 +305,12 @@ class LineGroup:
                 if len(indices) < self.n_groups:
                     continue
 
+                anomalies: list[Anomaly] = []
+                for ind in indices:
+                    anomalies += sorted_groups[ind].anomalies
+
                 new_group = AnomalyGroup(
-                    np.concatenate([sorted_groups[ind].anomalies for ind in indices]),
+                    anomalies,
                     self.property_group,
                     subgroups={sorted_groups[ind] for ind in indices},
                 )
