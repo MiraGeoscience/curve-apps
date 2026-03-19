@@ -534,7 +534,9 @@ def test_trend_line(tmp_path: Path):  # pylint: disable=too-many-locals
 
     curve = Curve.create(
         temp_ws,
-        vertices=np.c_[np.hstack(x_locs), np.hstack(y_locs), np.zeros_like(x_locs)],
+        vertices=np.c_[
+            np.hstack(x_locs), np.hstack(y_locs), np.zeros_like(np.hstack(x_locs))
+        ],
     )
 
     data = curve.add_data({"data": {"values": np.concatenate(data)}})
