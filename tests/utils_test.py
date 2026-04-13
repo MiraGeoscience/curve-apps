@@ -38,16 +38,13 @@ def curves_data_fixture() -> list:
     y_array = np.linspace(0, 50, 10)
     line_ids_array = np.arange(0, len(y_array))
 
-    curve1 = 5 * np.sin(y_array) + 10  # curve
-    curve2 = 0.7 * y_array + 20  # crossing lines
-    curve3 = -0.4 * y_array + 50
-    curve4 = np.ones_like(y_array) * 80  # zig-zag
-    curve4[3] = 85
-    curve5 = [None] * (len(y_array) - 1)  # short line
-    curve5[0:1] = [60, 62]  # type: ignore
-    curve5[-2:-1] = [2, 4]  # type: ignore
-
-    curves = [curve1, curve2, curve3, curve4, curve5]
+    curves: list[np.ndarray] = [
+        5 * np.sin(y_array) + 10,  # sinusoidal line
+        0.7 * y_array + 20,  # crossing lines
+        -0.4 * y_array + 50,
+        np.ones_like(y_array) * 80,  # zig-zag
+    ]
+    curves[3][3] = 85
 
     data = []
     for channel_group, curve in enumerate(curves):

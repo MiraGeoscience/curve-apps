@@ -117,7 +117,9 @@ def get_contour_list(params: ContourDetectionParameters) -> list[float]:
     """
 
     if (
-        None not in [params.interval_min, params.interval_max, params.interval_spacing]
+        params.interval_min is not None
+        and params.interval_max is not None
+        and params.interval_spacing is not None
         and params.interval_spacing != 0
     ):
         interval_contours = np.arange(

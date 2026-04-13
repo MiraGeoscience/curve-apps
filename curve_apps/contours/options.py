@@ -91,7 +91,12 @@ class ContourDetectionParameters(BaseModel):
     def intervals(self) -> list[float]:
         """Returns arange of requested contour intervals."""
 
-        if self.has_intervals:
+        if (
+            self.interval_min is not None
+            and self.interval_max is not None
+            and self.interval_spacing is not None
+            and self.interval_spacing != 0
+        ):
             intervals = np.arange(
                 self.interval_min,
                 self.interval_max + self.interval_spacing / 2,  # type: ignore
