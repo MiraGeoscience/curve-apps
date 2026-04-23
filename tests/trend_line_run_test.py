@@ -11,8 +11,11 @@
 from pathlib import Path
 
 import numpy as np
+import pytest
+from geoapps_utils.utils.importing import GeoAppsError
 from geoh5py import Workspace
 from geoh5py.data import ReferencedData
+from geoh5py.data.filename_data import FilenameData
 from geoh5py.objects import Curve, Points
 from geoh5py.ui_json import InputFile
 
@@ -234,3 +237,31 @@ def test_input_file(tmp_path: Path):
     with workspace.open():
         edges = workspace.get_entity("trends")[0]
         assert edges is not None
+        assert hasattr(edges, "children")
+        assert any(child for child in edges.children if isinstance(child, FilenameData))
+
+
+def test_validate_minimum_points(tmp_path):
+    with Workspace.create(tmp_path / "test.geoh5") as geoh5:
+        n_pts = 3
+        pts = Points.create(geoh5, vertices=np.random.rand(n_pts, 3))
+        data = pts.add_data(
+            {
+                "values": {
+                    "values": np.ones(n_pts),
+                    "value_map": {1: "A"},
+                    "type": "referenced",
+                },
+            }
+        )
+
+    with pytest.raises(GeoAppsError, match="at least 4 vertices"):
+        _ = TrendLineParameters.build(
+            **{
+                "geoh5": geoh5,
+                "entity": pts,
+                "data": data,
+                "export_as": "test",
+                "azimuth": 90,
+            }
+        )
