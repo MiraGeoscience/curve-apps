@@ -43,6 +43,7 @@ class TrendLineSourceParameters(BaseModel):
             raise ValueError(
                 "Source object must have at least 4 vertices for valid triangulation."
             )
+        return value
 
 
 class TrendLineDetectionParameters(BaseModel):
