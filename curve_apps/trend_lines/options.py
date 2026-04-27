@@ -38,7 +38,8 @@ class TrendLineSourceParameters(BaseModel):
 
     @field_validator("entity")
     @classmethod
-    def at_least_4_points(cls, value):
+    def at_least_4_vertices(cls, value):
+        """Prevents obscure Delaunay triangulation failure."""
         if len(value.vertices) < 4:
             raise ValueError(
                 "Source object must have at least 4 vertices for valid triangulation."
