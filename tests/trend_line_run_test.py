@@ -238,7 +238,7 @@ def test_input_file(tmp_path: Path):
         edges = workspace.get_entity("trends")[0]
         assert edges is not None
         assert hasattr(edges, "children")
-        assert any(child for child in edges.children if isinstance(child, FilenameData))
+        assert any(isinstance(child, FilenameData) for child in edges.children)
 
 
 def test_validate_minimum_points(tmp_path):
