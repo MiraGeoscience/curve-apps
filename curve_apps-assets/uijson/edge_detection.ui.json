@@ -90,7 +90,7 @@
     },
     "export_as": {
         "main": true,
-        "label": "Save as",
+        "label": "Name",
         "value": "edges",
         "group": "Output preferences"
     },
