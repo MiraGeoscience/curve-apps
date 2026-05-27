@@ -4,7 +4,7 @@ context:
   name: "curve-apps"
   # Extract version from auto-generated _version.json
   version: ${{ load_from_file("_version.json").version | trim }}
-  python_min: '3.12'
+  python_min: "3.12"
   module_name: ${{ name|lower|replace("-", "_") }}
 
 package:
