@@ -1,4 +1,4 @@
-# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+﻿# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 #  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
@@ -7,7 +7,6 @@
 #  (see LICENSE file at the root of this source code package).                 '
 #                                                                              '
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
 from __future__ import annotations
 
 import importlib
@@ -47,7 +46,10 @@ def _version_module_exists():
 
 def test_conda_recipe_version_loads_json():
     conda_version_def = _get_conda_recipe_version_def()
-    regex = r"\$\{\{\s*load_from_file\(\s*['\"](_version\.json)['\"]\s*\)\s*\.version\b.*\}\}"
+    regex = (
+        r"\$\{\{\s*load_from_file\(\s*['\"](_version\.json)['\"]\s*\)"
+        r"\s*\.version\b.*\}\}"
+    )
     regex_match = re.match(regex, conda_version_def)
     assert regex_match is not None
 
