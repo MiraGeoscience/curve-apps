@@ -85,7 +85,7 @@
     "export_as": {
         "group": "Output",
         "main": true,
-        "label": "Save as",
+        "label": "Name",
         "value": "contours"
     },
     "out_group": {
