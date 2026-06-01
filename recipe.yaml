@@ -12,9 +12,6 @@ package:
   version: "${{ version }}"
 
 source:
-  # url: https://github.com/MiraGeoscience/{{ name }}/archive/v{{ version }}.tar.gz
-  # sha256: d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed
-  # curl -sL https://github.com/MiraGeoscience/{{ name }}/archive/v{{ version }}.tar.gz | openssl sha256
   path: ../${{ name }}
 
 build:
