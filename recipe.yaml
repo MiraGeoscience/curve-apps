@@ -2,37 +2,38 @@ schema_version: 1
 
 context:
   name: "curve-apps"
-  version: "0.0.0.dev0"  # This will be replaced by the actual version in the build process
   python_min: "3.12"
+  # Extract version from auto-generated _version.json
+  version: "${{ load_from_file('_version.json').version | trim }}"
   module_name: ${{ name|lower|replace("-", "_") }}
 
 package:
   name: ${{ name|lower }}
-  version: ${{ version }}
+  version: "${{ version }}"
 
 source:
-  # url: https://github.com/MiraGeoscience/{{ name }}/archive/v{{ version }}.tar.gz
-  # sha256: d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed
-  # curl -sL https://github.com/MiraGeoscience/{{ name }}/archive/v{{ version }}.tar.gz | openssl sha256
   path: ../${{ name }}
 
 build:
   number: 0
   noarch: python
-  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  script:
+    env:
+      POETRY_DYNAMIC_VERSIONING_BYPASS: "${{ version }}"
+    content:
+      ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - python ${{ python_min }}.*
+    - pip
     - poetry-core >=1.8.0
     - poetry-dynamic-versioning >=1.9, <2.0.dev
-    - setuptools
-    - pip
   run:
     - python >=${{ python_min }}
     # Mira packages
-    - geoh5py >=0.13.0a2, 0.13.*
-    - geoapps-utils >=0.7.0a2, 0.7.*
+    - geoh5py >=0.13.0b1, 0.13.*
+    - geoapps-utils >=0.7.0b1, 0.7.*
     # other direct dependencies
     - numpy >=2.4.2, 2.4.*
     - pydantic >=2.12.0, <2.13
@@ -54,6 +55,7 @@ requirements:
 
 tests:
   - python:
+      python_version: ${{ python_min }}.*
       imports:
         - ${{ module_name }}
         - ${{ module_name }}._version
@@ -88,4 +90,6 @@ about:
 extra:
   recipe-maintainers:
     - andrewg-mira
+    - domfournier
+    - RomFloreani
     - sebhmg
