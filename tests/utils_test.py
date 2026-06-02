@@ -16,6 +16,7 @@ from curve_apps.trend_lines.options import TrendLineDetectionParameters
 from curve_apps.utils import (
     filter_segments_orientation,
     find_curves,
+    orientation_from_segments,
     set_vertices_height,
 )
 
@@ -158,3 +159,23 @@ def test_filter_segments_orientation():
 
     ind = filter_segments_orientation(points, segments, 5, 1)
     assert ~np.all(ind)  # pylint: disable=invalid-unary-operand-type
+
+
+def test_orientation_from_segments():
+    cells = np.array([[0, 1], [1, 2]])
+
+    vertices = np.array([[0, 0], [1, 0], [2, 1]])
+    lengths, orientations = orientation_from_segments(vertices, cells)
+    assert np.allclose(lengths, [1, np.sqrt(2)])
+    assert np.allclose(orientations, [np.deg2rad(90), np.deg2rad(45)])
+
+    vertices = np.array([[0, 0], [0, 1], [-1, 2]])
+    lengths, orientations = orientation_from_segments(vertices, cells)
+    assert np.allclose(lengths, [1, np.sqrt(2)])
+    assert np.allclose(orientations, [np.deg2rad(0), np.deg2rad(135)])
+
+    vertices = np.array([[0, 0], [0, 0], [0, 1]])
+    lengths, orientations = orientation_from_segments(vertices, cells)
+    assert np.allclose(lengths, [0, 1])
+    assert np.isnan(orientations[0])
+    assert np.isclose(orientations[1], np.deg2rad(0))

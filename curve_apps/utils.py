@@ -323,6 +323,8 @@ def orientation_from_segments(
     ]
     delta[delta[:, 0] < 0, :] *= -1
     length = np.linalg.norm(delta, axis=1)
-    orientation = np.arccos(delta[:, 1] / length)
+    non_zero = length != 0
+    orientation = np.full(len(delta), np.nan)
+    orientation[non_zero] = np.arccos(delta[non_zero, 1] / length[non_zero])
 
     return length, orientation
