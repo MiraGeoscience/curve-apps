@@ -61,14 +61,14 @@
         "main": true,
         "optional": true,
         "enabled": false,
-        "label": "Maximum distance:",
+        "label": "Maximum distance",
         "min": 1,
         "value": 1
     },
     "damping": {
         "group": "Connection filters",
         "main": true,
-        "label": "Damping factor:",
+        "label": "Damping factor",
         "value": 1.0,
         "min": 0.0,
         "precision": 2,
