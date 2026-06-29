@@ -86,7 +86,6 @@ class EdgesDriver(BaseCurveDriver):
             # Compute positive angle from North
             length, orientation = orientation_from_segments(vertices, cells)
 
-            # TODO: Assign values to vertices until better handling of cell data by GA
             vert_azimuth = np.zeros(curve.n_vertices) * np.nan
             vert_azimuth[cells.flatten()] = np.repeat(orientation, 2)
             curve.add_data(
@@ -209,7 +208,6 @@ class EdgesDriver(BaseCurveDriver):
         x_limits = get_overlapping_limits(canny_image.shape[0], width)
         y_limits = get_overlapping_limits(canny_image.shape[1], width)
 
-        # TODO: Loop in parallel
         indices = []
         for x_lim in x_limits:
             for y_lim in y_limits:
