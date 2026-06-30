@@ -35,7 +35,6 @@ class BaseCurveDriver(Driver):
         if isinstance(parameters, InputFile):
             parameters = self._params_class.build(parameters)
 
-        # TODO need to re-type params in base class
         super().__init__(parameters)
 
     @abstractmethod

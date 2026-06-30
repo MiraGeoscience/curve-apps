@@ -201,7 +201,6 @@ class PeakFinderDriver(Driver):
 
         return indices_dict
 
-    # TODO: Refactor this method to reduce complexity
     def run(self):  # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         with fetch_active_workspace(self.params.geoh5, mode="r+"):
             survey = self.params.objects
