@@ -17,7 +17,7 @@ import numpy as np
 from geoapps_utils.utils.formatters import string_name
 from geoapps_utils.utils.transformations import rotate_xyz
 from geoh5py.objects import Curve, Grid2D
-from geoh5py.ui_json import InputFile, utils
+from geoh5py.ui_json import utils
 from skimage import measure
 
 from curve_apps.contours.options import ContourParameters
@@ -40,9 +40,6 @@ class ContoursDriver(BaseCurveDriver):
     """
 
     _params_class = ContourParameters
-
-    def __init__(self, parameters: ContourParameters | InputFile):
-        super().__init__(parameters)
 
     def make_curve(self):
         """

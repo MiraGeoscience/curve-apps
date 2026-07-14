@@ -27,7 +27,7 @@ from geoapps_utils.utils.plotting import format_axis, symlog
 from geoh5py.data import BooleanData, Data, ReferencedData
 from geoh5py.objects import Curve
 from geoh5py.shared.utils import fetch_active_workspace
-from geoh5py.ui_json import InputFile
+from geoh5py.ui_json import UIJson
 from tqdm import tqdm
 
 from curve_apps import assets_path
@@ -1889,21 +1889,7 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         return figure
 
     def trigger_click(  # pylint: disable=too-many-arguments, too-many-locals
-        self,
-        n_clicks: int,
-        flip_sign: list[bool],
-        trend_lines: list[bool],
-        masking_data: str | None,
-        smoothing: float,
-        min_amplitude: float,
-        min_value: float,
-        min_width: float,
-        max_migration: float,
-        min_channels: int,
-        n_groups: int,
-        max_separation: float,
-        selected_line: int,
-        ga_group_name: str,
+        self, **kwargs
     ) -> list[str]:
         """
         Write output ui.json file and workspace, run driver.
@@ -1927,7 +1913,7 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         """
         # Update self.params from dash component values
         with fetch_active_workspace(self.params.geoh5) as workspace:
-            param_dict = self.get_params_dict(locals())
+            param_dict = self.get_params_dict(kwargs)
             param_dict.update(
                 {
                     "geoh5": workspace,
@@ -1936,9 +1922,6 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
                     "monitoring_directory": self.params.monitoring_directory,
                 }
             )
-
-            if masking_data == "None":
-                param_dict["masking_data"] = None
 
             if self.property_groups is not None:
                 p_g_new = {
@@ -1949,12 +1932,10 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
                     param_dict[f"group_{value['param']}_color"] = value["color"]
 
         # Write output uijson.
-        new_params = PeakFinderParams(**param_dict, validate=False)
+        new_params = PeakFinderParams(**param_dict)
         name = workspace.h5file.stem.replace(".ui", "")
-        new_params.write_input_file(
-            name=name + ".ui.json",
-            path=workspace.h5file.parent,
-            validate=False,
+        new_params.write_ui_json(
+            (workspace.h5file.parent / name).with_suffix(".ui.json"),
         )
 
         driver = PeakFinderDriver(new_params)
@@ -1982,10 +1963,9 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
 if __name__ == "__main__":
     logger.info("Loading the geoh5 file . . .")
     FILE = sys.argv[1]
-    ifile = InputFile.read_ui_json(FILE)
-    if ifile.data["launch_dash"]:
-        peak_parameters = PeakFinderParams(input_file=ifile)
-
+    ifile = UIJson.read(FILE)
+    peak_parameters = PeakFinderParams.build(ifile)
+    if peak_parameters.launch_dash:
         with peak_parameters.geoh5.open(mode="r"):
             _ = peak_parameters.survey  # Trigger computation
             logger.info("Loaded. Launching peak finder app . . .")
@@ -1996,5 +1976,5 @@ if __name__ == "__main__":
 
     else:
         logger.info("Loaded. Running peak finder driver . . .")
-        PeakFinderDriver.start(FILE)
+        PeakFinderDriver.start(peak_parameters)
     logger.info("Done")

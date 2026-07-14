@@ -21,7 +21,7 @@ from geoapps_utils.utils.locations import (
 )
 from geoh5py.data import FloatData
 from geoh5py.objects import Curve, Grid2D
-from geoh5py.ui_json import InputFile, utils
+from geoh5py.ui_json import utils
 from scipy.spatial import cKDTree
 from skimage.feature import canny  # pylint: disable=no-name-in-module
 from skimage.transform import (  # pylint: disable=no-name-in-module
@@ -44,9 +44,6 @@ class EdgesDriver(BaseCurveDriver):
     """
 
     _params_class = EdgeParameters
-
-    def __init__(self, parameters: EdgeParameters | InputFile):
-        super().__init__(parameters)
 
     def make_curve(self):
         """

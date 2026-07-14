@@ -10,7 +10,7 @@
 import numpy as np
 import pytest
 from geoh5py.objects import Grid2D, Points
-from geoh5py.ui_json import InputFile
+from geoh5py.ui_json import UIJson
 from geoh5py.workspace import Workspace
 
 from curve_apps import assets_path
@@ -49,11 +49,11 @@ def test_edge_detection_params(tmp_path):
 
     params.write_ui_json(tmp_path / "validation.ui.json")
 
-    ifile = InputFile.read_ui_json(tmp_path / "validation.ui.json")
-    assert ifile.data["objects"].uid == grid.uid
-    assert ifile.data["data"].uid == data.uid
-    assert ifile.data["line_length"] == 2
-    assert ifile.data["line_gap"] == 1
+    ifile = UIJson.read(tmp_path / "validation.ui.json")
+    assert ifile.objects.value == grid.uid  # type: ignore[attr-defined]
+    assert ifile.data.value == data.uid  # type: ignore[attr-defined]
+    assert ifile.line_length.value == 2  # type: ignore[attr-defined]
+    assert ifile.line_gap.value == 1  # type: ignore[attr-defined]
 
 
 def test_update_input_file(tmp_path):
@@ -68,7 +68,7 @@ def test_update_input_file(tmp_path):
         detection=ContourDetectionParameters(fixed_contours=[0.1]),
     )
 
-    assert params.input_file.data["fixed_contours"] == [0.1]
+    assert params.ui_json.to_params()["fixed_contours"] == "0.1"
 
 
 def test_contour_detection_params():
@@ -134,13 +134,10 @@ def test_contour_params_from_uijson(tmp_path):
         "export_as": "my contours",
     }
 
-    ifile = InputFile.read_ui_json(
-        assets_path() / "uijson/contours.ui.json", validate=False
-    )
-    for k, v in updates.items():
-        ifile.set_data_value(k, v)
+    ifile = UIJson.read(assets_path() / "uijson/contours.ui.json")
 
-    params = ContourParameters.build(ifile)
+    ifile.set_values(**updates)
+    params = ContourParameters.build(ifile, workspace=ws)
     assert params.geoh5 == ws
     assert params.source.objects == updates["objects"]
     assert params.source.data == updates["data"]

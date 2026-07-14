@@ -14,7 +14,6 @@ import logging
 from abc import abstractmethod
 
 from geoapps_utils.base import Driver, Options
-from geoh5py.ui_json import InputFile
 from geoh5py.ui_json.utils import fetch_active_workspace
 
 
@@ -29,13 +28,6 @@ class BaseCurveDriver(Driver):
     """
 
     _params_class: type[Options]
-
-    def __init__(self, parameters: Options | InputFile):
-        self._out_group = None
-        if isinstance(parameters, InputFile):
-            parameters = self._params_class.build(parameters)
-
-        super().__init__(parameters)
 
     @abstractmethod
     def make_curve(self):

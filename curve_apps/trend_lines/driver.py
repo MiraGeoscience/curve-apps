@@ -17,7 +17,7 @@ import sys
 
 import numpy as np
 from geoh5py.objects import Curve
-from geoh5py.ui_json import InputFile, utils
+from geoh5py.ui_json import utils
 from tqdm import tqdm
 
 from curve_apps.driver import BaseCurveDriver
@@ -36,9 +36,6 @@ class TrendLinesDriver(BaseCurveDriver):
     """
 
     _params_class = TrendLineParameters
-
-    def __init__(self, parameters: TrendLineParameters | InputFile):
-        super().__init__(parameters)
 
     def make_curve(self):
         """Make curve object from trend lines detected in source data."""

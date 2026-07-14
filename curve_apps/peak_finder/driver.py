@@ -24,7 +24,7 @@ from geoapps_utils.base import Driver
 from geoapps_utils.utils.conversions import hex_to_rgb
 from geoh5py import Workspace
 from geoh5py.data import NumericData, ReferencedData
-from geoh5py.groups import PropertyGroup, UIJsonGroup
+from geoh5py.groups import PropertyGroup
 from geoh5py.objects import Curve, Points
 from geoh5py.shared.utils import fetch_active_workspace
 from scipy.spatial import QhullError
@@ -208,15 +208,10 @@ class PeakFinderDriver(Driver):
             if survey is None:
                 raise ValueError("Survey object not found.")
 
-            out_group = self.params.out_group
+            out_group = self.out_group
 
             if out_group is None:
-                out_group = UIJsonGroup.create(
-                    self.params.geoh5,
-                    name=self.params.ga_group_name,
-                )
-                self.params.input_file.data = self.params.to_dict()
-                out_group.options = self.params.to_dict(ui_json_format=True)
+                out_group = self.to_out_group(name=self.params.ga_group_name)
 
             channel_groups = self.params.get_property_groups()
             # Create reference values and color_map
@@ -256,15 +251,7 @@ class PeakFinderDriver(Driver):
                 if False in masking_array:
                     survey.remove_vertices(~masking_array)
 
-                if self.params.line_field is not None:
-                    new_line_id = survey.get_entity(self.params.line_field.uid)[0]
-                else:
-                    new_line_id = self.params.get_line_field(survey)
-
-                if isinstance(new_line_id, ReferencedData):
-                    self.params.line_field = new_line_id
-
-            line_field_obj = self.params.get_line_field(survey)
+            line_field_obj = self.get_line_field(survey)
 
             if (
                 not isinstance(line_field_obj, ReferencedData)
@@ -401,7 +388,7 @@ class PeakFinderDriver(Driver):
 
                         if out_trend is not None:
                             out_trend.parent = out_group
-                            driver.add_ui_json(out_trend)
+                            params.ui_json.to_file_data(out_trend)
 
                     except QhullError as e:
                         logger.info(
@@ -446,6 +433,35 @@ class PeakFinderDriver(Driver):
         if not isinstance(val, PeakFinderParams):
             raise TypeError("Parameters must be of type BaseParams.")
         self._params = val
+
+    def get_line_field(self, survey: Curve) -> ReferencedData:
+        """
+        Get the line field object.
+        """
+        if self.params.line_field is not None:
+            line_field = survey.get_entity(self.params.line_field.uid)[0]
+
+            if not isinstance(line_field, ReferencedData):
+                raise TypeError(
+                    "Selected data for 'line_field' is not a ReferencedData."
+                )
+
+            return line_field
+
+        unique_parts = np.unique(survey.parts.astype(int)) + 1
+        line_field_obj = survey.add_data(
+            {
+                "Line ID": {
+                    "values": survey.parts.astype(int) + 1,
+                    "value_map": {ind: f"Line {ind}" for ind in unique_parts},
+                    "type": "referenced",
+                }
+            }
+        )
+        if not isinstance(line_field_obj, ReferencedData):
+            raise TypeError("Issue creating a ReferencedData'line_field'.")
+
+        return line_field_obj
 
 
 if __name__ == "__main__":

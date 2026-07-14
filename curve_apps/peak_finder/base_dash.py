@@ -19,11 +19,10 @@ from typing import Any
 
 from dash import Dash, dcc
 from dash.development.base_component import Component
-from geoapps_utils.base import Driver
-from geoapps_utils.driver.params import BaseParams
+from geoapps_utils.base import Driver, Options
 from geoh5py.data import Data
 from geoh5py.objects import ObjectBase
-from geoh5py.shared.utils import fetch_active_workspace, is_uuid, stringify
+from geoh5py.shared.utils import fetch_active_workspace, is_uuid
 from geoh5py.workspace import Workspace
 
 
@@ -35,12 +34,12 @@ class BaseDashApplication(ABC):
     Base class for geoapps dash applications
     """
 
-    _param_class: type = BaseParams
-    _driver_class: Driver | None = None
+    _param_class: type
+    _driver_class: Driver
 
     def __init__(
         self,
-        params: BaseParams,
+        params: Options,
         ui_json_data: dict | None = None,
     ):
         """
@@ -49,10 +48,9 @@ class BaseDashApplication(ABC):
         self._app_initializer: dict | None = None
         self._workspace: Workspace | None = None
 
-        if not isinstance(params, BaseParams):
+        if not isinstance(params, Options):
             raise TypeError(
-                f"Input parameters must be an instance of {BaseParams}. "
-                f"Got {type(params)}"
+                f"Input parameters must be an instance of {Options}. Got {type(params)}"
             )
 
         self._params = params
@@ -62,7 +60,7 @@ class BaseDashApplication(ABC):
                 for key, value in ui_json_data.items():
                     setattr(self.params, key, value)
 
-        json_data = stringify(self.params.to_dict())
+        json_data = self.params.serialize()
 
         self._ui_json_data = json_data
 
@@ -135,38 +133,30 @@ class BaseDashApplication(ABC):
             return {}
 
         output_dict: dict[str, Any] = {}
-        # Get validations to know expected type for keys in self.params.
-        validations = self.params.validations
-
         # Loop through self.params and update self.params with locals_dict.
-        for key in self.params.to_dict():
+        for key, value in self.params.model_dump().items():
             if key not in update_dict:
                 continue
-            if validations is not None:
-                if bool in validations[key]["types"] and isinstance(
-                    update_dict[key], list
-                ):
-                    # Convert from dash component checklist to bool
-                    if not update_dict[key]:
-                        output_dict[key] = False
-                    else:
-                        output_dict[key] = True
-                    continue
-                if (
-                    float in validations[key]["types"]
-                    and int not in validations[key]["types"]
-                    and isinstance(update_dict[key], int)
-                ):
-                    # Checking for values that Dash has given as int when they
-                    # should be floats.
-                    output_dict[key] = float(update_dict[key])
-                    continue
-            if is_uuid(update_dict[key]) and self.workspace is not None:
-                output_dict[key] = self.workspace.get_entity(  # pylint: disable=no-member
-                    uuid.UUID(update_dict[key])
+
+            update_value = update_dict[key]
+            if isinstance(value, bool) and isinstance(update_value, list):
+                # Convert from dash component checklist to bool
+                if not update_value:
+                    update_value = False
+                else:
+                    update_value = True
+
+            if isinstance(value, float) and isinstance(update_value, int):
+                # Checking for values that Dash has given as int when they
+                # should be floats.
+                update_value = float(update_value)
+
+            if is_uuid(update_value) and self.workspace is not None:
+                update_value = self.workspace.get_entity(  # pylint: disable=no-member
+                    uuid.UUID(update_value)
                 )[0]
-            else:
-                output_dict[key] = update_dict[key]
+
+            output_dict[key] = update_value
         return output_dict
 
     @staticmethod
@@ -244,7 +234,7 @@ class BaseDashApplication(ABC):
         return {"display": "none"}
 
     @property
-    def params(self) -> BaseParams:
+    def params(self) -> Options:
         """
         Application parameters
         """
