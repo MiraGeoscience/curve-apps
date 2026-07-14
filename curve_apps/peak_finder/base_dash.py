@@ -60,9 +60,7 @@ class BaseDashApplication(ABC):
                 for key, value in ui_json_data.items():
                     setattr(self.params, key, value)
 
-        json_data = self.params.serialize()
-
-        self._ui_json_data = json_data
+        self._ui_json_data = self.params.ui_json.flatten()
 
         if self._driver_class is not None:
             self.driver = self._driver_class(self.params)
@@ -161,7 +159,9 @@ class BaseDashApplication(ABC):
 
     @staticmethod
     def init_vals(
-        layout: list[Component], ui_json_data: dict, kwargs: dict | None = None
+        layout: list[Component],
+        ui_json_data: dict[str, str],
+        kwargs: dict | None = None,
     ):
         """
         Initialize dash components in layout from ui_json_data.

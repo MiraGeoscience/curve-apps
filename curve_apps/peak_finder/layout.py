@@ -543,7 +543,8 @@ peak_finder_layout = html.Div(
             style={"margin-bottom": "20px"},
         ),
         html.Div(
-            [
+            style={"display": "flex", "flexDirection": "row", "gap": "10px"},
+            children=[
                 html.Div(
                     [
                         dcc.Dropdown(

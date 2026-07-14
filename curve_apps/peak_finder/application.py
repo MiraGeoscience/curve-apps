@@ -28,6 +28,7 @@ from geoh5py.data import BooleanData, Data, ReferencedData
 from geoh5py.objects import Curve
 from geoh5py.shared.utils import fetch_active_workspace
 from geoh5py.ui_json import UIJson
+from geoh5py.workspace import Workspace
 from tqdm import tqdm
 
 from curve_apps import assets_path
@@ -323,11 +324,21 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         self._computed_lines = value
 
     @property
-    def survey(self) -> Curve | None:
-        """
-        Current survey object.
-        """
-        return self.params.survey
+    def survey(self):
+        """Temporary in-memory survey object."""
+        if self._survey is None and self.params.objects is not None:
+            temp_workspace = Workspace()
+            with fetch_active_workspace(self.params.geoh5):
+                self._survey = self.params.objects.copy(parent=temp_workspace)
+
+        return self._survey
+
+    @survey.setter
+    def survey(self, val: Curve | None):
+        if not isinstance(val, Curve | type(None)):
+            raise TypeError(f"Survey must be of type {Curve}")
+
+        self._survey = val
 
     @property
     def property_groups(self) -> dict | None:
@@ -1976,5 +1987,5 @@ if __name__ == "__main__":
 
     else:
         logger.info("Loaded. Running peak finder driver . . .")
-        PeakFinderDriver.start(peak_parameters)
+        PeakFinderDriver(peak_parameters).run()
     logger.info("Done")
