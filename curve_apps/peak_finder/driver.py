@@ -1,5 +1,5 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
 #                                                                              '
@@ -401,6 +401,7 @@ class PeakFinderDriver(Driver):
                         out_trend = driver.make_curve()
 
                         if out_trend is not None:
+                            out_trend.parent = out_group
                             driver.add_ui_json(out_trend)
 
                     except QhullError as e:

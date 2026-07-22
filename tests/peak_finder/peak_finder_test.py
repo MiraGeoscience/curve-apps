@@ -1,5 +1,5 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
 #                                                                              '
@@ -532,9 +532,12 @@ def test_trend_line(tmp_path: Path):  # pylint: disable=too-many-locals
         line_id.append(np.ones_like(x) * (ind + 1))
         data.append(get_template_anomalies())
 
-    x_locs = np.concatenate(x_locs)
-    y_locs = np.concatenate(y_locs)
-    curve = Curve.create(temp_ws, vertices=np.c_[x_locs, y_locs, np.zeros_like(x_locs)])
+    curve = Curve.create(
+        temp_ws,
+        vertices=np.c_[
+            np.hstack(x_locs), np.hstack(y_locs), np.zeros_like(np.hstack(x_locs))
+        ],
+    )
 
     data = curve.add_data({"data": {"values": np.concatenate(data)}})
     prop_group = curve.add_data_to_group(data, property_group="obs")

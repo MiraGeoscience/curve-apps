@@ -1,5 +1,5 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
 #                                                                              '
@@ -16,7 +16,7 @@ from typing import ClassVar
 from geoapps_utils.base import Options
 from geoh5py.data import Data, ReferencedData
 from geoh5py.objects import Curve, Points
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 
 from curve_apps import assets_path
 
@@ -35,6 +35,16 @@ class TrendLineSourceParameters(BaseModel):
     entity: Curve | Points
     data: ReferencedData | None = None
     parts: Data | None = None
+
+    @field_validator("entity")
+    @classmethod
+    def at_least_4_vertices(cls, value):
+        """Prevents obscure Delaunay triangulation failure."""
+        if len(value.vertices) < 4:
+            raise ValueError(
+                "Source object must have at least 4 vertices for valid triangulation."
+            )
+        return value
 
 
 class TrendLineDetectionParameters(BaseModel):

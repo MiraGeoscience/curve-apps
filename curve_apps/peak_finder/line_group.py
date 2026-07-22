@@ -1,5 +1,5 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
 #                                                                              '
@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from curve_apps.peak_finder.anomaly import Anomaly
 from curve_apps.peak_finder.anomaly_group import AnomalyGroup
 from curve_apps.peak_finder.line_data import LineData
 from curve_apps.peak_finder.line_position import LinePosition
@@ -282,11 +283,12 @@ class LineGroup:
 
         return_groups: list[AnomalyGroup] = []
         all_starts = np.array([group.start for group in groups])
-        sort_inds = np.argsort(all_starts)
-        sorted_groups: list[AnomalyGroup] = list(np.array(groups)[sort_inds])
-
-        max_separation = np.ceil(self.max_separation / self.position.sampling)
-        neighbours_list = self.find_neighbour_groups(sorted_groups, max_separation)
+        sorted_groups: list[AnomalyGroup] = list(
+            np.array(groups)[np.argsort(all_starts)]
+        )
+        neighbours_list = self.find_neighbour_groups(
+            sorted_groups, np.ceil(self.max_separation / self.position.sampling)
+        )
 
         if len(neighbours_list) == 0:
             return return_groups
@@ -304,8 +306,12 @@ class LineGroup:
                 if len(indices) < self.n_groups:
                     continue
 
+                anomalies: list[Anomaly] = []
+                for ind in indices:
+                    anomalies += sorted_groups[ind].anomalies.tolist()
+
                 new_group = AnomalyGroup(
-                    np.concatenate([sorted_groups[ind].anomalies for ind in indices]),
+                    anomalies,
                     self.property_group,
                     subgroups={sorted_groups[ind] for ind in indices},
                 )

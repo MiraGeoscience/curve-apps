@@ -1,5 +1,5 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
 #                                                                              '
@@ -91,7 +91,12 @@ class ContourDetectionParameters(BaseModel):
     def intervals(self) -> list[float]:
         """Returns arange of requested contour intervals."""
 
-        if self.has_intervals:
+        if (
+            self.interval_min is not None
+            and self.interval_max is not None
+            and self.interval_spacing is not None
+            and self.interval_spacing != 0
+        ):
             intervals = np.arange(
                 self.interval_min,
                 self.interval_max + self.interval_spacing / 2,  # type: ignore

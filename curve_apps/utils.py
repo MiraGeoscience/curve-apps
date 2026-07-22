@@ -1,5 +1,5 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
 #                                                                              '
@@ -117,7 +117,9 @@ def get_contour_list(params: ContourDetectionParameters) -> list[float]:
     """
 
     if (
-        None not in [params.interval_min, params.interval_max, params.interval_spacing]
+        params.interval_min is not None
+        and params.interval_max is not None
+        and params.interval_spacing is not None
         and params.interval_spacing != 0
     ):
         interval_contours = np.arange(
@@ -302,3 +304,27 @@ def filter_segments_orientation(
         np.abs(angles) < np.deg2rad(azimuth_tol),
         np.abs(angles - np.pi) < np.deg2rad(azimuth_tol),
     )
+
+
+def orientation_from_segments(
+    vertices: np.ndarray, cells: np.ndarray
+) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Compute orientation vectors from segments.
+
+    :param vertices: Segment vertices.
+    :param cells: Segment connectivity.
+
+    :return: Lengths and orientations of segments.
+    """
+    delta = np.c_[
+        vertices[cells[:, 1], 0] - vertices[cells[:, 0], 0],
+        vertices[cells[:, 1], 1] - vertices[cells[:, 0], 1],
+    ]
+    delta[delta[:, 0] < 0, :] *= -1
+    length = np.linalg.norm(delta, axis=1)
+    non_zero = length != 0
+    orientation = np.full(len(delta), np.nan)
+    orientation[non_zero] = np.arccos(delta[non_zero, 1] / length[non_zero])
+
+    return length, orientation

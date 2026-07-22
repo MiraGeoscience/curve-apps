@@ -1,5 +1,5 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2024-2025 Mira Geoscience Ltd.                                '
+#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
 #                                                                              '
 #  This file is part of curve-apps package.                                    '
 #                                                                              '
@@ -16,6 +16,7 @@ from curve_apps.trend_lines.options import TrendLineDetectionParameters
 from curve_apps.utils import (
     filter_segments_orientation,
     find_curves,
+    orientation_from_segments,
     set_vertices_height,
 )
 
@@ -38,16 +39,13 @@ def curves_data_fixture() -> list:
     y_array = np.linspace(0, 50, 10)
     line_ids_array = np.arange(0, len(y_array))
 
-    curve1 = 5 * np.sin(y_array) + 10  # curve
-    curve2 = 0.7 * y_array + 20  # crossing lines
-    curve3 = -0.4 * y_array + 50
-    curve4 = np.ones_like(y_array) * 80  # zig-zag
-    curve4[3] = 85
-    curve5 = [None] * (len(y_array) - 1)  # short line
-    curve5[0:1] = [60, 62]  # type: ignore
-    curve5[-2:-1] = [2, 4]  # type: ignore
-
-    curves = [curve1, curve2, curve3, curve4, curve5]
+    curves: list[np.ndarray] = [
+        5 * np.sin(y_array) + 10,  # sinusoidal line
+        0.7 * y_array + 20,  # crossing lines
+        -0.4 * y_array + 50,
+        np.ones_like(y_array) * 80,  # zig-zag
+    ]
+    curves[3][3] = 85
 
     data = []
     for channel_group, curve in enumerate(curves):
@@ -161,3 +159,23 @@ def test_filter_segments_orientation():
 
     ind = filter_segments_orientation(points, segments, 5, 1)
     assert ~np.all(ind)  # pylint: disable=invalid-unary-operand-type
+
+
+def test_orientation_from_segments():
+    cells = np.array([[0, 1], [1, 2]])
+
+    vertices = np.array([[0, 0], [1, 0], [2, 1]])
+    lengths, orientations = orientation_from_segments(vertices, cells)
+    assert np.allclose(lengths, [1, np.sqrt(2)])
+    assert np.allclose(orientations, [np.deg2rad(90), np.deg2rad(45)])
+
+    vertices = np.array([[0, 0], [0, 1], [-1, 2]])
+    lengths, orientations = orientation_from_segments(vertices, cells)
+    assert np.allclose(lengths, [1, np.sqrt(2)])
+    assert np.allclose(orientations, [np.deg2rad(0), np.deg2rad(135)])
+
+    vertices = np.array([[0, 0], [0, 0], [0, 1]])
+    lengths, orientations = orientation_from_segments(vertices, cells)
+    assert np.allclose(lengths, [0, 1])
+    assert np.isnan(orientations[0])
+    assert np.isclose(orientations[1], np.deg2rad(0))

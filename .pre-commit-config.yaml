@@ -1,6 +1,6 @@
 
 default_language_version:
-    python: python3
+    python: python3.12
 exclude: ^docs/(source/conf.py|_ext/)
 default_stages: [pre-commit,pre-push]
 fail_fast: false
@@ -22,21 +22,21 @@ repos:
     -   id: pycln
         args: [--config=pyproject.toml]
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.3
+    rev: v0.15.15
     hooks:
     -   id: ruff-check
         args:
         -   --fix
         -   --exit-non-zero-on-fix
-#        -   --unsafe-fixes
+        # -   --unsafe-fixes
     -   id: ruff-format
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.18.2
+    rev: v2.1.0
     hooks:
     -   id: mypy
         additional_dependencies: [
-            numpy==1.26.*,
-            pydantic==2.5.*,
+            numpy==2.4.*,
+            pydantic==2.12.*,
             types-toml,
             types-waitress==3.0.*,
             types-PyYAML,
@@ -66,7 +66,7 @@ repos:
         types: [python]
         exclude: ^(devtools|docs|curve_apps-assets)/
 -   repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.2
     hooks:
     -   id: codespell
         exclude: (-lock\.ya?ml|\benvironments/.*\.ya?ml|\.ipynb|^THIRD_PARTY_SOFTWARE\.rst)$
@@ -86,9 +86,9 @@ repos:
     -   id: debug-statements
     -   id: detect-private-key
     -   id: end-of-file-fixer
-        exclude: (^\.idea/.*\.xml|\.mdj)$
+        exclude: (^\.idea/.*\.?ml|\.mdj)$
     -   id: mixed-line-ending
-        exclude: ^\.idea/.*\.xml$
+        exclude: ^\.idea/.*\.?ml$
     -   id: name-tests-test
     -   id: pretty-format-json
         args:
