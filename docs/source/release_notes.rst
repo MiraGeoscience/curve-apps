@@ -11,12 +11,10 @@ Release 0.4.0 (2026-06-04)
 - Have consistency in output labels: name, vs data name vs data group name
 - Refresh screenshots of UIJsons in docs
 
-
 Release 0.3.0 (2026-01-09)
 --------------------------
 
 - Migrate peak-finder to curve-apps
-
 
 Release 0.2.0 (2025-02-07)
 --------------------------
