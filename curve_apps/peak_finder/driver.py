@@ -448,7 +448,7 @@ class PeakFinderDriver(Driver):
             }
         )
         if not isinstance(line_field_obj, ReferencedData):
-            raise TypeError("Issue creating a ReferencedData'line_field'.")
+            raise TypeError("Issue creating a ReferencedData 'line_field'.")
 
         return line_field_obj
 

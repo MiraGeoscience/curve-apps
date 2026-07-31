@@ -30,8 +30,8 @@ class PeakFinderParams(Options):  # pylint: disable=R0902, R0904
 
     name: ClassVar[str] = "peak finder"
     default_ui_json: ClassVar[Path] = assets_path() / "uijson/peak_finder.ui.json"
-    title: str = "Peak Finder"
-    run_command: str = "curve_apps.peak_finder.driver"
+    title: ClassVar[str] = "Peak Finder"
+    run_command: ClassVar[str] = "curve_apps.peak_finder.driver"
 
     conda_environment: str = "curve_apps"
 

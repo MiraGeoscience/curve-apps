@@ -81,7 +81,7 @@ class ContourDetectionParameters(BaseModel):
     @field_serializer("fixed_contours")
     def list_to_string(self, value):
         """
-        Convert list of integers to comma-separated string.
+        Convert list of floats to comma-separated string.
         """
         if isinstance(value, list):
             return ", ".join(str(v) for v in value)
