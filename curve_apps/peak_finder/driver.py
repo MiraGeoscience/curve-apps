@@ -423,17 +423,6 @@ class PeakFinderDriver(Driver):
 
             self.update_monitoring_directory(out_group)
 
-    @property
-    def params(self) -> PeakFinderParams:
-        """Application parameters."""
-        return self._params
-
-    @params.setter
-    def params(self, val: PeakFinderParams):
-        if not isinstance(val, PeakFinderParams):
-            raise TypeError("Parameters must be of type BaseParams.")
-        self._params = val
-
     def get_line_field(self, survey: Curve) -> ReferencedData:
         """
         Get the line field object.
