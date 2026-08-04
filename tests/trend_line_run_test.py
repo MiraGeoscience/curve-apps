@@ -226,12 +226,7 @@ def test_input_file(tmp_path: Path):
     }
 
     ifile.set_values(**changes)
-
-    ifile.write(str(tmp_path / "test_trend_lines.ui.json"))
-    params = TrendLineParameters.build(ifile)
-    driver = TrendLinesDriver(params)
-    with workspace.open(mode="r+"):
-        driver.run()
+    TrendLinesDriver.start(ifile)
 
     with workspace.open():
         edges = workspace.get_entity("trends")[0]

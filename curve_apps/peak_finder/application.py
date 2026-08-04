@@ -1945,12 +1945,11 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         # Write output uijson.
         new_params = PeakFinderParams(**param_dict)
         name = workspace.h5file.stem.replace(".ui", "")
-        new_params.write_ui_json(
+        ui_json = new_params.write_ui_json(
             (workspace.h5file.parent / name).with_suffix(".ui.json"),
         )
 
-        driver = PeakFinderDriver(new_params)
-        driver.run()
+        PeakFinderDriver.start(ui_json)
 
         return ["Saved to " + str(workspace.h5file)]
 

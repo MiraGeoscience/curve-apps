@@ -384,7 +384,7 @@ class PeakFinderDriver(Driver):
                     driver = TrendLinesDriver(params)
 
                     try:
-                        out_trend = driver.make_curve()
+                        out_trend = driver.run()
 
                         if out_trend is not None:
                             out_trend.parent = out_group

@@ -14,6 +14,7 @@ import logging
 import sys
 
 import numpy as np
+from geoapps_utils.base import Driver
 from geoapps_utils.utils.formatters import string_name
 from geoapps_utils.utils.transformations import rotate_xyz
 from geoh5py.objects import Curve, Grid2D
@@ -21,7 +22,6 @@ from geoh5py.ui_json import utils
 from skimage import measure
 
 from curve_apps.contours.options import ContourParameters
-from curve_apps.driver import BaseCurveDriver
 from curve_apps.utils import (
     image_to_grid_coordinate_transfer,
     interp_to_grid,
@@ -32,7 +32,7 @@ from curve_apps.utils import (
 logger = logging.getLogger(__name__)
 
 
-class ContoursDriver(BaseCurveDriver):
+class ContoursDriver(Driver):
     """
     Driver for the detection of contours within geoh5py objects.
 
@@ -41,7 +41,7 @@ class ContoursDriver(BaseCurveDriver):
 
     _params_class = ContourParameters
 
-    def make_curve(self):
+    def run(self):
         """
         Make curve object from contours detected in source data.
         """

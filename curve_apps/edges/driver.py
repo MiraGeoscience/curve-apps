@@ -15,6 +15,7 @@ import logging
 import sys
 
 import numpy as np
+from geoapps_utils.base import Driver
 from geoapps_utils.utils.locations import (
     get_overlapping_limits,
     map_indices_to_coordinates,
@@ -28,7 +29,6 @@ from skimage.transform import (  # pylint: disable=no-name-in-module
     probabilistic_hough_line,
 )
 
-from curve_apps.driver import BaseCurveDriver
 from curve_apps.edges.options import EdgeDetectionParameters, EdgeParameters
 from curve_apps.utils import orientation_from_segments
 
@@ -36,7 +36,7 @@ from curve_apps.utils import orientation_from_segments
 logger = logging.getLogger(__name__)
 
 
-class EdgesDriver(BaseCurveDriver):
+class EdgesDriver(Driver):
     """
     Driver for the edge detection application.
 
@@ -45,7 +45,7 @@ class EdgesDriver(BaseCurveDriver):
 
     _params_class = EdgeParameters
 
-    def make_curve(self):
+    def run(self):
         """
         Make curve object from edges detected in source data.
 
