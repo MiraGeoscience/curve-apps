@@ -1986,5 +1986,5 @@ if __name__ == "__main__":
 
     else:
         logger.info("Loaded. Running peak finder driver . . .")
-        PeakFinderDriver(peak_parameters).run()
+        PeakFinderDriver.start(ifile)
     logger.info("Done")

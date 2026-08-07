@@ -208,10 +208,10 @@ class PeakFinderDriver(Driver):
             if survey is None:
                 raise ValueError("Survey object not found.")
 
-            out_group = self.out_group
+            if self.out_group is None:
+                self._out_group = self.to_out_group(name=self.params.ga_group_name)
 
-            if out_group is None:
-                out_group = self.to_out_group(name=self.params.ga_group_name)
+            out_group = self.out_group
 
             channel_groups = self.params.get_property_groups()
             # Create reference values and color_map
@@ -420,8 +420,6 @@ class PeakFinderDriver(Driver):
                         },
                     }
                 )
-
-            self.update_monitoring_directory(out_group)
 
     def get_line_field(self, survey: Curve) -> ReferencedData:
         """

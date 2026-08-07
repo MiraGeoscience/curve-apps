@@ -45,9 +45,7 @@ def test_driver(tmp_path):
     params = get_contour_data(tmp_path)
 
     uijson = params.write_ui_json(tmp_path / "contour.ui.json")
-
-    driver = ContoursDriver.start(uijson)
-    driver.run()
+    ContoursDriver.start(uijson)
 
     with Workspace(params.geoh5.h5file) as ws:
         curve = ws.get_entity("my curve")[0]
