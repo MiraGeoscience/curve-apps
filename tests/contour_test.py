@@ -36,18 +36,19 @@ def get_contour_data(tmp_path):
         "max_distance": np.pi / 80,
         "export_as": "my curve",
     }
-    params = ContourParameters.build(**params_dict)
+    params = ContourParameters.build(params_dict)
 
     return params
 
 
 def test_driver(tmp_path):
     params = get_contour_data(tmp_path)
-    driver = ContoursDriver(params)
-    driver.run()
 
-    with params.geoh5.open():
-        curve = params.geoh5.get_entity("my curve")[0]
+    uijson = params.write_ui_json(tmp_path / "contour.ui.json")
+    ContoursDriver.start(uijson)
+
+    with Workspace(params.geoh5.h5file) as ws:
+        curve = ws.get_entity("my curve")[0]
         distances = np.linalg.norm(curve.vertices[:, :2], axis=1)
         assert np.allclose(distances, np.ones(len(distances)), atol=1e-2)
 

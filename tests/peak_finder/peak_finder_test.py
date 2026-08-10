@@ -119,37 +119,33 @@ def test_peak_finder_app(tmp_path: Path):  # pylint: disable=too-many-locals
             "properties": [str(p) for p in group.properties],
         }
 
-    objects = "{" + str(curve.uid) + "}"
-    smoothing = 6
-    max_migration = 1.0
-    min_channels = 1
-    min_amplitude = 0
-    min_value = -1.4
-    min_width = 1.0
-    line_field = "{" + str(line.uid) + "}"
+    kwargs = {
+        "geoh5": temp_ws,
+        "objects": curve,
+        "smoothing": 6,
+        "max_migration": 1.0,
+        "min_channels": 1,
+        "min_amplitude": 0,
+        "min_value": -1.4,
+        "min_width": 1.0,
+        "line_field": line,
+    }
 
-    params = PeakFinderParams(geoh5=str(h5file_path), validate=False)
-    app = PeakFinder(
-        params,
-        ui_json_data={
-            "objects": objects,
-            "line_field": line_field,
-        },
-    )
+    params = PeakFinderParams.build(kwargs)
+    app = PeakFinder(params)
     app.property_groups = property_groups
-    app.workspace = temp_ws
 
     app.trigger_click(
         n_clicks=0,
         flip_sign=[],
         trend_lines=[],
         masking_data=None,
-        smoothing=smoothing,
-        min_amplitude=min_amplitude,
-        min_value=min_value,
-        min_width=min_width,
-        max_migration=max_migration,
-        min_channels=min_channels,
+        smoothing=kwargs["smoothing"],
+        min_amplitude=kwargs["min_amplitude"],
+        min_value=kwargs["min_value"],
+        min_width=kwargs["min_width"],
+        max_migration=kwargs["max_migration"],
+        min_channels=kwargs["min_channels"],
         n_groups=1,
         max_separation=100.0,
         selected_line=1,
@@ -221,22 +217,15 @@ def test_merging_peaks(tmp_path: Path):  # pylint: disable=too-many-locals
         }
     }
 
-    objects = "{" + str(curve.uid) + "}"
     smoothing = 6
     max_migration = 1.0
     min_channels = 1
     min_amplitude = 0
     min_value = -1.4
     min_width = 1.0
-    line_field = "{" + str(line.uid) + "}"
-
-    params = PeakFinderParams(geoh5=str(h5file_path), validate=False)
+    params = PeakFinderParams(geoh5=temp_ws, objects=curve, line_field=line)
     app = PeakFinder(
         params,
-        ui_json_data={
-            "objects": objects,
-            "line_field": line_field,
-        },
     )
     app.property_groups = property_groups
     app.workspace = temp_ws
@@ -343,24 +332,14 @@ def test_masking_peaks(tmp_path: Path):  # pylint: disable=too-many-locals
             "properties": [str(p) for p in prop_group.properties],
         }
     }
-
-    objects = "{" + str(curve.uid) + "}"
     smoothing = 6
     max_migration = 1.0
     min_channels = 1
     min_amplitude = 0
     min_value = -1.4
     min_width = 1.0
-    line_field = "{" + str(line.uid) + "}"
-
-    params = PeakFinderParams(geoh5=str(h5file_path), validate=False)
-    app = PeakFinder(
-        params,
-        ui_json_data={
-            "objects": objects,
-            "line_field": line_field,
-        },
-    )
+    params = PeakFinderParams(geoh5=temp_ws, objects=curve, line_field=line)
+    app = PeakFinder(params)
     app.property_groups = property_groups
 
     # Test masking
@@ -368,7 +347,7 @@ def test_masking_peaks(tmp_path: Path):  # pylint: disable=too-many-locals
         n_clicks=0,
         flip_sign=[],
         trend_lines=[],
-        masking_data=str(masking_data.uid),
+        masking_data=masking_data,
         smoothing=smoothing,
         min_amplitude=min_amplitude,
         min_value=min_value,
@@ -430,23 +409,15 @@ def test_map_locations(tmp_path: Path):  # pylint: disable=too-many-locals
         }
     }
 
-    survey = "{" + str(curve.uid) + "}"
     smoothing = 6
     max_migration = 1.0
     min_channels = 1
     min_amplitude = 0
     min_value = -1.4
     min_width = 1.0
-    line_field = "{" + str(line.uid) + "}"
 
-    params = PeakFinderParams(geoh5=str(h5file_path), validate=False)
-    app = PeakFinder(
-        params,
-        ui_json_data={
-            "objects": survey,
-            "line_field": line_field,
-        },
-    )
+    params = PeakFinderParams(geoh5=temp_ws, objects=curve, line_field=line)
+    app = PeakFinder(params)
     app.property_groups = property_groups
     app.workspace = temp_ws
 
@@ -565,7 +536,7 @@ def test_trend_line(tmp_path: Path):  # pylint: disable=too-many-locals
         validate=False,
     )
 
-    params.input_file.write_ui_json("test_peak_trend", tmp_path)
+    params.write_ui_json(tmp_path / "test_peak_trend.ui.json")
     PeakFinderDriver(params).run()
 
     with temp_ws.open():

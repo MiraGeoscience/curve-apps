@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 from geoh5py import Workspace
 from geoh5py.objects import Grid2D
-from geoh5py.ui_json import InputFile
+from geoh5py.ui_json import UIJson
 
 from curve_apps import assets_path
 from curve_apps.edges.driver import EdgesDriver
@@ -46,7 +46,7 @@ def test_driver(tmp_path: Path):
 
     grid, data = setup_example(workspace)
     params = EdgeParameters.build(
-        **{
+        {
             "geoh5": workspace,
             "objects": grid,
             "data": data,
@@ -99,7 +99,7 @@ def test_merge_length(tmp_path: Path):
 
     grid, data = setup_example(workspace)
     params = EdgeParameters.build(
-        **{
+        {
             "geoh5": workspace,
             "objects": grid,
             "data": data,
@@ -125,9 +125,7 @@ def test_input_file(tmp_path: Path):
     workspace = Workspace.create(tmp_path / f"{__name__}.geoh5")
 
     grid, data = setup_example(workspace)
-    ifile = InputFile.read_ui_json(
-        assets_path() / "uijson/edge_detection.ui.json", validate=False
-    )
+    ifile = UIJson.read(assets_path() / "uijson/edge_detection.ui.json")
 
     changes = {
         "geoh5": workspace,
@@ -138,11 +136,14 @@ def test_input_file(tmp_path: Path):
         "sigma": 1.0,
         "export_as": "square",
     }
-    for key, value in changes.items():
-        ifile.set_data_value(key, value)
 
-    ifile.write_ui_json(str(tmp_path / f"{__name__}"))
-    driver = EdgesDriver(ifile)
+    ifile.set_values(**changes)
+
+    ifile.write(str(tmp_path / f"{__name__}"))
+
+    params = EdgeParameters.build(ifile)
+
+    driver = EdgesDriver(params)
     with workspace.open(mode="r+"):
         driver.run()
 

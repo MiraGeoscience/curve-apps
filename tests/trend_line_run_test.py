@@ -17,7 +17,7 @@ from geoh5py import Workspace
 from geoh5py.data import ReferencedData
 from geoh5py.data.filename_data import FilenameData
 from geoh5py.objects import Curve, Points
-from geoh5py.ui_json import InputFile
+from geoh5py.ui_json import UIJson
 
 from curve_apps import assets_path
 from curve_apps.trend_lines.driver import TrendLinesDriver
@@ -64,7 +64,7 @@ def test_driver_curve(tmp_path: Path):
 
     curve, data = setup_example(workspace)
     params = TrendLineParameters.build(
-        **{
+        {
             "geoh5": workspace,
             "entity": curve,
             "data": data,
@@ -107,7 +107,7 @@ def test_driver_points(tmp_path: Path):
         new_data = data.copy(parent=points)
 
     params = TrendLineParameters.build(
-        **{
+        {
             "geoh5": workspace,
             "entity": points,
             "parts": parts,
@@ -155,7 +155,7 @@ def test_driver_points_no_parts(tmp_path: Path):
         new_data = data.copy(parent=points)
 
     params = TrendLineParameters.build(
-        **{
+        {
             "geoh5": workspace,
             "entity": points,
             "data": new_data,
@@ -191,7 +191,7 @@ def test_azimuth_filter(tmp_path: Path):
         new_data = data.copy(parent=points)
 
     params = TrendLineParameters.build(
-        **{
+        {
             "geoh5": workspace,
             "entity": points,
             "data": new_data,
@@ -216,9 +216,7 @@ def test_input_file(tmp_path: Path):
     workspace = Workspace.create(tmp_path / "test_trend_lines.geoh5")
 
     curve, data = setup_example(workspace)
-    ifile = InputFile.read_ui_json(
-        assets_path() / "uijson/trend_lines.ui.json", validate=False
-    )
+    ifile = UIJson.read(assets_path() / "uijson/trend_lines.ui.json")
 
     changes = {
         "geoh5": workspace,
@@ -226,13 +224,9 @@ def test_input_file(tmp_path: Path):
         "data": data,
         "export_as": "trends",
     }
-    for key, value in changes.items():
-        ifile.set_data_value(key, value)
 
-    ifile.write_ui_json(str(tmp_path / "test_trend_lines"))
-    driver = TrendLinesDriver(ifile)
-    with workspace.open(mode="r+"):
-        driver.run()
+    ifile.set_values(**changes)
+    TrendLinesDriver.start(ifile)
 
     with workspace.open():
         edges = workspace.get_entity("trends")[0]
@@ -257,7 +251,7 @@ def test_validate_minimum_points(tmp_path):
 
     with pytest.raises(GeoAppsError, match="at least 4 vertices"):
         _ = TrendLineParameters.build(
-            **{
+            {
                 "geoh5": geoh5,
                 "entity": pts,
                 "data": data,

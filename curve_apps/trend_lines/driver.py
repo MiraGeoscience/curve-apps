@@ -16,11 +16,11 @@ import logging
 import sys
 
 import numpy as np
+from geoapps_utils.base import Driver
 from geoh5py.objects import Curve
-from geoh5py.ui_json import InputFile, utils
+from geoh5py.ui_json import utils
 from tqdm import tqdm
 
-from curve_apps.driver import BaseCurveDriver
 from curve_apps.trend_lines.options import TrendLineParameters
 from curve_apps.utils import find_curves, orientation_from_segments
 
@@ -28,7 +28,7 @@ from curve_apps.utils import find_curves, orientation_from_segments
 logger = logging.getLogger(__name__)
 
 
-class TrendLinesDriver(BaseCurveDriver):
+class TrendLinesDriver(Driver):
     """
     Driver for the detection of trend curves across an object parts.
 
@@ -37,10 +37,7 @@ class TrendLinesDriver(BaseCurveDriver):
 
     _params_class = TrendLineParameters
 
-    def __init__(self, parameters: TrendLineParameters | InputFile):
-        super().__init__(parameters)
-
-    def make_curve(self):
+    def run(self):
         """Make curve object from trend lines detected in source data."""
 
         with utils.fetch_active_workspace(self.workspace, mode="r+") as workspace:

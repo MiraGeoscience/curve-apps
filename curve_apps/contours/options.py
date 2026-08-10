@@ -18,7 +18,7 @@ from geoapps_utils.base import Options
 from geoh5py.data import Data
 from geoh5py.objects import Curve, Grid2D, Points, Surface
 from geoh5py.ui_json.utils import str2list
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, field_serializer, field_validator
 
 from curve_apps import assets_path
 
@@ -77,6 +77,16 @@ class ContourDetectionParameters(BaseModel):
             )
 
         return val
+
+    @field_serializer("fixed_contours")
+    def list_to_string(self, value):
+        """
+        Convert list of floats to comma-separated string.
+        """
+        if isinstance(value, list):
+            return ", ".join(str(v) for v in value)
+
+        return value
 
     @property
     def has_intervals(self) -> bool:
