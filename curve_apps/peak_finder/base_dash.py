@@ -137,6 +137,9 @@ class BaseDashApplication(ABC):
                 continue
 
             update_value = update_dict[key]
+            if update_value == "None":
+                update_value = None
+
             if isinstance(value, bool) and isinstance(update_value, list):
                 # Convert from dash component checklist to bool
                 if not update_value:
