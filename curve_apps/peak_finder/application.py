@@ -328,6 +328,7 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
     def survey(self):
         """Temporary in-memory survey object."""
         if self._survey is None and self.params.objects is not None:
+            self._temp_workspace = Workspace()
             with fetch_active_workspace(self.params.geoh5):
                 self._survey = self.params.objects.copy(parent=self._temp_workspace)
 
