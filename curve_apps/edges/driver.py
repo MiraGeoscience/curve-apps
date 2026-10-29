@@ -82,20 +82,14 @@ class EdgesDriver(Driver):
 
             # Compute positive angle from North
             length, orientation = orientation_from_segments(vertices, cells)
-
-            vert_azimuth = np.zeros(curve.n_vertices) * np.nan
-            vert_azimuth[cells.flatten()] = np.repeat(orientation, 2)
             curve.add_data(
                 {
-                    "azimuth": {"values": np.degrees(vert_azimuth)},
+                    "azimuth": {"values": np.degrees(orientation)},
                 }
             )
-
-            vert_lengths = np.zeros(curve.n_vertices) * np.nan
-            vert_lengths[cells.flatten()] = np.repeat(length, 2)
             curve.add_data(
                 {
-                    "lengths": {"values": vert_lengths},
+                    "lengths": {"values": length},
                 }
             )
 

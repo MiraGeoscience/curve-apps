@@ -137,7 +137,7 @@ class BaseDashApplication(ABC):
                 continue
 
             update_value = update_dict[key]
-            if update_value == "None":
+            if update_value == "None" and not isinstance(value, str):
                 update_value = None
 
             if isinstance(value, bool) and isinstance(update_value, list):
