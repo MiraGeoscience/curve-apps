@@ -910,10 +910,10 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
                         ]
 
         # Update linear threshold
-        pos_vals = all_values[all_values > 0]  # type: ignore
-
-        thresh_min = np.log10(np.min(pos_vals))
-        thresh_max = np.log10(np.max(pos_vals))
+        pos_vals = np.abs(all_values)
+        thresh_bounds = np.log10(np.r_[pos_vals.min(), pos_vals.max()])
+        thresh_min = thresh_bounds.min()
+        thresh_max = thresh_bounds.max()
         thresh_ticks = {
             t: "10E" + f"{t:.2g}" for t in np.linspace(thresh_min, thresh_max, 5)
         }
@@ -1522,6 +1522,9 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
             return
 
         if y_min is not None and y_max is not None:
+            if min_value > y_max:
+                min_value = np.nan
+
             self.figure.update_layout(
                 {"yaxis_range": [np.nanmax([y_min, min_value]), y_max]}
             )
