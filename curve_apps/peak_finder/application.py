@@ -77,6 +77,7 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
 
         super().__init__(params, ui_json_data=ui_json_data)
 
+        self._temp_workspace = Workspace()
         self._app = None
 
         # Getting app layout
@@ -327,9 +328,9 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
     def survey(self):
         """Temporary in-memory survey object."""
         if self._survey is None and self.params.objects is not None:
-            temp_workspace = Workspace()
+            self._temp_workspace = Workspace()
             with fetch_active_workspace(self.params.geoh5):
-                self._survey = self.params.objects.copy(parent=temp_workspace)
+                self._survey = self.params.objects.copy(parent=self._temp_workspace)
 
         return self._survey
 
@@ -909,10 +910,10 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
                         ]
 
         # Update linear threshold
-        pos_vals = all_values[all_values > 0]  # type: ignore
-
-        thresh_min = np.log10(np.min(pos_vals))
-        thresh_max = np.log10(np.max(pos_vals))
+        pos_vals = np.abs(all_values)
+        thresh_bounds = np.log10(np.r_[pos_vals.min(), pos_vals.max()])
+        thresh_min = thresh_bounds.min()
+        thresh_max = thresh_bounds.max()
         thresh_ticks = {
             t: "10E" + f"{t:.2g}" for t in np.linspace(thresh_min, thresh_max, 5)
         }
@@ -1521,6 +1522,9 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
             return
 
         if y_min is not None and y_max is not None:
+            if min_value > y_max:
+                min_value = np.nan
+
             self.figure.update_layout(
                 {"yaxis_range": [np.nanmax([y_min, min_value]), y_max]}
             )
@@ -1900,7 +1904,21 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         return figure
 
     def trigger_click(  # pylint: disable=too-many-arguments, too-many-locals
-        self, **kwargs
+        self,
+        n_clicks,
+        flip_sign,
+        trend_lines,
+        masking_data,
+        smoothing,
+        min_amplitude,
+        min_value,
+        min_width,
+        max_migration,
+        min_channels,
+        n_groups,
+        max_separation,
+        selected_line,
+        ga_group_name,
     ) -> list[str]:
         """
         Write output ui.json file and workspace, run driver.
@@ -1924,12 +1942,30 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         """
         # Update self.params from dash component values
         with fetch_active_workspace(self.params.geoh5) as workspace:
-            param_dict = self.get_params_dict(kwargs)
+            param_dict = self.get_params_dict(
+                {
+                    "n_clicks": n_clicks,
+                    "flip_sign": flip_sign,
+                    "trend_lines": trend_lines,
+                    "masking_data": masking_data,
+                    "smoothing": smoothing,
+                    "min_amplitude": min_amplitude,
+                    "min_value": min_value,
+                    "min_width": min_width,
+                    "max_migration": max_migration,
+                    "min_channels": min_channels,
+                    "n_groups": n_groups,
+                    "max_separation": max_separation,
+                    "selected_line": selected_line,
+                    "ga_group_name": ga_group_name,
+                }
+            )
             param_dict.update(
                 {
                     "geoh5": workspace,
                     "objects": self.params.objects,
                     "line_field": self.params.line_field,
+                    "out_group": self.params.out_group,
                     "monitoring_directory": self.params.monitoring_directory,
                 }
             )
@@ -1948,7 +1984,7 @@ class PeakFinder(BaseDashApplication):  # pylint: disable=too-many-public-method
         ui_json = new_params.write_ui_json(
             (workspace.h5file.parent / name).with_suffix(".ui.json"),
         )
-
+        self.params.geoh5.close()
         PeakFinderDriver.start(ui_json)
 
         return ["Saved to " + str(workspace.h5file)]
