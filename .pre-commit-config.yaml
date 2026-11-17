@@ -31,7 +31,7 @@ repos:
         # -   --unsafe-fixes
     -   id: ruff-format
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v2.4.1
+    rev: v1.15.0
     hooks:
     -   id: mypy
         additional_dependencies: [
@@ -49,7 +49,7 @@ repos:
     -   id: relint
         args: [-W]  # to fail on warnings
 -   repo: https://github.com/MiraGeoscience/pre-commit-hooks
-    rev: v1.1.0
+    rev: v1.2.0
     hooks:
     -   id: check-copyright
         files: (^package\.rst|^LICENSE|^README(|-dev)\.rst|\.py|\.pyi)$
