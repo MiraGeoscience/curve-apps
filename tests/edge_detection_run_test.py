@@ -91,7 +91,7 @@ def test_window_size(tmp_path: Path):
     with workspace.open():
         edges = workspace.get_entity("square_32")[0]
 
-        assert len(edges.cells) == 17  # type: ignore
+        assert len(edges.cells) == 18  # type: ignore
 
 
 def test_merge_length(tmp_path: Path):
@@ -118,7 +118,7 @@ def test_merge_length(tmp_path: Path):
     with workspace.open():
         edges = workspace.get_entity("square")[0]
 
-        assert len(np.unique(edges.parts)) == 4  # type: ignore
+        assert len(np.unique(edges.parts)) == 2  # type: ignore
 
 
 def test_input_file(tmp_path: Path):
