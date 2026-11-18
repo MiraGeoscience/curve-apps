@@ -52,81 +52,23 @@ Documentation
 
 Installation
 ^^^^^^^^^^^^
-**curve-apps** is currently written and tested for Python 3.10.
+**curve-apps** requires Python 3.12 or newer.
 
-Install Conda
--------------
+Install Pixi
+------------
 
-To install **curve-apps**, you need to install **Conda** first.
+Install `Pixi <https://pixi.sh/>`_ version 0.84.2 or newer.
 
-We recommend to install **Conda** using `miniforge`_.
+From a checkout of **curve-apps**, install the locked runtime and the local package with::
 
-.. _miniforge: https://github.com/conda-forge/miniforge
+    pixi run --frozen --environment runtime install
 
-Within a conda environment
---------------------------
+The package is installed in editable mode, so source changes are immediately reflected at runtime.
+Keep the source directory in place.
 
-You can install (or update) a conda environment with all the requires packages to run **curve-apps**.
-To do so you can directly run the **Install_or_Update.bat** file by double left clicking on it.
+Activate the runtime environment with::
 
-Install with conda
-------------------
-
-You can install the package using ``conda`` and the ``.lock`` files from a conda prompt:
-
-.. code-block:: bash
-
-  conda env create -n my-env -f environments/[the_desired_env].lock.yml
-
-Install with PyPI
------------------
-
-You should not install the package from PyPI, as the app requires conda packages to run.
-Still, you can install it in a conda environment without its dependencies (``--no-deps``).
-
-From PyPI
-~~~~~~~~~
-
-To install the **curve-apps** package published on PyPI:
-
-.. code-block:: bash
-
-    pip install -U --no-deps curve-apps
-
-From a Git tag or branch
-~~~~~~~~~~~~~~~~~~~~~~~~
-If the package is not on PiPY yet, you can install it from a Git tag:
-
-.. code-block:: bash
-
-    pip install -U --no-deps --force-reinstall https://github.com/MiraGeoscience/curve-apps/archive/refs/tags/TAG.zip
-
-Or to install the latest changes available on a given Git branch:
-
-.. code-block:: bash
-
-    pip install -U --no-deps --force-reinstall https://github.com/MiraGeoscience/curve-apps/archive/refs/heads/BRANCH.zip
-
-.. note::
-    The ``--force-reinstall`` option is used to make sure the updated version
-    of the sources is installed, and not the cached version, even if the version number
-    did not change. The ``-U`` or ``--upgrade`` option is used to make sure to get the latest version,
-    on not merely reinstall the same version. As the package is aimed to be in a **Conda environment**, the option ``--no-deps`` is used to avoid installing the dependencies with pip, as they will be installed with conda.
-
-From a local copy of the sources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-If you have a git clone of the package sources locally,
-you can install **curve-apps** from the local copy of the sources with:
-
-.. code-block:: bash
-
-    pip install -U --force-reinstall path/to/project_folder_with_pyproject_toml
-
-Or in **editable mode**, so that you can edit the sources and see the effect immediately at runtime:
-
-.. code-block:: bash
-
-    pip install -e -U --force-reinstall path/to/project_folder_with_pyproject_toml
+    pixi shell --frozen --environment runtime
 
 Setup for development
 ^^^^^^^^^^^^^^^^^^^^^

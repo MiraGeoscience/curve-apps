@@ -103,7 +103,7 @@ def set_vertices_height(vertices: np.ndarray, entity: ObjectBase):
     elif isinstance(entity, Grid2D):
         vertices = np.c_[
             vertices,
-            np.ones(vertices.shape[0]) * entity.origin["z"],
+            np.ones(vertices.shape[0]) * entity.origin[2],
         ]
 
     return vertices
