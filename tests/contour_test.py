@@ -9,7 +9,7 @@
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 import numpy as np
 from geoh5py import Workspace
-from geoh5py.objects import Points
+from geoh5py.objects import Grid2D, Points
 
 from curve_apps.contours.driver import ContoursDriver
 from curve_apps.contours.options import ContourParameters
@@ -51,6 +51,35 @@ def test_driver(tmp_path):
         curve = ws.get_entity("my curve")[0]
         distances = np.linalg.norm(curve.vertices[:, :2], axis=1)
         assert np.allclose(distances, np.ones(len(distances)), atol=1e-2)
+
+
+def test_driver_grid_origin(tmp_path):
+    ws = Workspace.create(tmp_path / "grid.geoh5")
+    grid = Grid2D.create(
+        ws,
+        origin=[100, 200, 30],
+        u_count=10,
+        v_count=10,
+        u_cell_size=1,
+        v_cell_size=1,
+    )
+    values = np.tile(np.arange(10), (10, 1)).flatten()
+    data = grid.add_data({"values": {"values": values}})
+    params = ContourParameters.build(
+        {
+            "geoh5": ws,
+            "objects": grid,
+            "data": data,
+            "fixed_contours": [4.5],
+            "export_as": "contour",
+        }
+    )
+    ContoursDriver(params).run()
+    curve = ws.get_entity("contour")[0]
+    assert curve is not None
+    assert np.allclose(curve.vertices[:, 2], 30)
+    assert np.all(curve.vertices[:, 0] >= 100)
+    assert np.all(curve.vertices[:, 1] >= 200)
 
 
 def test_image_to_grid():

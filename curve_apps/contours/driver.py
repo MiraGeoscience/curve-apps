@@ -53,10 +53,10 @@ class ContoursDriver(Driver):
             data = self.params.source.data
 
             if isinstance(self.params.source.objects, Grid2D):
-                x_grid = entity.origin["x"] + (
+                x_grid = entity.origin[0] + (
                     entity.u_cell_size * np.arange(entity.shape[0])
                 )
-                y_grid = entity.origin["y"] + (
+                y_grid = entity.origin[1] + (
                     entity.v_cell_size * np.arange(entity.shape[1])
                 )
                 grid = [x_grid, y_grid]
