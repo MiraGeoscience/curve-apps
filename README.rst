@@ -57,7 +57,8 @@ Installation
 Install Pixi
 ------------
 
-Install `Pixi <https://pixi.sh/>`_ version 0.84.2 or newer.
+Install `Pixi <https://pixi.sh/>`_ version 0.84.2 or newer and external
+`uv <https://docs.astral.sh/uv/>`_, with both commands available on ``PATH``.
 
 From a checkout of **curve-apps**, install the locked runtime and the local package with::
 
