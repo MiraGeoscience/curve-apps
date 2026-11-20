@@ -27,17 +27,7 @@ version = full_version.base_version
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 autodoc_mock_imports = [
-    "numpy",
-    "geoh5py",
-    "scipy",
-    "skimage",
-    "geoapps_utils",
-    "pydantic",
-    "tqdm",
     "webview",
-    "dash",
-    "dash_daq",
-    "dash_bootstrap_components",
 ]
 extensions = [
     "sphinx.ext.autodoc",
@@ -48,7 +38,9 @@ extensions = [
     "sphinxcontrib.googleanalytics",
 ]
 intersphinx_mapping = {
+    "geoh5py": ("https://mirageoscience-geoh5py.readthedocs-hosted.com/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "pydantic": ("https://docs.pydantic.dev/latest/", None),
     "python": ("https://docs.python.org/3.14/", None),
 }
 
@@ -86,3 +78,42 @@ def get_copyright_notice():
 rst_epilog = f"""
 .. |copyright_notice| replace:: {get_copyright_notice()}.
 """
+
+
+def resolve_external_type(app, env, node, contnode):
+    from docutils import nodes
+
+    if node.get("refdomain") != "py":
+        return None
+
+    source_links = {
+        "geoapps_utils.base.Driver": "https://github.com/MiraGeoscience/geoapps-utils/blob/release/ga-4.9/geoapps_utils/base.py#L53",
+        "geoapps_utils.base.Options": "https://github.com/MiraGeoscience/geoapps-utils/blob/release/ga-4.9/geoapps_utils/base.py#L227",
+        "geoapps_utils.utils.numerical.running_mean": "https://github.com/MiraGeoscience/geoapps-utils/blob/release/ga-4.9/geoapps_utils/utils/numerical.py",
+        "dash.dash.Dash": "https://github.com/plotly/dash/blob/dev/dash/dash.py",
+        "dash.development.base_component.Component": "https://github.com/plotly/dash/blob/dev/dash/development/base_component.py",
+        "plotly.graph_objs._figure.Figure": "https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html",
+    }
+    target = node.get("reftarget")
+    if target in source_links:
+        return nodes.reference("", "", contnode, refuri=source_links[target])
+
+    aliases = {
+        "Path": "pathlib.Path",
+        "Data": "geoh5py.data.data.Data",
+        "FloatData": "geoh5py.data.float_data.FloatData",
+        "ReferencedData": "geoh5py.data.referenced_data.ReferencedData",
+        "Grid2D": "geoh5py.objects.grid2d.Grid2D",
+        "Points": "geoh5py.objects.points.Points",
+        "Curve": "geoh5py.objects.curve.Curve",
+        "Surface": "geoh5py.objects.surface.Surface",
+        "PropertyGroup": "geoh5py.groups.property_group.PropertyGroup",
+        "UIJsonGroup": "geoh5py.groups.uijson.UIJsonGroup",
+    }
+    if target in aliases:
+        node["reftarget"] = aliases[target]
+    return None
+
+
+def setup(app):
+    app.connect("missing-reference", resolve_external_type, priority=400)

@@ -28,7 +28,7 @@ class LinePosition:  # pylint: disable=R0902
     :param values: Data values used to compute derivatives over,
         shape(locations.shape[0],).
     :param smoothing: Number of neighbours used by the
-        :obj:`geoapps.utils.running_mean` routine.
+        :obj:`geoapps_utils.utils.numerical.running_mean` routine.
     :param residual: Use the residual between the values and the running mean to
         compute derivatives.
     :param sampling: Sampling interval length (m) used in the FFT.

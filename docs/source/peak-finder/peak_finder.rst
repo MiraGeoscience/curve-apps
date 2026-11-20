@@ -15,6 +15,12 @@ The peak-finder application can operate in two modes:
  - :ref:`Interactive <peak_finder_interactive_application>` (shown above)
  - :ref:`Standalone <peak_finder_standalone_application>`
 
+.. toctree::
+   :hidden:
+
+   interactive_application
+   standalone_application
+
 While initially designed for TEM data, the same application can be used for
 characterization of anomalies of mixed data types (eg. magnetics, gravity,
 topography, etc..).
@@ -73,8 +79,6 @@ Detection Parameters
 Masking Data
 ~~~~~~~~~~~~
 
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.masking_data
-
 Masking data is used to filter out data points that are not considered by the algorithm.
 This is useful for focusing on specific regions of interest.
 
@@ -82,8 +86,6 @@ This is useful for focusing on specific regions of interest.
 
 Smoothing
 ~~~~~~~~~
-
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.smoothing
 
 The running mean replaces each data by the average of its ``N`` neighbours:
 
@@ -104,8 +106,6 @@ neighbours used in the mean.
 Minimum Amplitude
 ~~~~~~~~~~~~~~~~~
 
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.min_amplitude
-
 Threshold value (:math:`\delta A`) for filtering small anomalies based on the anomaly
 minimum (:math:`d_{min}`) and maximum (:math:`d_{max}`).
 
@@ -123,8 +123,6 @@ See :ref:`figure <anomaly>` for a visual example of the anomaly amplitude.
 
 Minimum Data Value
 ~~~~~~~~~~~~~~~~~~
-
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.min_value
 
 The minimum data threshold (:math:`\delta_d`) (see :ref:`Figure <anomaly>`) can be defined by:
 
@@ -147,8 +145,6 @@ The minimum data threshold (:math:`\delta_d`) (see :ref:`Figure <anomaly>`) can 
 Minimum Width
 ~~~~~~~~~~~~~
 
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.min_width
-
 The minimum distance (m) between the start and the end of an anomaly group to be considered.
 
 .. figure:: ../images/peak_finder/methodology/min_width.png
@@ -159,8 +155,6 @@ The minimum distance (m) between the start and the end of an anomaly group to be
 
 Maximum Peak Migration
 ~~~~~~~~~~~~~~~~~~~~~~
-
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.max_migration
 
 The maximum distance (m) between the peaks within a group of anomalies. This
 parameter depends on the :ref:`Minimum number of channels <Minimum number of channels>`.
@@ -173,8 +167,6 @@ group of anomalies.
 Minimum number of channels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.min_channels
-
 The minimum number of data channels required to form a group of anomalies.
 
 See :ref:`figure <anomaly>` for a visual example of channels making up a
@@ -184,8 +176,6 @@ group of anomalies.
 
 Merge N Peaks
 ~~~~~~~~~~~~~
-
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.n_groups
 
 Post-grouping of anomalies based on the number of consicutive peaks. The parameter
 depends on the :ref:`Max Group Separation <Max Group Separation>`.
@@ -197,7 +187,5 @@ depends on the :ref:`Max Group Separation <Max Group Separation>`.
 
 Max Group Separation
 ~~~~~~~~~~~~~~~~~~~~
-
-.. autoproperty:: curve_apps.peak_finder.params.PeakFinderParams.max_separation
 
 The maximum distance (m) between the start and the end of a neighboring groups.

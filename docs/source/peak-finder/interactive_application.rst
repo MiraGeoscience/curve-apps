@@ -128,8 +128,6 @@ with the same group ID as the Peak Finder result.
 Save as
 _______
 
-.. autoproperty:: peak_finder.params.PeakFinderParams.ga_group_name
-
 Name of the group in the geoh5 file where the results will be saved.  The default is ``peak_finder``.
 
 Export

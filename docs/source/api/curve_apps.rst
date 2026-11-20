@@ -15,14 +15,6 @@ Subpackages
 Submodules
 ----------
 
-curve\_apps.driver module
--------------------------
-
-.. automodule:: curve_apps.driver
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 curve\_apps.utils module
 ------------------------
 

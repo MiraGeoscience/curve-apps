@@ -39,6 +39,7 @@ To run the application from the command line, use the following command in a Con
 
 ``conda activate curve_apps``
 
-``python -m curve_apps.driver input_file.json``
+``python -m curve_apps.peak_finder.driver input_file.json``
 
-where ``input_file.json`` is the path to the input file on disk.
+where ``input_file.json`` is the path to the input file on disk. Use the
+corresponding driver module for the other applications.

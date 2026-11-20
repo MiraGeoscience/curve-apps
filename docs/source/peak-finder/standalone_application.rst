@@ -4,9 +4,9 @@ Standalone Application
 ======================
 
 The standalone application contains no visualization and operates on the entire
-data object provided in the :ref:`General Parameters <General Parameters>` section of the ui.json.
+data object provided in the general parameters section of the ui.json.
 For this reason we will limit the discussion here to the :ref:`detection parameters <detection parameters>`
-as well as the :ref:`grouping parameters <grouping parameters>` that affect not only the visual representation
+as well as the grouping parameters that affect not only the visual representation
 in the interactive application, but also the grouping for detection within the
 standalone application.
 
