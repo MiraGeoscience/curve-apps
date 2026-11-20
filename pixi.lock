@@ -455,7 +455,7 @@ environments:
       - conda: https://repo.prefix.dev/conda-forge/noarch/dash-daq-0.6.0-pyhd8ed1ab_0.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/dash-html-components-2.0.0-pyhd8ed1ab_2.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/dash-table-5.0.0-pyhd8ed1ab_1.tar.bz2
-      - conda: https://repo.prefix.dev/conda-forge/noarch/dask-core-2025.3.1-pyhd8ed1ab_0.conda
+      - conda: https://repo.prefix.dev/conda-forge/noarch/dask-core-2026.1.2-pyhcf101f3_0.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/defusedxml-0.7.1-pyhd8ed1ab_0.tar.bz2
       - conda: https://repo.prefix.dev/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/flask-3.1.3-pyhcf101f3_1.conda
@@ -535,7 +535,7 @@ environments:
       - conda: https://repo.prefix.dev/conda-forge/noarch/dash-daq-0.6.0-pyhd8ed1ab_0.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/dash-html-components-2.0.0-pyhd8ed1ab_2.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/dash-table-5.0.0-pyhd8ed1ab_1.tar.bz2
-      - conda: https://repo.prefix.dev/conda-forge/noarch/dask-core-2025.3.1-pyhd8ed1ab_0.conda
+      - conda: https://repo.prefix.dev/conda-forge/noarch/dask-core-2026.1.2-pyhcf101f3_0.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/defusedxml-0.7.1-pyhd8ed1ab_0.tar.bz2
       - conda: https://repo.prefix.dev/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://repo.prefix.dev/conda-forge/noarch/flask-3.1.3-pyhcf101f3_1.conda
