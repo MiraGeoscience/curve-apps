@@ -32,18 +32,16 @@ def transitive_pypi_sources(
     pypi_names = {
         canonicalize_name(package["name"]) for package in packages if "pypi" in package
     }
-    pending = list(roots)
-    while pending:
-        name = pending.pop()
-        for package in packages:
-            if "pypi" not in package or canonicalize_name(package["name"]) != name:
-                continue
-            for requirement in package.get("requires_dist", []):
-                dependency = canonicalize_name(Requirement(requirement).name)
-                if dependency in pypi_names and dependency not in allowed:
-                    allowed.add(dependency)
-                    pending.append(dependency)
-    return allowed
+    while True:
+        dependencies = {
+            canonicalize_name(Requirement(requirement).name)
+            for package in packages
+            if "pypi" in package and canonicalize_name(package["name"]) in allowed
+            for requirement in package.get("requires_dist", [])
+        } & pypi_names
+        if dependencies <= allowed:
+            return allowed
+        allowed.update(dependencies)
 
 
 def test_locked_pypi_names_with_git_source():
