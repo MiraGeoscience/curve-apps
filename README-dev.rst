@@ -22,19 +22,22 @@ Install the Pixi environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Install `Pixi`_ version 0.84.2 or newer and external `uv <https://docs.astral.sh/uv/>`_.
-Keep both commands on ``PATH``; uv is not installed by Pixi. From the project root,
-install the default development environment with::
+Keep both commands on ``PATH``; uv is not installed by Pixi. The shared lock covers
+Windows and Linux with Python 3.12, 3.13 and 3.14. From the project root, install
+and test the Python 3.12 environment with::
 
-    pixi install
-
-The default environment includes the test and lint tools. Run the tests with::
-
-    pixi run test
+    pixi install --locked -e py312
+    pixi run --frozen -e py312 install
+    pixi run --frozen -e py312 test
 
 The project also provides ``py312``, ``py313`` and ``py314`` test environments,
 plus ``runtime`` environments for application use.
-On Windows, run ``install_in_analyst.bat`` to install the locked runtime in Geoscience
-Analyst; pass ``-e`` for an editable installation.
+Use ``py313`` or ``py314`` to test another supported version, or run
+``pixi run --frozen test-pyvers`` to test all three versions. On Windows, install
+the locked runtime in Geoscience Analyst with::
+
+    install_in_analyst.bat
+    install_in_analyst.bat -e --name curve-apps-dev
 
 Building documentation
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -53,10 +56,25 @@ also creates the downloadable ``curve-apps-docs.zip`` archive.
 Updating dependencies
 ^^^^^^^^^^^^^^^^^^^^^
 
-Runtime dependency constraints are maintained in ``pyproject.toml`` and ``pixi.toml``.
-After changing either file, refresh the resolved environment with::
+Keep published package requirements in ``pyproject.toml`` and their Pixi and Conda
+recipe equivalents in ``pixi.toml`` and ``recipe.yaml`` aligned. Refresh and validate
+the lock after changing constraints::
 
     pixi update
+    pixi install --locked -e py312
+    pixi run --frozen -e py312 install
+    pixi run --frozen -e py312 test
+
+Commit ``pixi.lock`` with the manifest changes. The ``mira-pypi`` feature lists
+published Mira packages resolved from PyPI; for development against Git branches,
+comment out published versions and use the Git sources shown in ``pixi.toml``.
+Restore published versions and comment out Git sources when preparing a release.
+The lock source test checks all environments and platforms, allowing the Mira
+packages and the optional ``webview`` feature's PyPI dependency tree. Keep
+compatibility bounds on indirect Conda dependencies because Pixi solves Conda
+before PyPI and does not backtrack between them::
+
+    pixi run --frozen -e py312 pytest tests/lock_test.py
 
 
 Adding a dependency
