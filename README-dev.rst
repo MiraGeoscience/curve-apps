@@ -58,6 +58,14 @@ After changing either file, refresh the resolved environment with::
 
     pixi update
 
+The ``mira-pypi`` feature in ``pixi.toml`` lists Mira packages resolved from PyPI.
+For development against Git branches, comment out the published requirements and
+uncomment the Git sources; the release entries use ``release/ga-4.9``. Restore the
+published requirements and comment out Git sources when preparing a release.
+Validate PyPI sources across locked environments and platforms with::
+
+    pixi run --frozen -e py312 pytest tests/lock_test.py
+
 
 Adding a dependency
 -------------------
