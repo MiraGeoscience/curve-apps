@@ -7,6 +7,7 @@
 #  (see LICENSE file at the root of this source code package).                 '
 #                                                                              '
 # ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 import tomllib
 from pathlib import Path
 from typing import Any
@@ -16,9 +17,7 @@ from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
 
-def locked_pypi_names(
-    entries: list[dict[str, str]], packages: dict[str, str]
-) -> set[str]:
+def locked_pypi_names(entries, packages):
     return {
         canonicalize_name(packages[entry["pypi"]])
         for entry in entries
@@ -26,28 +25,24 @@ def locked_pypi_names(
     }
 
 
-def feature_pypi_names(pixi: dict[str, Any], features: list[str]) -> set[str]:
-    return {
-        canonicalize_name(name)
-        for feature in features
-        for name in pixi.get("feature", {})
-        .get(feature, {})
-        .get("pypi-dependencies", {})
-    }
-
-
-def transitive_pypi_names(
-    roots: set[str], packages: dict[str, list[dict[str, Any]]]
+def transitive_pypi_sources(
+    roots: set[str], packages: list[dict[str, Any]]
 ) -> set[str]:
     allowed = set(roots)
+    pypi_names = {
+        canonicalize_name(package["name"]) for package in packages if "pypi" in package
+    }
     pending = list(roots)
     while pending:
-        for package in packages.get(pending.pop(), []):
+        name = pending.pop()
+        for package in packages:
+            if "pypi" not in package or canonicalize_name(package["name"]) != name:
+                continue
             for requirement in package.get("requires_dist", []):
-                name = canonicalize_name(Requirement(requirement).name)
-                if name in packages and name not in allowed:
-                    allowed.add(name)
-                    pending.append(name)
+                dependency = canonicalize_name(Requirement(requirement).name)
+                if dependency in pypi_names and dependency not in allowed:
+                    allowed.add(dependency)
+                    pending.append(dependency)
     return allowed
 
 
@@ -59,27 +54,28 @@ def test_locked_pypi_names_with_git_source():
 def test_locked_pypi_sources():
     package_root = Path(__file__).resolve().parents[1]
     pixi = tomllib.loads((package_root / "pixi.toml").read_text())
+    mira_sources = {
+        canonicalize_name(name)
+        for name in pixi["feature"]["mira-pypi"]["pypi-dependencies"]
+    }
     lock = yaml.safe_load((package_root / "pixi.lock").read_text())
-    packages_by_url: dict[str, str] = {
+    packages_by_url = {
         package["pypi"]: package["name"]
         for package in lock["packages"]
         if "pypi" in package
     }
-    pypi_packages: dict[str, list[dict[str, Any]]] = {}
-    for package in lock["packages"]:
-        if "pypi" in package:
-            pypi_packages.setdefault(canonicalize_name(package["name"]), []).append(
-                package
-            )
-
-    mira_sources = feature_pypi_names(pixi, ["mira-pypi"])
     for environment, data in lock["environments"].items():
         if environment == "docs":
             continue
         features = pixi["environments"][environment]["features"]
-        declared_sources = feature_pypi_names(pixi, features)
-        allowed_sources = transitive_pypi_names(declared_sources, pypi_packages)
-
+        declared_sources = {
+            canonicalize_name(name)
+            for feature in features
+            for name in pixi.get("feature", {})
+            .get(feature, {})
+            .get("pypi-dependencies", {})
+        }
+        allowed_sources = transitive_pypi_sources(declared_sources, lock["packages"])
         for platform, entries in data["packages"].items():
             pypi_sources = locked_pypi_names(entries, packages_by_url)
             assert declared_sources <= pypi_sources, (
@@ -98,14 +94,3 @@ def test_locked_pypi_sources():
                     platform,
                     mira_sources - pypi_sources,
                 )
-
-
-# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#  Copyright (c) 2023-2026 Mira Geoscience Ltd.                                '
-#                                                                              '
-#  This file is part of curve-apps package.                                    '
-#                                                                              '
-#  curve-apps is distributed under the terms and conditions of the MIT License '
-#  (see LICENSE file at the root of this source code package).                 '
-#                                                                              '
-# ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
