@@ -44,7 +44,9 @@ The ``runtime`` environment omits test and lint tools.
 On Windows, install the locked runtime into Geoscience Analyst with::
 
     install_in_analyst.bat
-    install_in_analyst.bat -e --name simpeg-drivers-dev
+    install_in_analyst.bat -e --name mirageo-dev
+
+Possibly, replace ``mirageo-dev`` with a dedicated environment name of your choice.
 
 The script exports the locked ``win-64`` runtime, installs its dependencies
 through Analyst, and installs this checkout without resolving dependencies
@@ -82,11 +84,9 @@ Fetch the Git LFS documentation images, then build HTML with::
     git lfs pull
     pixi run --frozen --environment docs build-docs
 
-The task installs the local package without dependencies, generates ``docs/conf.py``
-from ``docs/_config.yml``, and builds the existing book into ``docs/_build/html``.
-The generated Sphinx configuration is ignored; edit ``docs/_config.yml`` or
-``docs/_ext/dynamic_config.py`` instead. Read the Docs uses the same task.
-
+The task installs the local package without dependencies, uses the checked-in
+configuration ``docs/source/conf.py``, and  builds the documentation from
+``docs/source`` into ``docs/_build/html``. Read the Docs uses the same task.
 
 Updating dependencies
 ^^^^^^^^^^^^^^^^^^^^^
@@ -134,16 +134,6 @@ index, as shown in its manifest and lock file. The JFrog login in the general
 prerequisites above is not needed for this repository. Pixi's locked environment
 provides the dependencies; ``uv`` installs this checkout with ``--no-deps`` and
 does not need separate package-index credentials.
-
-The generic Analyst example above uses a simpeg-drivers environment name. This
-repository's script installs its ``runtime`` environment; to use a distinct name,
-for example, run ``install_in_analyst.bat -e --name curve-apps-dev``.
-
-The ``docs`` environment uses Python 3.14 and Sphinx, not Jupyter Book. Its
-``build-docs`` task uses the checked-in ``docs/conf.py`` and builds from
-``docs/source``; there is no generated ``docs/conf.py`` from ``docs/_config.yml``.
-Read the Docs also publishes ``curve-apps-docs.zip``. The optional ``webview``
-feature is included in the Python 3.12 and 3.13 environments, but not Python 3.14.
 
 ---------
 
