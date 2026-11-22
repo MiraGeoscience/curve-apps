@@ -20,12 +20,20 @@ Prerequisites
   ``.pixi/envs/default`` and exclude ``.pixi`` from source indexing.
   For **PyCharm**, follow Pixi's `JetBrains integration guide
   <https://pixi.prefix.dev/latest/integration/editor/jetbrains/>`_.
-* **JFrog authentication:** authenticate with Mira  Artifactory using your
+* **JFrog authentication:** authenticate with Mira Artifactory using your
   own credentials::
 
       pixi auth login mirageoscienceltd.jfrog.io
 
   Never add credentials to ``pixi.toml`` or ``pixi.lock``.
+
+.. note:: External contributors using Pixi
+
+   If you do not have Mira Artifactory credentials, comment out ``index-url``
+   under ``[feature.mira-pypi.pypi-options]`` in ``pixi.toml``, then run
+   ``pixi lock``. Packages configured with version references will resolve from
+   public PyPI; packages configured with Git references will resolve from Git.
+   Keep these local ``pixi.toml`` and ``pixi.lock`` changes uncommitted.
 
 Install and test
 ^^^^^^^^^^^^^^^^
@@ -76,16 +84,15 @@ editable installs remain in effect.
 Building documentation
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Read the Docs installs uv 0.13.8 separately.
-
-The separate ``docs`` environment uses Python 3.14 and Jupyter Book 1.
-Fetch the Git LFS documentation images, then build HTML with::
+The separate ``docs`` environment uses Python 3.14 and Sphinx. Read the Docs
+installs uv 0.13.8 separately. Fetch the Git LFS documentation images, then
+build HTML with::
 
     git lfs pull
     pixi run --frozen --environment docs build-docs
 
 The task installs the local package without dependencies, uses the checked-in
-configuration ``docs/source/conf.py``, and  builds the documentation from
+configuration ``docs/source/conf.py``, and builds the documentation from
 ``docs/source`` into ``docs/_build/html``. Read the Docs uses the same task.
 
 Updating dependencies
@@ -125,15 +132,6 @@ Test layout
 
 Tests live under ``tests`` and use the ``_test.py`` filename suffix.
 
-
-Repository-specific notes
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This workspace resolves PyPI packages from the public ``https://pypi.org/simple``
-index, as shown in its manifest and lock file. The JFrog login in the general
-prerequisites above is not needed for this repository. Pixi's locked environment
-provides the dependencies; ``uv`` installs this checkout with ``--no-deps`` and
-does not need separate package-index credentials.
 
 ---------
 
