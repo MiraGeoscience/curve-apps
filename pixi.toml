@@ -41,10 +41,10 @@ geoapps-utils = ">=0.8.0b1,==0.8.*"
 default = { features = ["py312", "mira-pypi", "webview", "test", "lint", "dev"], solve-group = "py312" }
 py312 = { features = ["py312", "mira-pypi", "webview", "test", "lint"], solve-group = "py312" }
 py313 = { features = ["py313", "mira-pypi", "webview", "test", "lint"], solve-group = "py313" }
-py314 = { features = ["py314", "mira-pypi", "test", "lint"], solve-group = "py314" }
+py314 = { features = ["py314", "mira-pypi", "webview", "test", "lint"], solve-group = "py314" }
 runtime = { features = ["py312", "mira-pypi", "webview"], solve-group = "py312" }
 runtime-py313 = { features = ["py313", "mira-pypi", "webview"], solve-group = "py313" }
-runtime-py314 = { features = ["py314", "mira-pypi"], solve-group = "py314" }
+runtime-py314 = { features = ["py314", "mira-pypi", "webview"], solve-group = "py314" }
 docs = { features = ["py314", "docs"], no-default-feature = true }
 
 [feature.py312.dependencies]
@@ -57,11 +57,8 @@ python = "3.13.*"
 python = "3.14.*"
 
 # The optional webview extra is limited to the Python 3.12 and 3.13 environments.
-[feature.webview.pypi-dependencies]
-pywebview = ">=6.0,==6.*"
-bottle = "*"
-proxy-tools = "*"
-pythonnet = "*"
+[feature.webview.dependencies]
+pywebview = "6.*"
 
 [feature.dev.dependencies]
 pygments = "*"

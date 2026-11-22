@@ -51,7 +51,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-webview = ["pywebview>=6.0,<7.0", "bottle", "proxy-tools", "pythonnet"]
+webview = ["pywebview==6.*"]
 
 [project.urls]
 repository = "https://github.com/MiraGeoscience/curve-apps"
