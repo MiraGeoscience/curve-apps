@@ -85,7 +85,7 @@ Building documentation
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The separate ``docs`` environment uses Python 3.14 and Sphinx. Read the Docs
-installs uv 0.13.8 separately. Fetch the Git LFS documentation images, then
+installs uv separately. Fetch the Git LFS documentation images, then
 build HTML with::
 
     git lfs pull
