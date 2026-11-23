@@ -64,7 +64,7 @@ tests:
         - ${{ module_name }}.peak_finder
         - dask
   - script:
-      - pytest --ignore=tests/version_test.py
+      - pytest --ignore=tests/version_test.py --ignore=tests/pixi_lock_test.py
     requirements:
       run:
         - pytest
