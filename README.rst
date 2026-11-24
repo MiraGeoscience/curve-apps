@@ -41,35 +41,22 @@ curve-apps
 
 Auto-detection of trends and edges in geoscientific data.
 
-.. contents:: Table of Contents
-   :local:
-   :depth: 3
-
 Documentation
 ^^^^^^^^^^^^^
 `Online documentation <https://mirageoscience-curve-apps.readthedocs-hosted.com/en/latest/>`_
 
-
 Installation
 ^^^^^^^^^^^^
-**curve-apps** requires Python 3.12 or newer.
+**curve-apps** is a Python package published on PyPI and conda-forge.
 
-Install Pixi
-------------
+It can be installed in the usual way with ``pip``, ``uv``, or ``conda``::
 
-Install `Pixi <https://pixi.sh/>`_ version 0.84.2 or newer and external
-`uv <https://docs.astral.sh/uv/>`_, with both commands available on ``PATH``.
+    pip install curve-apps
+    uv pip install curve-apps
+    conda install -c conda-forge curve-apps
 
-From a checkout of **curve-apps**, install the locked runtime and the local package with::
-
-    pixi run --frozen --environment runtime install
-
-The package is installed in editable mode, so source changes are immediately reflected at runtime.
-Keep the source directory in place.
-
-Activate the runtime environment with::
-
-    pixi shell --frozen --environment runtime
+It can also be installed with ``pip`` or ``uv`` by pointing either to a local source directory
+or to a Git reference (branch or tag). See the pip or uv documentation for details.
 
 Setup for development
 ^^^^^^^^^^^^^^^^^^^^^
@@ -81,7 +68,7 @@ License
 ^^^^^^^
 MIT License
 
-Copyright (c) 2023-2025 Mira Geoscience
+Copyright (c) 2023-2026 Mira Geoscience Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -112,6 +99,6 @@ Third Party Software notices and/or additional terms and conditions are located 
 
 .. _THIRD_PARTY_SOFTWARE.rst: ./docs/source/THIRD_PARTY_SOFTWARE.rst
 
-Copyright
-^^^^^^^^^
-Copyright (c) 2023-2026 Mira Geoscience Ltd.
+Trademarks
+^^^^^^^^^^
+"Python" and the Python logos are trademarks or registered trademarks of the Python Software Foundation.
