@@ -4,11 +4,24 @@ requires-pixi = ">=0.84.2"
 channels = ["https://repo.prefix.dev/conda-forge"]
 platforms = ["win-64", "linux-64"]
 
+[workspace.exclude-newer]
+cutoff = "8d"
+
+[workspace.exclude-newer.exemptions]
+# from Mira sources
+geoapps-utils = "*"
+geoh5py = "*"
+
+[workspace.pypi-exclude-newer.exemptions]
+# from Mira sources
+geoapps-utils = "*"
+geoh5py = "*"
+
 [activation.env]
 PYTHONNOUSERSITE = "1"
 
 [dependencies]
-# Direct runtime dependencies.
+# Direct runtime dependencies
 dash = ">=3.4.0,3.*"
 dash-ag-grid = ">=32.3.1,32.*"
 dash-bootstrap-components = ">=2.0.3,2.*"
@@ -21,15 +34,8 @@ scipy = "1.17.*"
 tqdm = ">=4.66.1,4.*"
 waitress = ">=3.0.2,3.*"
 
-# Indirect dependencies kept to resolve their Python packages from Conda.
-dash-core-components = "2.*"
-dash-html-components = "2.*"
-dash-table = "5.*"
-defusedxml = ">=0.7.1,0.7.*"
-h5py = ">=3.15.1,3.15.*"
-matplotlib-base = "3.10.*"
-pillow = ">=13.0.0,13.*"  # Security floor: GHSA-wqgw-9xfh-qf2g.
-psutil = ">=7.2.2,7.2.*"
+[pypi-dependencies]
+# no default PyPI dependencies. See feature "mira-pypi"
 
 [feature.mira-pypi.pypi-dependencies]
 geoh5py = ">=0.14.0b1,==0.14.*"
@@ -38,16 +44,17 @@ geoapps-utils = ">=0.8.0b1,==0.8.*"
 # geoapps-utils = { git = "https://github.com/MiraGeoscience/geoapps-utils.git", rev = "release/ga-4.9" }
 
 [feature.mira-pypi.pypi-options]
-index-url = "https://mirageoscienceltd.jfrog.io/artifactory/api/pypi/public-pypi-dev/simple"
+# Authenticate for this private PyPI index first; see README-dev.rst.
+index-url = "https://mirageoscienceltd.jfrog.io/artifactory/api/pypi/public-pypi-dev-local/simple"
 
 [environments]
-default = { features = ["py312", "mira-pypi", "webview", "test", "lint", "dev"], solve-group = "py312" }
-py312 = { features = ["py312", "mira-pypi", "webview", "test", "lint"], solve-group = "py312" }
-py313 = { features = ["py313", "mira-pypi", "webview", "test", "lint"], solve-group = "py313" }
-py314 = { features = ["py314", "mira-pypi", "webview", "test", "lint"], solve-group = "py314" }
-runtime = { features = ["py312", "mira-pypi", "webview"], solve-group = "py312" }
-runtime-py313 = { features = ["py313", "mira-pypi", "webview"], solve-group = "py313" }
-runtime-py314 = { features = ["py314", "mira-pypi", "webview"], solve-group = "py314" }
+default = { features = ["py312", "mira-pypi", "conda-rt", "webview", "test", "lint", "dev"], solve-group = "py312" }
+py312 = { features = ["py312", "mira-pypi", "conda-rt", "webview", "test", "lint"], solve-group = "py312" }
+py313 = { features = ["py313", "mira-pypi", "conda-rt", "webview", "test", "lint"], solve-group = "py313" }
+py314 = { features = ["py314", "mira-pypi", "conda-rt", "webview", "test", "lint"], solve-group = "py314" }
+runtime = { features = ["py312", "mira-pypi", "conda-rt", "webview"], solve-group = "py312" }
+runtime-py313 = { features = ["py313", "mira-pypi", "conda-rt", "webview"], solve-group = "py313" }
+runtime-py314 = { features = ["py314", "mira-pypi", "conda-rt", "webview"], solve-group = "py314" }
 docs = { features = ["py314", "docs"], no-default-feature = true }
 
 [feature.py312.dependencies]
@@ -58,6 +65,17 @@ python = "3.13.*"
 
 [feature.py314.dependencies]
 python = "3.14.*"
+
+[feature.conda-rt.dependencies]
+# Indirect dependencies to force their resolution from Conda, specifying compatible versions
+dash-core-components = "2.*"
+dash-html-components = "2.*"
+dash-table = "5.*"
+defusedxml = ">=0.7.1,0.7.*"
+h5py = ">=3.15.1,3.15.*"
+matplotlib-base = "3.10.*"
+pillow = ">=13.0.0,13.*"  # Security floor: GHSA-wqgw-9xfh-qf2g.
+psutil = ">=7.2.2,7.2.*"
 
 # The optional webview extra is limited to the Python 3.12 and 3.13 environments.
 [feature.webview.dependencies]
